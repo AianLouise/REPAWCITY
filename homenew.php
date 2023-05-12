@@ -6,21 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rePaw City</title>
-    <link rel="stylesheet" href="css/adoptpage.css">
+    <link rel="stylesheet" href="css/homenew.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
 </head>
 
-<body> 
-    <?php include 'navbar.php'?>
+<body>
+    <?php include 'navigationbar.php'?>
     
     <section class="home">
         <div class="top">
-            <img src="./image/doggo.png" class="paw-bg">
-            <img src="./image/catto.png" class="paw-bg2">
-            <h1 class="title">Adopt</h1>
-            <p class="content">All of our cats and dogs can be seen by appointment only. We are open Tuesday, Friday and Saturday 12pm-3pm.</p>
-            <a href="" class="book-app btn">Book Appointment</a>
+        <img src="./image/paw.png" class="paw-bg">
+            <img src="./image/paw.png" class="paw-bg2">
+            <img src="./image/pets.png" class="paw-bg3">
+            <h1 class="title">They are waiting for<br>YOU!</h1>
         </div>
         <div class="pets">
         <h1 class="adopt-title">MEET OUR DOGS</h1>

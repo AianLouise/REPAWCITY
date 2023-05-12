@@ -1,0 +1,401 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Acme", serif;
+  text-decoration: none;
+  /* outline: auto; */
+}
+
+/* Home */
+.home .top {
+  min-height: 30vh;
+  display: flex;
+  background-color: #fad046;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  border-top-left-radius: 6rem;
+  border-top-right-radius: 6rem;
+  z-index: 5;
+}
+
+.home .top .title {
+  font-size: 2cm;
+  text-align: center;
+  position: absolute;
+  left: 30%;
+  top: 10%;
+}
+
+.home .top .paw-bg {
+  width: 10rem;
+  position: absolute;
+  top: 5%;
+  left: 10%;
+}
+
+.home .top .paw-bg2 {
+  width: 10rem;
+  position: absolute;
+  top: 5%;
+  right: 10%;
+}
+
+.home .top .paw-bg3 {
+  width: 45rem;
+  position: absolute;
+  top: 57%;
+  left: 26%;
+}
+
+.home .pets {
+  min-height: 30vh;
+  display: flex;
+  background-color: #253239;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.home .pets .menu {
+  position: absolute;
+  top: 30%;
+  left: 25%;
+}
+
+.home .pets .menu a {
+  padding: 20px 50px 20px 50px;
+  background-color: #fff1f1;
+  color: black;
+}
+
+.home .pets .menu .find-dog {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.home .pets .menu .volunteer {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.home .pets .adopt-title {
+  position: absolute;
+  color: white;
+  font-weight: normal;
+  bottom: 10%;
+  left: 5%;
+}
+
+.home .pets .see-more {
+  position: absolute;
+  color: white;
+  font-weight: lighter;
+  bottom: 10%;
+  right: 5%;
+  padding: 10px;
+}
+
+.home .pets .see-more:hover {
+  background-color: #fff1f1;
+  color: black;
+  border-radius: 10px;
+}
+
+.adoption {
+  min-height: 40vh;
+  display: flex;
+  background-color: #ffffff;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.feature {
+  width: 15%;
+  height: 220px;
+  position: absolute;
+  border: solid #333;
+  border-radius: 10%;
+}
+
+.feature img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+}
+
+.feature h4 {
+  position: absolute;
+  background-color: #fff1f1;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  border-top-left-radius: 150%;
+  border-top-right-radius: 150%;
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+}
+
+.adoption .card1 {
+  top: 15%;
+  left: 10%;
+}
+
+.adoption .card2 {
+  top: 15%;
+  left: 30%;
+}
+
+.adoption .card3 {
+  top: 15%;
+  left: 50%;
+}
+
+.adoption .card4 {
+  top: 15%;
+  left: 70%;
+}
+
+/* Home Donate */
+.donate-container {
+  min-height: 80vh;
+  display: flex;
+  background-color: #253239;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.donate-container .donate-bg {
+  width: 30rem;
+  position: absolute;
+  top: 15%;
+  left: 10%;
+}
+
+.donate-container .donate-title {
+  position: absolute;
+  top: 15%;
+  left: 65%;
+  color: white;
+  font-weight: lighter;
+  font-size: 3rem;
+}
+
+.donate-container .donate-info {
+  position: absolute;
+  left: 51%;
+  width: 40rem;
+  color: white;
+  font-weight: lighter;
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+.donate-container .info1 {
+  top: 27%;
+}
+
+.donate-container .info2 {
+  top: 35%;
+}
+
+.donate-container .info3 {
+  top: 43%;
+}
+
+.donate-container .info4 {
+  top: 51%;
+}
+
+.donate-container .info5 {
+  top: 59%;
+}
+
+.donate-container .info6 {
+  top: 67%;
+}
+
+.donate-container .donate-now {
+  padding: 10px;
+  background-color: #fff1f1;
+  color: black;
+  border-radius: 10px;
+  position: absolute;
+  text-align: center;
+  top: 80%;
+  left: 68%;
+  width: 10rem;
+}
+
+@media screen and (max-width: 600px) {
+  .home .top {
+    min-height: 25vh;
+    display: flex;
+    background-color: #fad046;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    border-top-left-radius: 6rem;
+    border-top-right-radius: 6rem;
+    z-index: 5;
+  }
+  .home .top .title {
+    font-size: 1cm;
+    text-align: center;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+  }
+
+  .home .top .paw-bg {
+    width: 5rem;
+    position: absolute;
+    top: 15%;
+    left: 5%;
+  }
+
+  .home .top .paw-bg2 {
+    width: 5rem;
+    position: absolute;
+    top: 15%;
+    right: 5%;
+  }
+
+  .home .top .paw-bg3 {
+    width: 25rem;
+    position: absolute;
+    top: 70%;
+    left: 10%;
+  }
+
+  .home .pets .menu {
+    position: absolute;
+    top: 30%;
+    left: 0%;
+  }
+
+  .home .pets .menu a {
+    padding: 15px 15px 15px 15px;
+    background-color: #fff1f1;
+    color: black;
+  }
+
+  .home .pets .menu .find-dog {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+
+  .home .pets .menu .volunteer {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+
+  .feature {
+    width: 20%;
+    height: 100px;
+    position: absolute;
+    border: solid #333;
+    border-radius: 10%;
+  }
+  .adoption {
+    min-height: 30vh;
+  }
+  .adoption .card1 {
+    top: 25%;
+    left: 5%;
+  }
+
+  .adoption .card2 {
+    top: 25%;
+    left: 28%;
+  }
+
+  .adoption .card3 {
+    top: 25%;
+    left: 52%;
+  }
+
+  .adoption .card4 {
+    top: 25%;
+    left: 75%;
+  }
+  .feature h4 {
+    position: absolute;
+    background-color: #fff1f1;
+    bottom: -10%;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 150%;
+    border-top-right-radius: 150%;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+  }
+
+  .donate-container {
+    min-height: 120vh;
+    display: flex;
+    background-color: #253239;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+  }
+
+  .donate-container .donate-bg {
+    width: 20rem;
+    position: absolute;
+    top: 5%;
+    left: 15%;
+  }
+
+  .donate-container .donate-title {
+    position: absolute;
+    top: 40%;
+    left: 16%;
+    color: white;
+    font-weight: lighter;
+    font-size: 1.5rem;
+  }
+
+  .donate-container .donate-info {
+    position: absolute;
+    left: 16%;
+    width: 20rem;
+    color: white;
+    font-weight: lighter;
+    font-size: 1rem;
+    text-align: justify;
+  }
+  .donate-container .info1 {
+    top: 45%;
+  }
+
+  .donate-container .info2 {
+    top: 51%;
+  }
+
+  .donate-container .info3 {
+    top: 57%;
+  }
+
+  .donate-container .info4 {
+    top: 68%;
+  }
+
+  .donate-container .info5 {
+    top: 76%;
+  }
+
+  .donate-container .info6 {
+    top: 84%;
+  }
+  .donate-container .donate-now {
+    top: 92.5%;
+    left: 28%;
+    width: 10rem;
+  }
+}

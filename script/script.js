@@ -7,3 +7,4 @@ showPassword.addEventListener("click", function(){
     === "password" ? "text" : "password";
     passwordField.setAttribute("type", type);
 })
+

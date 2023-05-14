@@ -12,7 +12,7 @@
 </head>
 
 <body> 
-    <?php include 'navbar.php'?>
+    <?php include './function/navbar.php'?>
     
     <section class="home">
         <div class="top">
@@ -38,11 +38,11 @@
             <div class="feature card1">
                 <img src="./image/feature1.jpg" alt="">
                 <h4><b>Coco</b></h4>     
-                <p class="gender">Male</p>  
+                <p class="gender">Male</p>   
                 <div class="vl2"></div>   
                 <p class="age">1 year old</p>
             </div>
-            <div class="feature card2">
+            <!-- <div class="feature card2">
                 <img src="./image/feature2.jpg" alt="">
                 <h4><b>Alden</b></h4>          
                 <p class="gender">Male</p>  
@@ -91,9 +91,9 @@
                 <div class="vl2"></div>   
                 <p class="age">1 year old</p>
             </div>
-            <a href="" class="load-more btn">Load More</a>
+            <a href="" class="load-more btn">Load More</a> -->
         </div>
     </section>
-    <?php include 'footer.php'?>
+    <?php include './function/footer.php'?>
 </body>
 </html>

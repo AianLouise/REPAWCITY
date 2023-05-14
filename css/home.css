@@ -6,7 +6,6 @@
   text-decoration: none;
   /* outline: auto; */
 }
-
 /* Home */
 .home .top {
   min-height: 30vh;
@@ -17,7 +16,7 @@
   position: relative;
   border-top-left-radius: 6rem;
   border-top-right-radius: 6rem;
-  z-index: 5;
+  
 }
 
 .home .top .title {
@@ -348,7 +347,7 @@
   .donate-container .donate-bg {
     width: 20rem;
     position: absolute;
-    top: 5%;
+    top: 2%;
     left: 15%;
   }
 

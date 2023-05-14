@@ -111,9 +111,6 @@
   font-size: 1em;
 }
 
-.hero {
-}
-
 .adoption {
   min-height: 80vh;
   /* margin-top: 3%; */
@@ -323,17 +320,17 @@
     top: 2%;
     left: 15%;
   }
-  
+
   .adoption .card2 {
     top: 2%;
     left: 55%;
   }
-  
+
   .adoption .card3 {
     top: 25%;
     left: 15%;
   }
-  
+
   .adoption .card4 {
     top: 25%;
     left: 55%;

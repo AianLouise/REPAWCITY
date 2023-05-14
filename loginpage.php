@@ -24,23 +24,22 @@
             <p>Let's get started</p>
         </div>
 
-        <form class="login-form" name="login" action="" method="post" onsubmit="return loginValidation()">
+        <form class="login-form" name="login" action="./function/authcode.php" method="post">
             <div class="input-container">
                 <i class="fa-regular fa-user icon"></i>
-                <input class="input-field" type="text" placeholder="Username" name="username" id="username">
+                <input class="input-field" type="email" placeholder="Email" name="email" id="username" required>
             </div>
             <div class="input-container">
                 <i class="fa-solid fa-lock icon"></i>
-                <input class="input-field" type="password" placeholder="Password" name="password" id="password">
+                <input class="input-field" type="password" placeholder="Password" name="password" id="password" required>
                 <i class="fa-solid fa-eye" id="show-password"></i>
             </div>
             <a href="" class="forgot-pass"><p>Forgot Password?</p></a>
-            <input type="submit" name="submit" value="Login" class="loginbtn">
+            <input type="submit" name="login" value="Login" class="loginbtn">
             <a href="signuppage.php" class="account"><p>Don't have an Account?<br>Sign Up</p></a>
         </form>
 
     </div>
     <script src="./script/script.js"></script>
 </body>
-
 </html>

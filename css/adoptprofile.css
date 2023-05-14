@@ -1,0 +1,237 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Acme", serif;
+  text-decoration: none;
+  /* outline: auto; */
+}
+
+.btn {
+  background-color: #253239;
+  color: #f1f1f1;
+  padding: 10px 35px 10px 35px;
+  border-radius: 10px;
+}
+
+.home .top {
+  min-height: 30vh;
+  display: flex;
+  background-color: #fad046;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  border-top-left-radius: 6rem;
+  border-top-right-radius: 6rem;
+  border-bottom-left-radius: 6rem;
+  border-bottom-right-radius: 6rem;
+  z-index: 5;
+}
+
+.home .top .title {
+  font-size: 1cm;
+  text-align: center;
+  position: absolute;
+  left: 25%;
+  top: 10%;
+}
+
+.home .top .content {
+  font-size: 2em;
+  width: 45rem;
+  text-align: justify;
+  position: absolute;
+  left: 25%;
+  top: 35%;
+}
+
+.home .top .paw-bg {
+  width: 13%;
+  position: absolute;
+  top: 5%;
+  left: 10%;
+}
+
+.home .top .paw-bg2 {
+  width: 11.5%;
+  position: absolute;
+  top: 2%;
+  right: 10%;
+}
+.home .top .book-app {
+  position: absolute;
+  bottom: 10%;
+  left: 25%;
+}
+
+.home .pets {
+  min-height: 25vh;
+  display: flex;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 3;
+}
+
+.home .pets .adopt-title {
+  position: absolute;
+  color: black;
+  font-weight: normal;
+  top: 35%;
+  left: 40%;
+  font-size: 3em;
+}
+.home .pets .back {
+  position: absolute;
+  color: black;
+  font-size: 25px;
+  font-weight: lighter;
+  top: 35%;
+  left: 5%;
+  padding: 10px;
+}
+
+.home .pets .back:hover {
+  background-color: #fff1f1;
+  color: black;
+  border-radius: 10px;
+}
+
+.pet {
+  min-height: 80vh;
+  display: flex;
+  position: relative;
+  
+}
+
+.photo {
+  margin-top: 5%;
+  margin-left: 5%;
+  width: 40%;
+  height: 60vh;
+  position: absolute;
+}
+
+.pet img {
+  width: 100%;
+  height: 100%;
+}
+
+.pet-info .petname {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  font-size: 40px;
+}
+.pet p.a {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  font-size: 20px;
+  width: 20rem;
+}
+
+.pet p.b {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  font-size: 20px;
+  width: 20rem;
+}
+.pet p.c {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  font-size: 20px;
+  width: 20rem;
+}
+.pet p.d {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  font-size: 20px;
+  width: 20rem;
+}
+.about-title {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  font-size: 20px;
+  width: 20rem;
+}
+.pet .about {
+  position: absolute;
+  text-align: justify;
+  top: 50%;
+  left: 50%;
+  font-size: 20px;
+  width: 40rem;
+}
+.pet .contact-btn {
+  position: absolute;
+  top: 87%;
+  left: 63%;
+  padding: 15px 35px 15px 35px;
+}
+.icon{
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .home .top {
+    min-height: 30vh;
+    display: flex;
+    background-color: #fad046;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    border-top-left-radius: 6rem;
+    border-top-right-radius: 6rem;
+    z-index: 5;
+  }
+
+  .home .top .title {
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    left: 25%;
+    top: 10%;
+  }
+
+  .home .top .content {
+    font-size: 1em;
+    width: 18rem;
+    text-align: justify;
+    position: absolute;
+    left: 25%;
+    top: 32%;
+  }
+
+  .home .top .paw-bg {
+    width: 20%;
+    position: absolute;
+    top: 51%;
+    left: 5%;
+  }
+
+  .home .top .paw-bg2 {
+    width: 20%;
+    position: absolute;
+    top: 43%;
+    right: 5%;
+  }
+  .home .top .book-app {
+    position: absolute;
+    bottom: 10%;
+    left: 30%;
+  }
+
+  .home .pets .adopt-title {
+    position: absolute;
+    color: white;
+    font-weight: normal;
+    top: 20%;
+    left: 25%;
+    font-size: 2em;
+  }
+}

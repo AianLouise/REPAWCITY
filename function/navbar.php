@@ -10,17 +10,19 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
 </head>
- 
+
 <body>
 
     <div class="navbar" id="myNavbar">
-        <a href="index.php" class="logo"><img src="./image/logo (1).png" class="img-logo"></a>
+        <a href="index.php" class="logo"><img src="image/logo (1).png" class="img-logo"></a>
         <a href="home.php" class="list a">Home</a>
         <a href="adoptpage.php" class="list">Adopt</a>
         <a href="donatepage.php" class="list">Donate</a>
         <a href="d" class="list">News</a>
         <a href="navbar.php" class="list">Volunteer</a>
         <a href="homenew.php" class="list">About Us</a>
+        <a href="loginpage.php" class="list login">Log In</a>
+        <a href="signuppage.php" class="list signup">Sign Up</a>
         <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">&#9776;</a>
     </div>
 

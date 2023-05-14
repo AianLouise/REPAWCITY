@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php include 'navigationbar.php'?>
+    <?php include 'navbar.php'?>
     
     <section class="home">
         <div class="top">

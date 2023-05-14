@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
     <div class="signup">
         <div class="signup-image">
             <img src="./image/loginbg.jpg" alt="">
@@ -24,13 +25,13 @@
             <p>Let's get started!</p>
         </div>
 
-        <form class="signup-form" name="signup" action="" method="post" onsubmit="return loginValidation()" autocomplete="off">
+        <form class="signup-form" name="signup" action="./function/authcode.php" method="post" autocomplete="off">
             <div class="input-container">
                 <i class="fa-regular fa-user icon"></i>
                 <input class="input-field" type="text" placeholder="First Name" name="fname" id="fname">
             </div>
             <div class="input-container">
-            <i class="fa-regular fa-user icon"></i>
+                <i class="fa-regular fa-user icon"></i>
                 <input class="input-field" type="text" placeholder="Last Name" name="lname" id="lname">
             </div>
             <div class="input-container">
@@ -38,19 +39,21 @@
                 <input class="input-field" type="text" placeholder="Username" name="username" id="username">
             </div>
             <div class="input-container">
-            <i class="fa-solid fa-envelope icon"></i>
+                <i class="fa-solid fa-envelope icon"></i>
                 <input class="input-field" type="email" placeholder="Email" name="email" id="email">
             </div>
             <div class="input-container">
                 <i class="fa-solid fa-lock icon"></i>
-                <input class="input-field" type="text" placeholder="Password" name="password2" id="password">
+                <input class="input-field" type="text" placeholder="Password" name="password" id="password">
             </div>
             <div class="input-container">
                 <i class="fa-solid fa-lock icon"></i>
-                <input class="input-field" type="text" placeholder="Confirm Password" name="password3" id="password">
+                <input class="input-field" type="text" placeholder="Confirm Password" name="cpassword" id="password">
             </div>
-            <input type="submit" name="submit" value="Sign Up" class="signupbtn">
-            <a href="loginpage.php" class="account2"><p>Already have an Account?<br>Log in</p></a>
+            <input type="submit" name="register" value="Sign Up" class="signupbtn">
+            <a href="loginpage.php" class="account2">
+                <p>Already have an Account?<br>Log in</p>
+            </a>
         </form>
 
     </div>

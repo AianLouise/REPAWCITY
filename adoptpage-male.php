@@ -12,7 +12,7 @@ $pet_data = []; // Replace this with the actual fetched pet data
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,19 +37,20 @@ $pet_data = []; // Replace this with the actual fetched pet data
             <p class="sort">Sort by:</p>
             <div class="menu">
                 <a href="adoptpage-male.php#adopt-page" class="male">Male</a>
-                <a href="adoptpage-male.php#adopt-page" class="female">Female</a>
+                <a href="adoptpage-female.php#adopt-page" class="female">Female</a>
                 <a href="#" class="short">Shortest Stay</a>
                 <a href="#" class="long">Longest Stay</a>
             </div>
         </div>
     </section>
-    <section class="hero">
+    <section class="hero" id="#adopt-page">
         <div class="adoption">
             <div class="card-container">
                 <?php
                 // Fetch the pet data from the database and loop through the results
                 // Modify the query based on your database schema
-                $query = "SELECT * FROM pets";
+                $query = "SELECT * FROM pets WHERE sex = 'Male'";
+
                 $result = mysqli_query($conn, $query);
 
                 // Check if any pets are found in the database

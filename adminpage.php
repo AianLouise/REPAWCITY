@@ -3,10 +3,12 @@ require './function/config.php';
 
 if (isset($_POST["submit"])) {
     $name = $_POST["name"];
+    $type = $_POST["type"];
     $breed = $_POST["breed"];
     $sex = $_POST["sex"];
     $weight = $_POST["weight"];
     $age = $_POST["age"];
+    $date = $_POST["date"];
     $about = $_POST["about"];
 
     if ($_FILES["image"]["error"] === 4) {
@@ -28,7 +30,7 @@ if (isset($_POST["submit"])) {
             $newImageName .= '.' . $imageExtension;
 
             move_uploaded_file($tmpName, 'upload/' . $newImageName);
-            $query = "INSERT INTO pets (name,breed,sex,weight,age,about,image) VALUES('$name' , '$breed' , '$sex' , '$weight' , '$age', '$about', '$newImageName')";
+            $query = "INSERT INTO pets (name,type,breed,sex,weight,age,about,date,image) VALUES('$name' , '$type', '$breed' , '$sex' , '$weight' , '$age', '$about', '$date', '$newImageName')";
             mysqli_query($conn, $query);
             echo "
                 <script> 
@@ -59,13 +61,17 @@ if (isset($_POST["submit"])) {
         .form-control {
             text-decoration: none !important;
         }
+
+        /* .form-control{
+            width: 20rem;
+        } */
     </style>
 </head>
 
 <body>
     <nav class="navbar">
         <a href="index.php" class="logo"><img src="./image/logo (1).png" class="img-logo"></a>
-        <a href="home.php" class="list a">Logout</a>
+        <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
     </nav>
     <div class="setting">
         <div class="sidebar">
@@ -78,28 +84,107 @@ if (isset($_POST["submit"])) {
             <div class="container mt-1">
                 <h1>Pet Form</h1>
                 <form action="#" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="name">Pet Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Pet Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="type">Pet Type:</label>
+                            <select class="form-control" id="type" name="type" required>
+                                <option value="">Select Type</option>
+                                <option value="Dog">Dog</option>
+                                <option value="Cat">Cat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="breed">Breed:</label>
+                            <select name="breed" id="breed" class="form-control">
+                                <option value="">Select Breed</option>
+                                <optgroup label="Dog Breeds">
+                                    <option value="Aspin">Aspin</option>
+                                    <option value="Shih Tzu">Shih Tzu</option>
+                                    <option value="Pomeranian">Pomeranian</option>
+                                    <option value="Labrador Retriever">Labrador Retriever</option>
+                                    <option value="German Shepherd">German Shepherd</option>
+                                    <option value="Golden Retriever">Golden Retriever</option>
+                                    <option value="Rottweiler">Rottweiler</option>
+                                    <option value="Chihuahua">Chihuahua</option>
+                                    <option value="Bulldog">Bulldog</option>
+                                    <option value="Dalmatian">Dalmatian</option>
+                                    <option value="Beagle">Beagle</option>
+                                    <option value="Boxer">Boxer</option>
+                                    <option value="Doberman Pinscher">Doberman Pinscher</option>
+                                    <option value="Siberian Husky">Siberian Husky</option>
+                                    <option value="Pug">Pug</option>
+                                    <option value="Cocker Spaniel">Cocker Spaniel</option>
+                                    <option value="Australian Shepherd">Australian Shepherd</option>
+                                    <option value="Poodle">Poodle</option>
+                                    <option value="Bichon Frise">Bichon Frise</option>
+                                </optgroup>
+                                <optgroup label="Cat Breeds">
+                                    <option value="Persian">Persian</option>
+                                    <option value="Siamese">Siamese</option>
+                                    <option value="Maine Coon">Maine Coon</option>
+                                    <option value="Bengal">Bengal</option>
+                                    <option value="Puspin">Puspin</option>
+                                    <option value="Scottish Fold">Scottish Fold</option>
+                                    <option value="British Shorthair">British Shorthair</option>
+                                    <option value="Ragdoll">Ragdoll</option>
+                                    <option value="Sphynx">Sphynx</option>
+                                    <option value="Norwegian Forest Cat">Norwegian Forest Cat</option>
+                                    <option value="Russian Blue">Russian Blue</option>
+                                    <option value="Exotic Shorthair">Exotic Shorthair</option>
+                                    <option value="Persian Chinchilla">Persian Chinchilla</option>
+                                    <option value="Himalayan">Himalayan</option>
+                                    <option value="Devon Rex">Devon Rex</option>
+                                    <option value="Manx">Manx</option>
+                                    <option value="Cornish Rex">Cornish Rex</option>
+                                    <option value="Tonkinese">Tonkinese</option>
+                                    <option value="Burmese">Burmese</option>
+                                    <option value="Abyssinian">Abyssinian</option>
+                                </optgroup>
+                            </select>
+
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="sex">Sex:</label>
+                            <select class="form-control" id="sex" name="sex" required>
+                                <option value="">Select Sex</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="weight">Weight:</label>
+                            <select class="form-control" id="weight" name="weight" required>
+                                <option value="">Select Weight</option>
+                                <option value="Less than 5 lbs">Less than 5 lbs</option>
+                                <option value="5-10 lbs">5-10 lbs</option>
+                                <option value="10-20 lbs">10-20 lbs</option>
+                                <option value="20-50 lbs">20-50 lbs</option>
+                                <option value="over 50 lbs">over 50 lbs</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="age">Age:</label>
+                            <select class="form-control" id="age" name="age" required>
+                                <option value="">Select Age</option>
+                                <option value="Less than 6 months">Less than 6 months</option>
+                                <option value="6 months to 5 years">6 months to 5 years</option>
+                                <option value="5 to 10 years">5 to 10 years</option>
+                                <option value="over 10 years">over 10 years</option>
+                            </select>
+                        </div>
+
                     </div>
                     <div class="form-group">
-                        <label for="breed">Breed:</label>
-                        <input type="text" class="form-control" id="breed" name="breed" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="sex">Sex:</label>
-                        <select class="form-control" id="sex" name="sex" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="weight">Weight:</label>
-                        <input type="text" class="form-control" id="weight" name="weight" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="age">Age:</label>
-                        <input type="text" class="form-control" id="age" name="age" required>
+                        <label for="date">Date of Rescue:</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
                     </div>
                     <div class="form-group">
                         <label for="about">About:</label>
@@ -112,6 +197,7 @@ if (isset($_POST["submit"])) {
                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
+
         </div>
     </div>
 
@@ -121,3 +207,12 @@ if (isset($_POST["submit"])) {
 </body>
 
 </html>
+
+<script>
+    function logout() {
+        if (confirm("Are you sure you want to log out?")) {
+            // Perform logout action
+            window.location.href = "logout.php";
+        }
+    }
+</script>

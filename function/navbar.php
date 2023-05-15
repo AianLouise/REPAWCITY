@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,9 +21,37 @@
         <a href="donatepage.php" class="list">Donate</a>
         <a href="d" class="list">News</a>
         <a href="navbar.php" class="list">Volunteer</a>
-        <a href="homenew.php" class="list">About Us</a>
-        <a href="loginpage.php" class="list login">Log In</a>
-        <a href="signuppage.php" class="list signup">Sign Up</a>
+        <div class="dropdown dr">
+            <a href="javascript:void(0);" class="list">About Us &#9660;</a>
+            <div class="dropdown-content">
+                <a href="#">Success Stories</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact</a>
+                <a href="#">Team</a>
+            </div>
+        </div>
+        <?php
+        // Check if user is logged in
+        if (isset($_SESSION['auth']) && $_SESSION['auth']) {
+            // Display profile dropdown and logout button
+            ?>
+            <div class="dropdown dd-p">
+                <a href="javascript:void(0);" class="list profile">Profile &#9660;</a>
+                <div class="dropdown-content">
+                    <a href="#">Edit Profile</a>
+                    <a href="#">Change Password</a>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
+            <?php
+        } else {
+            // Display login and sign up buttons
+            ?>
+            <a href="loginpage.php" class="list login">Log In</a>
+            <a href="signuppage.php" class="list signup">Sign Up</a>
+            <?php
+        }
+        ?>
         <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">&#9776;</a>
     </div>
 
@@ -33,6 +62,13 @@
                 navbar.className += " responsive";
             } else {
                 navbar.className = "navbar";
+            }
+        }
+
+        function logout() {
+            if (confirm("Are you sure you want to log out?")) {
+                // Perform logout action
+                window.location.href = "logout.php";
             }
         }
     </script>

@@ -24,6 +24,30 @@ if (isset($_POST['submit'])) {
     } else {
         echo "Error updating records: " . mysqli_error($conn);
     }
+
+    // Retrieve the current values of is_featured column from the database
+    $featuredImage1 = "";
+    $featuredImage2 = "";
+    $featuredImage3 = "";
+    $featuredImage4 = "";
+
+    $sql = "SELECT pets_id, is_featured FROM pets WHERE is_featured > 0";
+    $result = mysqli_query($conn, $sql);
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $id = $row['pets_id'];
+        $isFeatured = $row['is_featured'];
+
+        if ($isFeatured == 1) {
+            $featuredImage1 = $id;
+        } elseif ($isFeatured == 2) {
+            $featuredImage2 = $id;
+        } elseif ($isFeatured == 3) {
+            $featuredImage3 = $id;
+        } elseif ($isFeatured == 4) {
+            $featuredImage4 = $id;
+        }
+    }
 }
 
 // Close the database connection
@@ -73,13 +97,45 @@ mysqli_close($conn);
             max-height: 400px;
             overflow-y: scroll;
         }
+
+        .form-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            text-align: center;
+        }
+
+        .form-group input[type="number"] {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar">
         <a href="index.php" class="logo"><img src="./image/logo (1).png" class="img-logo"></a>
-        <a href="home.php" class="list a">Logout</a>
+        <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
     </nav>
     <div class="setting">
         <div class="sidebar">
@@ -137,22 +193,33 @@ mysqli_close($conn);
                     </table>
                 </div>
 
-                <h2>Select IDs to set as Featured Images</h2>
+                <h4 style="text-align: center;">Select IDs to set as Featured Images</h4>
                 <form method="POST">
-                    <label for="featured_image_1">Featured Image 1:</label>
-                    <input type="number" name="featured_image_1" id="featured_image_1">
-                    <br>
-                    <label for="featured_image_2">Featured Image 2:</label>
-                    <input type="number" name="featured_image_2" id="featured_image_2">
-                    <br>
-                    <label for="featured_image_3">Featured Image 3:</label>
-                    <input type="number" name="featured_image_3" id="featured_image_3">
-                    <br>
-                    <label for="featured_image_4">Featured Image 4:</label>
-                    <input type="number" name="featured_image_4" id="featured_image_4">
-                    <br>
-                    <input type="submit" name="submit" value="Set as Featured Images">
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="featured_image_1">Featured Image 1:</label>
+                            <input type="number" name="featured_image_1" id="featured_image_1"
+                                value="<?php echo isset($featuredImage1) ? $featuredImage1 : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="featured_image_2">Featured Image 2:</label>
+                            <input type="number" name="featured_image_2" id="featured_image_2"
+                                value="<?php echo isset($featuredImage2) ? $featuredImage2 : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="featured_image_3">Featured Image 3:</label>
+                            <input type="number" name="featured_image_3" id="featured_image_3"
+                                value="<?php echo isset($featuredImage3) ? $featuredImage3 : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="featured_image_4">Featured Image 4:</label>
+                            <input type="number" name="featured_image_4" id="featured_image_4"
+                                value="<?php echo isset($featuredImage4) ? $featuredImage4 : ''; ?>">
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Set as Featured Images">
                 </form>
+
             </div>
         </div>
     </div>
@@ -163,36 +230,15 @@ mysqli_close($conn);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            // Handle click event on table rows
-            $("table tbody tr").click(function () {
-                // Remove the active class from other rows
-                $("table tbody tr").removeClass("active");
-
-                // Add the active class to the clicked row
-                $(this).addClass("active");
-
-                // Get the selected row's data
-                var id = $(this).find("td:nth-child(1)").text().trim();
-                // var image = $(this).find("td:nth-child(2) img").attr("src");
-                var name = $(this).find("td:nth-child(3)").text().trim();
-                var breed = $(this).find("td:nth-child(4)").text().trim();
-                var sex = $(this).find("td:nth-child(5)").text().trim();
-                var weight = $(this).find("td:nth-child(6)").text().trim();
-                var age = $(this).find("td:nth-child(7)").text().trim();
-
-                // Populate the input fields with the selected row data
-                $("#pet-id").val(id);
-                // $("#pet-image").val(image);
-                $("#pet-name").val(name);
-                $("#pet-breed").val(breed);
-                $("#pet-sex").val(sex);
-                $("#pet-weight").val(weight);
-                $("#pet-age").val(age);
-            });
-        });
-    </script>
 </body>
 
 </html>
+
+<script>
+    function logout() {
+        if (confirm("Are you sure you want to log out?")) {
+            // Perform logout action
+            window.location.href = "logout.php";
+        }
+    }
+</script>

@@ -8,7 +8,7 @@
 }
 
 .navbar {
-  background-color: #eee6e0;
+  background-color: #253239;
   overflow: hidden;
   /* z-index: 1; */
 }
@@ -27,14 +27,25 @@
   vertical-align: middle;
   margin-top: 0.5rem;
   margin-left: 20px;
+  
 }
-.navbar .list:hover {
-  background-color: #d6bca8;
+
+.navbar .list {
+  background-color: rgb(255, 255, 255);
   border-radius: 10px;
+  color: black;
+  transition: transform 0.3s;
+}
+
+.navbar .list:hover {
+  transform: scale(1.1);
 }
 .img-logo {
   width: 8rem;
   top: 1.6%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
 }
 
 .setting {
@@ -49,9 +60,9 @@
 
 .sidebar {
   position: relative;
-  background-color: #d6d6d6;
+  background-color: #fad046;
   width: 20rem;
-  min-height: 89vh;
+  /* min-height: 78vh; */
 }
 .main {
   position: absolute;
@@ -64,17 +75,12 @@
 .setting .sidebar a {
   display: flex;
   padding: 20px 50px 20px 50px;
-  background-color: #d6bca8;
+  background-color: #253239;
   text-decoration: none;
-  color: black;
+  color: white;
   font-size: large;
   text-align: center;
   margin-top: 10px;
-}
-
-.setting .sidebar .menu1:hover {
-  background-color: #d6bca8;
-  border-radius: 10px;
 }
 
 .add-pet .input-container a {

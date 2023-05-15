@@ -51,27 +51,46 @@ if (isset($_POST["register"])) {
     $login_query_run = mysqli_query($conn, $login_query);
 
     if (mysqli_num_rows($login_query_run) > 0) {
-        $_SESSION['auth'] = true;
-
         $userdata = mysqli_fetch_array($login_query_run);
-        $uname = $userdata['username'];
-        $useremail = $userdata['email'];
+        $userType = $userdata['user_type'];
 
-        $_SESSION['auth_user'] = [
-            'name' => $uname,
-            'email' => $useremail
-        ];
+        if ($userType == 1) {
+            // Admin user
+            $_SESSION['auth'] = true;
+            $_SESSION['auth_user'] = [
+                'name' => $userdata['username'],
+                'email' => $userdata['email']
+            ];
 
-        echo '<script language="javascript">';
-        echo 'alert("Logged In Successfully");';
-        echo 'window.location = "../adminpage.php";';
-        echo '</script>';
+            echo '<script language="javascript">';
+            echo 'alert("Logged In Successfully as Admin");';
+            echo 'window.location = "../adminpage.php";';
+            echo '</script>';
+        } elseif ($userType == 2) {
+            // Regular user
+            $_SESSION['auth'] = true;
+            $_SESSION['auth_user'] = [
+                'name' => $userdata['username'],
+                'email' => $userdata['email']
+            ];
+
+            echo '<script language="javascript">';
+            echo 'alert("Logged In Successfully as User");';
+            echo 'window.location = "../home.php";';
+            echo '</script>';
+        } else {
+            // Invalid user type
+            echo '<script language="javascript">';
+            echo 'alert("Invalid user type");';
+            echo 'window.location = "../loginpage.php";';
+            echo '</script>';
+        }
     } else {
+        // Login failed
         echo '<script language="javascript">';
-        echo 'alert("Invalid Credentials");';
+        echo 'alert("Invalid credentials");';
+        echo 'window.location = "../loginpage.php";';
         echo '</script>';
-        header('location: ../loginpage.php');
-
     }
 }
 ?>

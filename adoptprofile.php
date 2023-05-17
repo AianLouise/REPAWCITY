@@ -32,7 +32,7 @@
             </a>
         </div>
         <div class="pet">
-            
+
             <?php
             $i = 1;
             $id = $_GET['id'];
@@ -46,7 +46,10 @@
 
                     <h1 class="petname">
                         <?php echo $row["name"]; ?>
-                    </h1>
+                    </h1><br>
+                    <p class="a">Type :
+                        <?php echo $row["type"]; ?>
+                    </p>
                     <p class="a">Breed :
                         <?php echo $row["breed"]; ?>
                     </p>
@@ -59,12 +62,15 @@
                     <p class="d">Age :
                         <?php echo $row["age"]; ?>
                     </p>
+                    <p class="c">Date of Rescue :
+                        <?php echo $row["date"]; ?>
+                    </p><br>
                     <h1 class="about-title">About
                         <?php echo $row["name"]; ?>:
                     </h1>
                     <p class="about">
                         <?php echo $row["about"]; ?>
-                    </p>
+                    </p><br>
                     <a href="" class="contact-btn btn"><i class="fa-solid fa-phone icon" style="color: #ffffff;"></i>
                         Contact us to Meet
                         <?php echo $row["name"]; ?>

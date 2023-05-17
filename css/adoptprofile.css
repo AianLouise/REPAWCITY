@@ -65,30 +65,32 @@
 }
 
 .home .pets {
-  min-height: 25vh;
+  min-height: 20vh;
   display: flex;
   background-position: center;
   background-size: cover;
   position: relative;
   z-index: 3;
+  background-color: #253239;
+  color: white;
 }
 
 .home .pets .adopt-title {
   position: absolute;
-  color: black;
   font-weight: normal;
-  top: 35%;
+  top: 30%;
   left: 40%;
   font-size: 3em;
+  color: white;
 }
 .home .pets .back {
   position: absolute;
-  color: black;
   font-size: 25px;
   font-weight: lighter;
-  top: 35%;
+  top: 30%;
   left: 5%;
   padding: 10px;
+  color: white;
 }
 
 .home .pets .back:hover {
@@ -117,62 +119,34 @@
   height: 100%;
 }
 
-.pet-info .petname {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  font-size: 40px;
-}
-.pet p.a {
-  position: absolute;
-  top: 20%;
-  left: 50%;
+.pet-info{
   font-size: 20px;
-  width: 20rem;
+  margin-left: 47.5rem;
+  margin-top: 5rem;
 }
 
-.pet p.b {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  font-size: 20px;
-  width: 20rem;
+.pet-info .petname {
+  font-size: 40px;
 }
-.pet p.c {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  font-size: 20px;
-  width: 20rem;
-}
-.pet p.d {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  font-size: 20px;
-  width: 20rem;
-}
+
 .about-title {
-  position: absolute;
-  top: 45%;
-  left: 50%;
   font-size: 20px;
-  width: 20rem;
 }
 .pet .about {
-  position: absolute;
   text-align: justify;
-  top: 50%;
-  left: 50%;
   font-size: 20px;
   width: 40rem;
+  text-indent: 40px;
 }
 .pet .contact-btn {
-  position: absolute;
-  top: 87%;
-  left: 63%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10rem;
+  margin-right: 10rem;
   padding: 15px 35px 15px 35px;
 }
+
 .icon{
   margin-right: 5px;
 }

@@ -1,3 +1,4 @@
+<!-- Sign Up  -->
 <?php
 session_start();
 include('config.php');
@@ -5,7 +6,6 @@ include('config.php');
 if (isset($_POST["register"])) {
     $fname = mysqli_real_escape_string($conn, $_POST["fname"]);
     $lname = mysqli_real_escape_string($conn, $_POST["lname"]);
-    $username = mysqli_real_escape_string($conn, $_POST["username"]);
     $email = mysqli_real_escape_string($conn, $_POST["email"]);
     $password = mysqli_real_escape_string($conn, $_POST["password"]);
     $cpassword = mysqli_real_escape_string($conn, $_POST["cpassword"]);
@@ -22,7 +22,7 @@ if (isset($_POST["register"])) {
 
         if ($password == $cpassword) {
             //insert user data
-            $insert_query = "INSERT INTO user (fname,lname,username,email,password) VALUES('$fname' , '$lname' , '$username' , '$email' , '$password')";
+            $insert_query = "INSERT INTO user (fname, lname, email, password, user_type) VALUES('$fname' , '$lname' , '$email' , '$password' , 2)";
             $insert_query_run = mysqli_query($conn, $insert_query);
 
             if ($insert_query) {
@@ -47,18 +47,22 @@ if (isset($_POST["register"])) {
     $email = mysqli_real_escape_string($conn, $_POST["email"]);
     $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
-    $login_query = "SELECT * FROM user WHERE email='$email' AND password='$password'";
+    $login_query = "SELECT * FROM user WHERE email='$email' AND password = '$password'";
     $login_query_run = mysqli_query($conn, $login_query);
 
     if (mysqli_num_rows($login_query_run) > 0) {
         $userdata = mysqli_fetch_array($login_query_run);
         $userType = $userdata['user_type'];
+        $userID = $userdata['user_id']; // Get the ID of the logged-in user
 
         if ($userType == 1) {
             // Admin user
             $_SESSION['auth'] = true;
             $_SESSION['auth_user'] = [
-                'name' => $userdata['username'],
+                'id' => $userID,
+                // Save the ID in the session
+                'fname' => $userdata['fname'],
+                'lname' => $userdata['lname'],
                 'email' => $userdata['email']
             ];
 
@@ -70,7 +74,10 @@ if (isset($_POST["register"])) {
             // Regular user
             $_SESSION['auth'] = true;
             $_SESSION['auth_user'] = [
-                'name' => $userdata['username'],
+                'id' => $userID,
+                // Save the ID in the session
+                'fname' => $userdata['fname'],
+                'lname' => $userdata['lname'],
                 'email' => $userdata['email']
             ];
 
@@ -93,4 +100,5 @@ if (isset($_POST["register"])) {
         echo '</script>';
     }
 }
+
 ?>

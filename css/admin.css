@@ -27,7 +27,6 @@
   vertical-align: middle;
   margin-top: 0.5rem;
   margin-left: 20px;
-  
 }
 
 .navbar .list {
@@ -51,7 +50,6 @@
 .setting {
   min-height: 87.5vh;
   display: flex;
-  /* background-color: #253239; */
   background-position: center;
   background-size: cover;
   position: relative;
@@ -63,13 +61,6 @@
   background-color: #fad046;
   width: 20rem;
   /* min-height: 78vh; */
-}
-.main { 
-  position: absolute;
-  background-color: rgb(213, 213, 213);
-  width: 76rem;
-  min-height: 88vh;
-  margin-left: 20rem;
 }
 
 .setting .sidebar a {
@@ -86,6 +77,19 @@
 .setting .sidebar .menu1:hover {
   background-color: #d6bca8;
   border-radius: 10px;
+}
+
+.main {
+  position: relative;
+  background-color: #f0f0f0;
+  width: 76rem;
+  min-height: 88vh;
+}
+
+.pet-form {
+  position: absolute;
+  top: 2%;
+  left: 2%;
 }
 
 .add-pet .input-container a {
@@ -113,5 +117,3 @@
 .form-group textarea {
   margin-bottom: -0.2rem;
 }
-
-/* menu2 */

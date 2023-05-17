@@ -56,15 +56,11 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Custom CSS to remove text decoration */
         a,
         .form-control {
             text-decoration: none !important;
         }
 
-        /* .form-control{
-            width: 20rem;
-        } */
     </style>
 </head>
 
@@ -75,13 +71,14 @@ if (isset($_POST["submit"])) {
     </nav>
     <div class="setting">
         <div class="sidebar">
-            <a href="adminpage.php" class="menu"><i class="fa-solid fa-paw"></i> Add Pets</a>
-            <a href="admin-manage-pets.php" class="menu2"><i class="fa-solid fa-paw"></i> Manage Pets</a>
-            <a href="admin-manage-featured.php" class="menu2"><i class="fa-solid fa-paw"></i> Modify Featured Image</a>
+            <a href="adminpage.php" class="menu"> Add Pets</a>
+            <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
+            <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
+            <a href="admin-manage-user.php" class="menu"> Manage Users</a>
         </div>
         <div class="main">
 
-            <div class="container mt-1">
+            <div class="container mt-1 pet-form">
                 <h1>Pet Form</h1>
                 <form action="#" method="POST" enctype="multipart/form-data">
                     <div class="form-row">

@@ -123,26 +123,14 @@ mysqli_close($conn);
             overflow-y: scroll;
         }
 
-
-        button.move {
-            margin-left: 35rem;
-        }
-        .alert {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #f8f8f8;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            animation: fadeOut 3s forwards;
-        }
-
         @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -154,18 +142,19 @@ mysqli_close($conn);
     </nav>
     <div class="setting">
         <div class="sidebar">
-            <a href="adminpage.php" class="menu1"><i class="fa-solid fa-paw"></i> Add Pets</a>
-            <a href="admin-manage-pets.php" class="menu2"><i class="fa-solid fa-paw"></i> Manage Pets</a>
-            <a href="admin-manage-featured.php" class="menu2"><i class="fa-solid fa-paw"></i> Modify Featured Image</a>
+            <a href="adminpage.php" class="menu"> Add Pets</a>
+            <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
+            <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
+            <a href="admin-manage-user.php" class="menu"> Manage Users</a>
         </div>
         <div class="main">
             <div class="modify-featured">
                 <div class="container mt-4 table-container">
-                    <h1>Database Table</h1>
-                    <table class="table">
+                    <h1>Pets List</h1>
+                    <table class="table" style="text-align:center">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Type</th>
@@ -174,6 +163,7 @@ mysqli_close($conn);
                                 <th>Weight</th>
                                 <th>Age</th>
                                 <th>Date of Rescue</th>
+                                <th style="width: 20rem">About</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -188,9 +178,6 @@ mysqli_close($conn);
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
                                     ?>
-                                    <script>
-                                        var about = "<?php echo $row["about"]; ?>";
-                                    </script>
 
                                     <tr>
                                         <td>
@@ -217,6 +204,9 @@ mysqli_close($conn);
                                         </td>
                                         <td>
                                             <?php echo $row["date"]; ?>
+                                        </td>
+                                        <td style="text-align:justify">
+                                            <?php echo $row["about"]; ?>
                                         </td>
                                     </tr>
 
@@ -259,51 +249,51 @@ mysqli_close($conn);
                             <div class="form-group col-md-6">
                                 <label for="breed">Breed:</label>
                                 <select name="breed" id="breed" class="form-control">
-                                <option value="">Select Breed</option>
-                                <optgroup label="Dog Breeds">
-                                    <option value="Aspin">Aspin</option>
-                                    <option value="Shih Tzu">Shih Tzu</option>
-                                    <option value="Pomeranian">Pomeranian</option>
-                                    <option value="Labrador Retriever">Labrador Retriever</option>
-                                    <option value="German Shepherd">German Shepherd</option>
-                                    <option value="Golden Retriever">Golden Retriever</option>
-                                    <option value="Rottweiler">Rottweiler</option>
-                                    <option value="Chihuahua">Chihuahua</option>
-                                    <option value="Bulldog">Bulldog</option>
-                                    <option value="Dalmatian">Dalmatian</option>
-                                    <option value="Beagle">Beagle</option>
-                                    <option value="Boxer">Boxer</option>
-                                    <option value="Doberman Pinscher">Doberman Pinscher</option>
-                                    <option value="Siberian Husky">Siberian Husky</option>
-                                    <option value="Pug">Pug</option>
-                                    <option value="Cocker Spaniel">Cocker Spaniel</option>
-                                    <option value="Australian Shepherd">Australian Shepherd</option>
-                                    <option value="Poodle">Poodle</option>
-                                    <option value="Bichon Frise">Bichon Frise</option>
-                                </optgroup>
-                                <optgroup label="Cat Breeds">
-                                    <option value="Persian">Persian</option>
-                                    <option value="Siamese">Siamese</option>
-                                    <option value="Maine Coon">Maine Coon</option>
-                                    <option value="Bengal">Bengal</option>
-                                    <option value="Puspin">Puspin</option>
-                                    <option value="Scottish Fold">Scottish Fold</option>
-                                    <option value="British Shorthair">British Shorthair</option>
-                                    <option value="Ragdoll">Ragdoll</option>
-                                    <option value="Sphynx">Sphynx</option>
-                                    <option value="Norwegian Forest Cat">Norwegian Forest Cat</option>
-                                    <option value="Russian Blue">Russian Blue</option>
-                                    <option value="Exotic Shorthair">Exotic Shorthair</option>
-                                    <option value="Persian Chinchilla">Persian Chinchilla</option>
-                                    <option value="Himalayan">Himalayan</option>
-                                    <option value="Devon Rex">Devon Rex</option>
-                                    <option value="Manx">Manx</option>
-                                    <option value="Cornish Rex">Cornish Rex</option>
-                                    <option value="Tonkinese">Tonkinese</option>
-                                    <option value="Burmese">Burmese</option>
-                                    <option value="Abyssinian">Abyssinian</option>
-                                </optgroup>
-                            </select>
+                                    <option value="">Select Breed</option>
+                                    <optgroup label="Dog Breeds">
+                                        <option value="Aspin">Aspin</option>
+                                        <option value="Shih Tzu">Shih Tzu</option>
+                                        <option value="Pomeranian">Pomeranian</option>
+                                        <option value="Labrador Retriever">Labrador Retriever</option>
+                                        <option value="German Shepherd">German Shepherd</option>
+                                        <option value="Golden Retriever">Golden Retriever</option>
+                                        <option value="Rottweiler">Rottweiler</option>
+                                        <option value="Chihuahua">Chihuahua</option>
+                                        <option value="Bulldog">Bulldog</option>
+                                        <option value="Dalmatian">Dalmatian</option>
+                                        <option value="Beagle">Beagle</option>
+                                        <option value="Boxer">Boxer</option>
+                                        <option value="Doberman Pinscher">Doberman Pinscher</option>
+                                        <option value="Siberian Husky">Siberian Husky</option>
+                                        <option value="Pug">Pug</option>
+                                        <option value="Cocker Spaniel">Cocker Spaniel</option>
+                                        <option value="Australian Shepherd">Australian Shepherd</option>
+                                        <option value="Poodle">Poodle</option>
+                                        <option value="Bichon Frise">Bichon Frise</option>
+                                    </optgroup>
+                                    <optgroup label="Cat Breeds">
+                                        <option value="Persian">Persian</option>
+                                        <option value="Siamese">Siamese</option>
+                                        <option value="Maine Coon">Maine Coon</option>
+                                        <option value="Bengal">Bengal</option>
+                                        <option value="Puspin">Puspin</option>
+                                        <option value="Scottish Fold">Scottish Fold</option>
+                                        <option value="British Shorthair">British Shorthair</option>
+                                        <option value="Ragdoll">Ragdoll</option>
+                                        <option value="Sphynx">Sphynx</option>
+                                        <option value="Norwegian Forest Cat">Norwegian Forest Cat</option>
+                                        <option value="Russian Blue">Russian Blue</option>
+                                        <option value="Exotic Shorthair">Exotic Shorthair</option>
+                                        <option value="Persian Chinchilla">Persian Chinchilla</option>
+                                        <option value="Himalayan">Himalayan</option>
+                                        <option value="Devon Rex">Devon Rex</option>
+                                        <option value="Manx">Manx</option>
+                                        <option value="Cornish Rex">Cornish Rex</option>
+                                        <option value="Tonkinese">Tonkinese</option>
+                                        <option value="Burmese">Burmese</option>
+                                        <option value="Abyssinian">Abyssinian</option>
+                                    </optgroup>
+                                </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="sex">Sex:</label>
@@ -385,6 +375,7 @@ mysqli_close($conn);
                 var weight = $(this).find("td:nth-child(7)").text().trim();
                 var age = $(this).find("td:nth-child(8)").text().trim();
                 var date = $(this).find("td:nth-child(9)").text().trim();
+                var about = $(this).find("td:nth-child(10)").text().trim();
 
                 // Populate the input fields with the selected row data
                 $("#id").val(id);

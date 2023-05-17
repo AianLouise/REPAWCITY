@@ -11,35 +11,88 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sigmar">
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        .slideshow-container {
+            width: 60vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+
+        }
+
+        .slideshow-container img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            object-fit: cover;
+            object-position: center;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
 </head>
 
 <body>
     <div class="login">
-        <div class="login-image">
-            <img src="./image/loginbg.jpg" alt="">
+        <div class="slideshow-container">
+            <img src=".\image\LoginSignup\bg1.jpg" alt="Image 1">
+            <img src=".\image\LoginSignup\bg2.jpg" alt="Image 2">
+            <img src=".\image\LoginSignup\bg3.jpg" alt="Image 3">
         </div>
         <a href="home.php"><img src="./image/logo (1).png" class="logo"></a>
-        <div class="content">
-            <h1>WELCOME!</h1>
-            <p>Let's get started</p>
-        </div>
+
 
         <form class="login-form" name="login" action="./function/authcode.php" method="post">
+            <div class="content">
+                <h1>WELCOME!</h1>
+                <p>Let's get started</p>
+            </div>
+            <br>
             <div class="input-container">
                 <i class="fa-regular fa-user icon"></i>
-                <input class="input-field" type="email" placeholder="Email" name="email" id="username" required>
+                <input class="input-field" type="email" placeholder="Email" name="email" id="username" required >
             </div>
-            <div class="input-container">
+            <div class="input-container password">
                 <i class="fa-solid fa-lock icon"></i>
-                <input class="input-field" type="password" placeholder="Password" name="password" id="password" required>
+                <input class="input-field" type="password" placeholder="Password" name="password" id="password"
+                    required>
                 <i class="fa-solid fa-eye" id="show-password"></i>
             </div>
-            <a href="" class="forgot-pass"><p>Forgot Password?</p></a>
+            <a href="" class="forgot-pass">
+                <p>Forgot Password?</p>
+            </a>
             <input type="submit" name="login" value="Login" class="loginbtn">
-            <a href="signuppage.php" class="account"><p>Don't have an Account?<br>Sign Up</p></a>
+            <a href="signuppage.php" class="account">
+                <p>Don't have an Account?<br>Sign Up</p>
+            </a>
         </form>
 
     </div>
     <script src="./script/script.js"></script>
+
+    <script>
+        var slideIndex = 0;
+        var slides = document.getElementsByClassName("slideshow-container")[0].getElementsByTagName("img");
+
+        function showSlides() {
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.opacity = 0;
+            }
+
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+
+            slides[slideIndex - 1].style.opacity = 1;
+
+            setTimeout(showSlides, 4000); // Delay between slides (2 seconds)
+        }
+
+        showSlides();
+    </script>
 </body>
+
 </html>

@@ -69,67 +69,6 @@ mysqli_close($conn);
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* Custom CSS to remove text decoration */
-        a,
-        .form-control {
-            text-decoration: none !important;
-        }
-
-        .table-container {
-            max-height: 400px;
-            overflow-y: scroll;
-        }
-
-        .form-row {
-            margin-bottom: 1rem;
-        }
-
-        .form-row label {
-            width: 80px;
-        }
-
-        .form-row input {
-            width: 50px;
-        }
-
-        .table-container {
-            max-height: 400px;
-            overflow-y: scroll;
-        }
-
-        .form-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .form-group label {
-            text-align: center;
-        }
-
-        .form-group input[type="number"] {
-            width: 50px;
-            height: 50px;
-            text-align: center;
-        }
-
-        input[type="submit"] {
-            margin-top: 10px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
 </head>
 
 <body>
@@ -139,18 +78,19 @@ mysqli_close($conn);
     </nav>
     <div class="setting">
         <div class="sidebar">
-            <a href="adminpage.php" class="menu1"><i class="fa-solid fa-paw"></i> Add Pets</a>
-            <a href="admin-manage-pets.php" class="menu2"><i class="fa-solid fa-paw"></i> Manage Pets</a>
-            <a href="admin-manage-featured.php" class="menu2"><i class="fa-solid fa-paw"></i> Modify Featured Image</a>
+            <a href="adminpage.php" class="menu"> Add Pets</a>
+            <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
+            <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
+            <a href="admin-manage-user.php" class="menu"> Manage Users</a>
         </div>
         <div class="main">
             <div class="modify-featured">
                 <div class="container mt-4 table-container">
                     <h1>Database Table</h1>
-                    <table class="table">
+                    <table class="table" style="text-align:center">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Is_Featured</th>

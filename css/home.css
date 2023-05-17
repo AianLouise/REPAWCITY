@@ -130,7 +130,7 @@
   height: 220px;
   position: absolute;
   border: solid #333;
-  border-radius: 10%;
+  border-radius: 10px;
   transition: transform 0.3s ease;
 }
 
@@ -141,7 +141,7 @@
 .feature img {
   width: 100%;
   height: 100%;
-  border-radius: 10%;
+  border-radius: 5px;
 }
 
 .feature h4 {
@@ -153,8 +153,8 @@
   text-align: center;
   border-top-left-radius: 150%;
   border-top-right-radius: 150%;
-  border-bottom-left-radius: 60px;
-  border-bottom-right-radius: 60px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .adoption .card1 {
@@ -254,6 +254,35 @@
   transform: scale(1.1);
 }
 
+.menu i {
+  transition: transform 0.5s;
+}
+
+.menu a:hover i {
+  animation: shake 0.5s;
+}
+
+.menu p:hover i {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(5deg);
+  }
+  75% {
+    transform: translateX(-5px) rotate(-5deg);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 
 @media screen and (max-width: 600px) {
   .home .top {

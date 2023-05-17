@@ -11,9 +11,6 @@ body {
 }
 
 .navbar {
-  /* position: fixed; */
-  top: 0;
-  left: 0;
   width: 100%;
   z-index: 999;
 }
@@ -24,7 +21,7 @@ body {
   text-decoration: none;
   font-size: 18px;
   padding: 13px 30px 13px 30px;
-  margin-top: 15px;
+  margin-top: 20px;
   margin-bottom: 15px;
   margin-left: 10px;
 }

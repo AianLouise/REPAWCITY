@@ -12,7 +12,7 @@ $pet_data = []; // Replace this with the actual fetched pet data
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,37 +47,32 @@ $pet_data = []; // Replace this with the actual fetched pet data
         <div class="adoption">
             <div class="card-container">
                 <?php
-                // Fetch the pet data from the database and loop through the results
-                // Modify the query based on your database schema
                 $query = "SELECT * FROM pets";
                 $result = mysqli_query($conn, $query);
 
-                // Check if any pets are found in the database
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        // Extract the pet details from the row
                         $name = $row['name'];
                         $sex = $row['sex'];
                         $age = $row['age'];
                         $image = $row['image'];
-
-                        // Generate the HTML for the pet card
-                        echo '<div class="card feature">';
+                        $petId = $row['pets_id']; // Assuming the ID column name is 'id'
+                
+                        echo '<a href="adoptprofile.php?id=' . $petId . '" class="card feature">';
                         echo '<img src="./upload/' . $image . '" alt="">';
                         echo '<h4><b>' . $name . '</b></h4>';
                         echo '<p class="gender">' . $sex . '</p>';
                         echo '<div class="vl2"></div>';
                         echo '<p class="age">' . $age . '</p>';
-                        echo '</div>';
+                        echo '</a>';
                     }
                 } else {
-                    // Display a message if no pets are found in the database
                     echo 'No pets found.';
                 }
 
-                // Free the result variable
                 mysqli_free_result($result);
                 ?>
+
             </div>
             <div id="additionalPetsContainer"></div> <!-- Container to hold additional pet cards -->
 

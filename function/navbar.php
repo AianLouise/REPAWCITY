@@ -38,7 +38,7 @@
             <div class="dropdown dd-p">
                 <a href="javascript:void(0);" class="list profile">Profile &#9660;</a>
                 <div class="dropdown-content">
-                    <a href="#">Edit Profile</a>
+                    <a href="edit-profile.php">Edit Profile</a>
                     <a href="#">Change Password</a>
                 </div>
             </div>

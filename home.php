@@ -75,7 +75,7 @@ session_start(); // Add this line to start the session
         <p class="donate-info info6"><i class="fa-solid fa-heart" style="color: #ffffff;"></i> Donations are vital to
             our mission of promoting responsible pet ownership and educating the public about the importance of animal
             welfare.</p>
-        <a href="donatepage.php" class="donate-now">
+        <a href="donatepage.php" class="donate-now menu">
             <p><i class="fa-sharp fa-solid fa-hand-holding-heart fa-lg"></i> Donate Now</p>
         </a>
     </section>

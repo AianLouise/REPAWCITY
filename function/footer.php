@@ -18,7 +18,7 @@
             <h3>Quick Links</h3><br>
             <a href="index.php">ADOPT A DOG</a><br>
             <a href="#">ADOPT A CAT</a><br>
-            <a href="adoptpage.php" >DONATE</a><br>
+            <a href="donatepage.php" >DONATE</a><br>
             <a href="#">SUCCESS STORIES</a><br>
             <a href="#">VOLUNTEER</a><br>
             <a href="#">NEWS</a>

@@ -173,6 +173,7 @@
 @media screen and (max-width: 600px) {
   .home .top {
     min-height: 30vh;
+    width: 100%;
     display: flex;
     background-color: #fad046;
     background-position: center;

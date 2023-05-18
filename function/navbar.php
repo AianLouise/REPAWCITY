@@ -19,8 +19,8 @@
         <a href="home.php" class="list a">Home</a>
         <a href="adoptpage.php" class="list">Adopt</a>
         <a href="donatepage.php" class="list">Donate</a>
-        <a href="d" class="list">News</a>
-        <a href="navbar.php" class="list">Volunteer</a>
+        <a href="news.php" class="list">News</a>
+        <a href="volunteer.php" class="list">Volunteer</a>
         <div class="dropdown dr">
             <a href="javascript:void(0);" class="list">About Us &#9660;</a>
             <div class="dropdown-content">

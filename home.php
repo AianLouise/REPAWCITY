@@ -30,9 +30,9 @@ session_start(); // Add this line to start the session
             <div class="menu">
                 <a href="home.php" class="find-dog"><i class="fa-solid fa-dog fa-lg"></i> Find a Dog</a>
                 <a href="home.php" class="find-cat"><i class="fa-solid fa-cat fa-lg"></i> Find a Cat</a>
-                <a href="home.php" class="donate"><i class="fa-sharp fa-solid fa-hand-holding-heart fa-lg"></i>
+                <a href="donatepage.php" class="donate"><i class="fa-sharp fa-solid fa-hand-holding-heart fa-lg"></i>
                     Donate</a>
-                <a href="home.php" class="volunteer"><i class="fa-solid fa-handshake-angle fa-lg"></i> Volunteer</a>
+                <a href="volunteer.php" class="volunteer"><i class="fa-solid fa-handshake-angle fa-lg"></i> Volunteer</a>
             </div>
             <h2 class="adopt-title">Pets Available for Adoption</h2>
             <a href="adoptpage.php">

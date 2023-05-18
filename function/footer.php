@@ -20,8 +20,8 @@
             <a href="#">ADOPT A CAT</a><br>
             <a href="donatepage.php" >DONATE</a><br>
             <a href="#">SUCCESS STORIES</a><br>
-            <a href="#">VOLUNTEER</a><br>
-            <a href="#">NEWS</a>
+            <a href="volunteer.php">VOLUNTEER</a><br>
+            <a href="news.php">NEWS</a>
         </div>
         <div class="about-us">
             <h3>ABOUT US</h3>

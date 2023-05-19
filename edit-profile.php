@@ -1,6 +1,33 @@
 <?php
 session_start();
+require './function/config.php';
+
+if (isset($_POST['update'])) {
+    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
+    $lname = mysqli_real_escape_string($conn, $_POST['lname']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+
+    // Perform the database update query
+    $update_query = "UPDATE user SET fname='$fname', lname='$lname' WHERE email='$email'";
+    $update_query_run = mysqli_query($conn, $update_query);
+
+    if ($update_query_run) {
+        $_SESSION['auth_user']['fname'] = $fname; // Update session data
+        $_SESSION['auth_user']['lname'] = $lname; // Update session data
+        echo '<script language="javascript">';
+        echo 'alert("Profile updated successfully");';
+        echo 'window.location = "edit-profile.php";';
+        echo '</script>';
+    } else {
+        echo '<script language="javascript">';
+        echo 'alert("Failed to update profile");';
+        echo 'window.location = "edit-profile.php";';
+        echo '</script>';
+    }
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,22 +50,25 @@ session_start();
         <div class="content">
 
             <div class="container">
-                <form class="edit">
+                <form class="edit" method="POST">
                     <h1>Edit Profile</h1>
                     <div class="form-group">
                         <label for="fname">First Name:</label>
-                        <input type="text" class="form-control" id="fname" placeholder="Enter your first name">
+                        <input type="text" class="form-control" id="fname" name="fname"
+                            placeholder="Enter your first name" required>
                     </div>
                     <div class="form-group">
                         <label for="lname">Last Name:</label>
-                        <input type="text" class="form-control" id="lname" placeholder="Enter your last name">
+                        <input type="text" class="form-control" id="lname" name="lname"
+                            placeholder="Enter your last name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"
+                            required>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" name="update" class="btn btn-primary">Update</button>
                     </div>
 
                 </form>

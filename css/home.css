@@ -45,6 +45,7 @@
   position: absolute;
   top: 57%;
   left: 26%;
+  z-index: 1;
 }
 
 .home .pets {

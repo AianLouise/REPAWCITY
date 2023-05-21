@@ -1,13 +1,39 @@
 <?php
-session_start(); // Add this line to start the session
+session_start();
 require './function/config.php';
 include './function/navbar.php';
 
-// Retrieve the pet data from the database
-// Assuming you have a database connection and the necessary query here
-$pet_data = []; // Replace this with the actual fetched pet data
+$loggedIn = isset($_SESSION['auth_user']);
 
+// Retrieve the selected filter values from the form submission
+
+$type = $_POST['type'] ?? $_GET['type'] ?? '';
+$sex = $_POST['sex'] ?? '';
+$weight = $_POST['weight'] ?? '';
+$age = $_POST['age'] ?? '';
+
+// Build the base query
+$query = "SELECT * FROM pets WHERE 1=1";
+
+// Add filters to the query if they are selected
+if (!empty($type)) {
+    $query .= " AND type = '$type'";
+}
+if (!empty($sex)) {
+    $query .= " AND sex = '$sex'";
+}
+if (!empty($weight)) {
+    $query .= " AND weight = '$weight'";
+}
+if (!empty($age)) {
+    $query .= " AND age = '$age'";
+}
+
+// Execute the query
+$result = mysqli_query($conn, $query);
+$pet_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,16 +56,76 @@ $pet_data = []; // Replace this with the actual fetched pet data
             <h1 class="title">Adopt</h1>
             <p class="content">All of our cats and dogs can be seen by appointment only. We are open Tuesday, Friday and
                 Saturday 12pm-3pm.</p>
-            <a href="" class="book-app btn">Book Appointment</a>
+            <a href="<?php echo $loggedIn ? 'book-appointment.php' : 'loginpage.php'; ?>" class="book-app btn" <?php echo $loggedIn ? 'target="_blank"' : ''; ?>>
+                Book Appointment
+            </a>
+
         </div>
         <div class="pets">
             <h1 class="adopt-title">MEET OUR DOGS</h1>
             <p class="sort">Sort by:</p>
             <div class="menu">
-                <a href="adoptpage-male.php#adopt-page" class="male">Male</a>
-                <a href="adoptpage-male.php#adopt-page" class="female">Female</a>
-                <a href="#" class="short">Shortest Stay</a>
-                <a href="#" class="long">Longest Stay</a>
+                <form action="" method="post">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="type">Pet Type:</label>
+                            <select class="form-control" id="type" name="type" required onchange="this.form.submit()">
+                                <option value="">Select Type</option>
+                                <option value="Dog" <?php if ($type === 'Dog')
+                                    echo 'selected'; ?>>Dog</option>
+                                <option value="Cat" <?php if ($type === 'Cat')
+                                    echo 'selected'; ?>>Cat</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sex">Sex:</label>
+                            <select class="form-control" id="sex" name="sex" required onchange="this.form.submit()">
+                                <option value="">Select Sex</option>
+                                <option value="Male" <?php if ($sex === 'Male')
+                                    echo 'selected'; ?>>Male</option>
+                                <option value="Female" <?php if ($sex === 'Female')
+                                    echo 'selected'; ?>>Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight:</label>
+                            <select class="form-control" id="weight" name="weight" required
+                                onchange="this.form.submit()">
+                                <option value="">Select Weight</option>
+                                <option value="Less than 5 lbs" <?php if ($weight === 'Less than 5 lbs')
+                                    echo 'selected'; ?>>Less than 5 lbs</option>
+                                <option value="5-10 lbs" <?php if ($weight === '5-10 lbs')
+                                    echo 'selected'; ?>>5-10 lbs
+                                </option>
+                                <option value="10-20 lbs" <?php if ($weight === '10-20 lbs')
+                                    echo 'selected'; ?>>10-20 lbs
+                                </option>
+                                <option value="20-50 lbs" <?php if ($weight === '20-50 lbs')
+                                    echo 'selected'; ?>>20-50 lbs
+                                </option>
+                                <option value="over 50 lbs" <?php if ($weight === 'over 50 lbs')
+                                    echo 'selected'; ?>>over
+                                    50 lbs</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <select class="form-control" id="age" name="age" required onchange="this.form.submit()">
+                                <option value="">Select Age</option>
+                                <option value="Less than 6 months" <?php if ($age === 'Less than 6 months')
+                                    echo 'selected'; ?>>Less than 6 months</option>
+                                <option value="6 months to 5 years" <?php if ($age === '6 months to 5 years')
+                                    echo 'selected'; ?>>6 months to 5 years</option>
+                                <option value="5 to 10 years" <?php if ($age === '5 to 10 years')
+                                    echo 'selected'; ?>>5 to
+                                    10 years</option>
+                                <option value="over 10 years" <?php if ($age === 'over 10 years')
+                                    echo 'selected'; ?>>over
+                                    10 years</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
@@ -47,17 +133,14 @@ $pet_data = []; // Replace this with the actual fetched pet data
         <div class="adoption">
             <div class="card-container">
                 <?php
-                $query = "SELECT * FROM pets";
-                $result = mysqli_query($conn, $query);
-
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
+                if (!empty($pet_data)) {
+                    foreach ($pet_data as $row) {
                         $name = $row['name'];
                         $sex = $row['sex'];
                         $age = $row['age'];
                         $image = $row['image'];
-                        $petId = $row['pets_id']; // Assuming the ID column name is 'id'
-                
+                        $petId = $row['pets_id'];
+
                         echo '<a href="adoptprofile.php?id=' . $petId . '" class="card feature">';
                         echo '<img src="./upload/' . $image . '" alt="">';
                         echo '<h4><b>' . $name . '</b></h4>';
@@ -69,14 +152,10 @@ $pet_data = []; // Replace this with the actual fetched pet data
                 } else {
                     echo 'No pets found.';
                 }
-
-                mysqli_free_result($result);
                 ?>
 
             </div>
-            <div id="additionalPetsContainer"></div> <!-- Container to hold additional pet cards -->
 
-            <!-- <a href="" class="load-more btn">Load More</a> -->
         </div>
     </section>
     <?php include './function/footer.php' ?>

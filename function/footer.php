@@ -47,7 +47,6 @@
             </div>
             <div class="information">
                 <h3>INFORMATION</h3>
-                <p>Sitemap</p>
                 <p>Mission</p>
                 <p>Assistance</p>
                 <p>Privacy Policy</p>

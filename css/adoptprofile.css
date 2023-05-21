@@ -23,8 +23,6 @@
   position: relative;
   border-top-left-radius: 6rem;
   border-top-right-radius: 6rem;
-  border-bottom-left-radius: 6rem;
-  border-bottom-right-radius: 6rem;
   z-index: 5;
 }
 

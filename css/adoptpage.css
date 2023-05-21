@@ -17,7 +17,7 @@
 .home .top {
   min-height: 30vh;
   display: flex;
-  background-color:  #fad046 ;
+  background-color: #fad046;
   background-position: center;
   background-size: cover;
   position: relative;
@@ -72,31 +72,38 @@
 
 .home .pets .menu {
   position: absolute;
-  top: 70%;
+  top: 60%;
   left: 30%;
 }
 
-.home .pets .menu a {
-  padding: 15px 50px 15px 50px;
-  background-color: #fff1f1;
-  color: black;
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.home .pets .menu .male {
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  padding: 15px 60px 15px 60px;
+.form-group {
+  flex: 1;
+  margin: 10px;
 }
 
-.home .pets .menu .long {
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+  color: white;
 }
+
+.form-control {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
 .home .pets .adopt-title {
   position: absolute;
   color: white;
   font-weight: normal;
-  top: 30%;
+  top: 25%;
   left: 40%;
   font-size: 3em;
 }
@@ -167,7 +174,7 @@
 }
 
 .load-more {
-  margin-left:  45rem;
+  margin-left: 45rem;
 }
 
 @media screen and (max-width: 600px) {

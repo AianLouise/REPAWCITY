@@ -1,3 +1,8 @@
+<?php require './function/config.php' ?>
+<?php
+session_start(); // Add this line to start the session
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

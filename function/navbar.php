@@ -16,18 +16,18 @@
 
     <div class="navbar" id="myNavbar">
         <a href="index.php" class="logo"><img src="image/logo (1).png" class="img-logo"></a>
-        <a href="home.php" class="list a">Home</a>
-        <a href="adoptpage.php" class="list">Adopt</a>
-        <a href="donatepage.php" class="list">Donate</a>
-        <a href="news.php" class="list">News</a>
-        <a href="volunteer.php" class="list">Volunteer</a>
+        <a href="home.php" class="list a n1">Home</a>
+        <a href="adoptpage.php" class="list n2">Adopt</a>
+        <a href="donatepage.php" class="list n3">Donate</a>
+        <a href="news.php" class="list n4">News</a>
+        <a href="volunteer.php" class="list n5">Volunteer</a>
         <div class="dropdown dr">
-            <a href="javascript:void(0);" class="list">About Us &#9660;</a>
+            <a href="javascript:void(0);" class="list n6">About Us &#9660;</a>
             <div class="dropdown-content">
-                <a href="#">Success Stories</a>
-                <a href="#">FAQ</a>
-                <a href="#">Contact</a>
-                <a href="#">Team</a>
+                <a href="#" class="a1">Success Stories</a>
+                <a href="FAQ.php" class="a2">FAQ</a>
+                <a href="contact.php" class="a3">Contact</a>
+                <a href="#" class="a4">Team</a>
             </div>
         </div>
         <?php
@@ -39,10 +39,10 @@
                 <a href="javascript:void(0);" class="list profile">Profile &#9660;</a>
                 <div class="dropdown-content">
                     <a href="edit-profile.php">Edit Profile</a>
-                    <a href="#">Change Password</a>
+                    <a href="change-password.php">Change Password</a>
                 </div>
             </div>
-            <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
+            <a href="javascript:void(0);" class="list logout" onclick="logout()">Logout</a>
             <?php
         } else {
             // Display login and sign up buttons

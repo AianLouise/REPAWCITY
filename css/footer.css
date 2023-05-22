@@ -112,19 +112,19 @@
   }
 
   .footer {
-    min-height: 80vh;
+    min-height: 75vh;
   }
   .footer .about-us {
     position: absolute;
     top: 20%;
-    left: 43%;
+    left: 46%;
     width: 50%;
     text-align: justify;
   }
   .footer .address {
     position: absolute;
     top: 80%;
-    left: 43%;
+    left: 46%;
     width: 50%;
   }
   .footer .quick-links {
@@ -165,7 +165,7 @@
     text-align: center;
   }
   .info h3{
-    font-size: 1rem;
+    font-size: 15px;
   }
   .info p{
     font-size: 0.9rem;
@@ -173,20 +173,20 @@
   .info .contact {
     margin-top: 10px;
     float: left;
-    margin-left: 2%;
+    margin-left: 0%;
   }
   
   .info .information {
     margin-top: 10px;
     float: left;
-    margin-left: 14%;
+    margin-left: 10%;
     margin-bottom: 10px;
   }
   
   .info .social {
     margin-top: 10px;
     float: left;
-    margin-left: 12%;
+    margin-left: 10%;
   }
   
   .info .social h3 {
@@ -198,5 +198,6 @@
   .info .social i {
     margin-top: 2rem;
     margin-left: 0.5rem;
+    font-size: 1.5em;
   }
 }

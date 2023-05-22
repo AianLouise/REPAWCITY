@@ -16,45 +16,6 @@ require './function/config.php';
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
-        }
-
-        .content h1 {
-            color: white;
-        }
-
-        .container {
-            font-size: 1.3em;
-            width: 35rem;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .form-check-label {
-            font-weight: bold;
-        }
-
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .form-check-input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-        }
-    </style>
 </head>
 
 <body>
@@ -97,8 +58,9 @@ require './function/config.php';
                     </div>
 
                     <div class="button-container">
-                        <button type="submit" class="btnn ">Submit</button>
+                        <button type="submit" class="btnn" onclick="submitForm()">Submit</button>
                     </div>
+
                 </form>
             </div>
 
@@ -107,3 +69,12 @@ require './function/config.php';
 </body>
 
 </html>
+<script>
+    function submitForm() {
+        // Perform form submission here
+
+        // Close the current window/tab
+        window.close();
+    }
+
+</script>

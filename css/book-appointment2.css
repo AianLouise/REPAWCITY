@@ -6,9 +6,6 @@
   text-decoration: none;
   /* outline: auto; */
 }
-.main {
-  height: 75rem;
-}
 
 .btnn {
   width: 2rem;
@@ -60,104 +57,52 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #253239;
   width: 60rem;
-  height: 55rem;
+  height: 25rem;
   margin: 0 auto;
   margin-top: 20px;
   text-align: center;
 }
 
-.content .title {
+.content h2 {
   color: white;
   font-weight: 100;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.content img {
+  width: 20rem;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.content .get-started {
+  color: black;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.content .type {
+  font-size: 18px;
 }
 
 .back,
 .next {
   text-decoration: none;
-  margin-top: 10px; /* Adjust the margin-top value as needed */
+  margin-top: 20px;
   display: inline-block;
   width: 10rem;
   height: 2.5rem;
   background-color: #fad046;
+  margin-right: 10px; /* Add some spacing between the buttons */
   color: black;
   text-align: center;
   line-height: 2.5rem;
-}
-
-.form-group label {
-  color: white;
-}
-
-.calendar-container .cl {
-  color: white;
-  font-size: 20px;
-}
-
-.day.highlight {
-  background-color: #fad046;
-  color: white;
-}
-
-.info {
-  margin-top: 1rem;
-  color: white;
-}
-.info2 {
-  margin-top: 1rem;
-  color: white;
-}
-.info .available .square {
-  position: absolute;
-  width: 3rem;
-  height: 2rem;
-  background-color: white;
-  left: 35%;
-}
-.info2 .unavailable .square {
-  position: absolute;
-  width: 3rem;
-  height: 2rem;
-  background-color: #fad046;
-  left: 35%;
-}
-
-.calendar-container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding-top: 30px;
-}
-
-.calendar {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: white;
-  border-radius: 10px;
-}
-
-.day {
-  width: calc(100% / 7);
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.navigation {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  color: white;
-  text-align: center;
 }
 
 @media screen and (max-width: 600px) {
@@ -210,7 +155,7 @@
     text-align: center;
     margin-top: 20px;
   }
-  .progressbar {
+  .progressbar{
     width: 25rem;
     height: auto;
   }
@@ -222,24 +167,10 @@
     align-items: center;
     background-color: #253239;
     width: 100%;
-    height: 60rem;
+    height: 25rem;
     margin: 0 auto;
     margin-top: 20px;
     text-align: center;
   }
 
-  .info .available .square {
-    position: absolute;
-    width: 3rem;
-    height: 2rem;
-    background-color: white;
-    left: 5%;
-  }
-  .info2 .unavailable .square {
-    position: absolute;
-    width: 3rem;
-    height: 2rem;
-    background-color: #fad046;
-    left: 5%;
-  }
 }

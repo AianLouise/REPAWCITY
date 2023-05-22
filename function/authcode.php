@@ -82,7 +82,6 @@ if (isset($_POST["register"])) {
             ];
 
             echo '<script language="javascript">';
-            echo 'alert("Logged In Successfully as User");';
             echo 'window.location = "../home.php";';
             echo '</script>';
         } else {

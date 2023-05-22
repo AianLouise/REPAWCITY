@@ -112,6 +112,7 @@ body {
   .navbar a.icon {
     float: right;
     display: block;
+    margin-top: 15px;
   }
 }
 
@@ -145,7 +146,7 @@ body {
   .dropdown:hover .dropdown-content {
     display: block;
     margin-top: -15px;
-    margin-left: 10rem;
+    margin-left: 8rem;
   }
   .dropdown .dropdown-content a:hover {
     display: block;
@@ -153,7 +154,7 @@ body {
   .navbar a.login {
     margin-left: 0;
   }
-  .navbar a.profile {
-    margin-left: 0;
+  .navbar .dropdown.dd-p {
+    margin-left: 0rem;
   }
 }

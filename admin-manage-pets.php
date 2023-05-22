@@ -5,14 +5,14 @@ require './function/config.php';
 if (isset($_POST['update'])) {
     // Retrieve the data from the form
     $id = $_POST['id'];
-    $name = $_POST['name'];
-    $type = $_POST['type'];
-    $breed = $_POST['breed'];
-    $sex = $_POST['sex'];
-    $weight = $_POST['weight'];
-    $age = $_POST['age'];
-    $date = $_POST['date'];
-    $about = $_POST['about'];
+    $name = mysqli_real_escape_string($conn, $_POST["name"]);
+    $type = mysqli_real_escape_string($conn, $_POST["type"]);
+    $breed = mysqli_real_escape_string($conn, $_POST["breed"]);
+    $sex = mysqli_real_escape_string($conn, $_POST["sex"]);
+    $weight = mysqli_real_escape_string($conn, $_POST["weight"]);
+    $age = mysqli_real_escape_string($conn, $_POST["age"]);
+    $date = mysqli_real_escape_string($conn, $_POST["date"]);
+    $about = mysqli_real_escape_string($conn, $_POST["about"]);
 
     // Check if the image is uploaded
     if (!empty($_FILES['image']['name'])) {

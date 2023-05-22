@@ -105,42 +105,107 @@
   line-height: 2.5rem;
 }
 
-.calendar {
-  width: 300px;
-  border: 1px solid #ccc;
-}
+@media screen and (max-width: 600px) {
+  .btnn {
+    width: 2rem;
+    height: 2rem;
+    background-color: #fad046;
+    border-radius: 10px;
+    width: 20rem;
+    height: 3rem;
+    text-align: center;
+  }
 
-.calendar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #f5f5f5;
-}
+  .navbar1 {
+    width: 100%;
+    z-index: 999;
+    border-bottom: solid;
+    border-color: #253239;
+  }
 
-.calendar-table {
-  width: 100%;
-}
+  .navbar1 a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 38px;
+    padding: 13px 30px 13px 30px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+  }
+  .navbar1 a.logo {
+    padding: 3px 2px 1px 2px;
+    vertical-align: middle;
+    margin-top: 0.5rem;
+    margin-left: 20px;
+  }
 
-.calendar-table th,
-.calendar-table td {
-  padding: 10px;
-  text-align: center;
-}
+  .img-logo {
+    width: 6rem;
+    top: 1.6%;
+  }
 
-.calendar-table th {
-  font-weight: bold;
-}
+  .navbar1 h1 {
+    position: absolute;
+    left: 30%;
+    top: 4%;
+    font-size: x-large;
+  }
 
-.calendar-table td {
-  cursor: pointer;
-}
+  .progress1 {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .progressbar{
+    width: 25rem;
+    height: auto;
+  }
 
-.calendar-table td.current-day {
-  background-color: #e0e0e0;
-}
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #253239;
+    width: 100%;
+    height: 25rem;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+  }
 
-.calendar-table td.selected-day {
-  background-color: #007bff;
-  color: #fff;
+  .content h2 {
+    color: white;
+    font-weight: 100;
+    margin-bottom: 20px;
+  }
+
+  .content img {
+    width: 20rem;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .content .get-started {
+    color: black;
+    text-align: center;
+    line-height: 3rem;
+  }
+
+  .content .type {
+    font-size: 18px;
+  }
+
+  .back,
+  .next {
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+    width: 10rem;
+    height: 2.5rem;
+    background-color: #fad046;
+    margin-right: 10px; /* Add some spacing between the buttons */
+    color: black;
+    text-align: center;
+    line-height: 2.5rem;
+  }
 }

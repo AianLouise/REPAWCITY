@@ -16,8 +16,8 @@
         <a href="index.php"><img src="./image/logo (1).png" class="logo"></a>
         <div class="quick-links">
             <h3>Quick Links</h3><br>
-            <a href="index.php">ADOPT A DOG</a><br>
-            <a href="#">ADOPT A CAT</a><br>
+            <a href="adoptpage.php?type=Dog">ADOPT A DOG</a><br>
+            <a href="adoptpage.php?type=Cat">ADOPT A CAT</a><br>
             <a href="donatepage.php" >DONATE</a><br>
             <a href="#">SUCCESS STORIES</a><br>
             <a href="volunteer.php">VOLUNTEER</a><br>
@@ -43,7 +43,7 @@
             <div class="contact">
                 <h3>CONTACT</h3>
                 <p>+63 923 4897 632</p>
-                <p>repawcity.gmail.com</p>
+                <p>repawcity@gmail.com</p>
             </div>
             <div class="information">
                 <h3>INFORMATION</h3>

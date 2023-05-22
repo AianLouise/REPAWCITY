@@ -54,8 +54,7 @@ $pet_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
             <img src="./image/doggo.png" class="paw-bg">
             <img src="./image/catto.png" class="paw-bg2">
             <h1 class="title">Adopt</h1>
-            <p class="content">All of our cats and dogs can be seen by appointment only. We are open Tuesday, Friday and
-                Saturday 12pm-3pm.</p>
+            <p class="content">All of our cats and dogs can be seen by appointment only.</p>
             <a href="<?php echo $loggedIn ? 'book-appointment.php' : 'loginpage.php'; ?>" class="book-app btn" <?php echo $loggedIn ? 'target="_blank"' : ''; ?>>
                 Book Appointment
             </a>

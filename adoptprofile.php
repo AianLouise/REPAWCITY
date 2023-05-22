@@ -1,7 +1,9 @@
 <?php
+require './function/config.php';
 session_start(); // Add this line to start the session
+
+$loggedIn = isset($_SESSION['auth_user']);
 ?>
-<?php require './function/config.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,10 +25,10 @@ session_start(); // Add this line to start the session
             <img src="./image/doggo.png" class="paw-bg">
             <img src="./image/catto.png" class="paw-bg2">
             <h1 class="title">Adopt</h1>
-            <p class="content">All of our cats and dogs can be seen by appointment only. We are open Tuesday, Friday and
-                Saturday 12pm-3pm.</p>
-            <a href="" class="book-app btn"><i class="fa-regular fa-calendar-check icon"
-                    style="color: #ffffff;"></i>Book Appointment</a>
+            <p class="content">All of our cats and dogs can be seen by appointment only.</p>
+            <a href="<?php echo $loggedIn ? 'book-appointment.php' : 'loginpage.php'; ?>" class="book-app btn" <?php echo $loggedIn ? 'target="_blank"' : ''; ?>>
+                Book Appointment
+            </a>
         </div>
         <div class="pets">
             <h1 class="adopt-title">MEET OUR DOGS</h1>

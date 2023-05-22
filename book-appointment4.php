@@ -16,63 +16,6 @@ require './function/config.php';
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
-            margin: 0;
-            padding: 0;
-        }
-
-        .main {
-            height: 75rem;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        form {
-            width: 40rem;
-            margin-top: -50px;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="tel"],
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        button[type="submit"] {
-            background-color: #4caf50;
-            color: #ffffff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 
 <body>

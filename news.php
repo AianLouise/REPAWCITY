@@ -88,7 +88,7 @@ session_start(); // Add this line to start the session
                             <p>Sarah is one of our exceptional volunteers,
                                 shares her experience of fostering animals
                                 and the joy she feels in seeing them
-                                flourish before finding their forever homes. <span>See more.</span>
+                                flourish <span>See more.</span>
                             </p>
                         </div>
                         <p class="date"><span>12 hrs ago</span></p>

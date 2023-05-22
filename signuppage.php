@@ -11,27 +11,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sigmar">
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <style>
-        .slideshow-container {
-            width: 60vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-
-        }
-
-        .slideshow-container img {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            object-fit: cover;
-            object-position: center;
-            transition: opacity 1s ease-in-out;
-        }
-    </style>
 </head>
 
 <body>

@@ -2,14 +2,14 @@
 require './function/config.php';
 
 if (isset($_POST["submit"])) {
-    $name = $_POST["name"];
-    $type = $_POST["type"];
-    $breed = $_POST["breed"];
-    $sex = $_POST["sex"];
-    $weight = $_POST["weight"];
-    $age = $_POST["age"];
-    $date = $_POST["date"];
-    $about = $_POST["about"];
+    $name = mysqli_real_escape_string($conn, $_POST["name"]);
+    $type = mysqli_real_escape_string($conn, $_POST["type"]);
+    $breed = mysqli_real_escape_string($conn, $_POST["breed"]);
+    $sex = mysqli_real_escape_string($conn, $_POST["sex"]);
+    $weight = mysqli_real_escape_string($conn, $_POST["weight"]);
+    $age = mysqli_real_escape_string($conn, $_POST["age"]);
+    $date = mysqli_real_escape_string($conn, $_POST["date"]);
+    $about = mysqli_real_escape_string($conn, $_POST["about"]);
 
     if ($_FILES["image"]["error"] === 4) {
         echo "<script> alert('Image Does Not Exist'); </script>";
@@ -23,7 +23,7 @@ if (isset($_POST["submit"])) {
         $imageExtension = strtolower(end($imageExtension));
         if (!in_array($imageExtension, $validImageExtension)) {
             echo "<script> alert('Invalid Image Extension'); </script>";
-        } elseif ($filesize > 1000000) {
+        } elseif ($filesize > 2000000) {
             echo "<script> alert('Image Size Is Too Large'); </script>";
         } else {
             $newImageName = uniqid();
@@ -31,12 +31,16 @@ if (isset($_POST["submit"])) {
 
             move_uploaded_file($tmpName, 'upload/' . $newImageName);
             $query = "INSERT INTO pets (name,type,breed,sex,weight,age,about,date,image) VALUES('$name' , '$type', '$breed' , '$sex' , '$weight' , '$age', '$about', '$date', '$newImageName')";
-            mysqli_query($conn, $query);
-            echo "
+            $result = mysqli_query($conn, $query);
+            if ($result) {
+                echo "
                 <script> 
                     alert('Successfully Added'); 
                     document.location.href = 'adminpage.php';
                 </script>";
+            } else {
+                echo "Error: " . mysqli_error($conn); // Display the specific error message
+            }
         }
     }
 }
@@ -60,7 +64,6 @@ if (isset($_POST["submit"])) {
         .form-control {
             text-decoration: none !important;
         }
-
     </style>
 </head>
 

@@ -15,37 +15,6 @@ require './function/config.php';
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .calendar-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding-top: 30px;
-        }
-
-        .calendar {
-            display: flex;
-            flex-wrap: wrap;
-            background-color: white;
-            border-radius: 10px;
-        }
-
-        .day {
-            width: calc(100% / 7);
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .navigation {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            color: white;
-            text-align: center;
-        }
-    </style>
 </head>
 
 <body>

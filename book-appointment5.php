@@ -1,6 +1,25 @@
 <?php
 session_start(); // Add this line to start the session
 require './function/config.php';
+
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Prepare and execute the database query
+    $query = "INSERT INTO appointment (appointment_type, appointment_date, time_slot, first_name, middle_name, last_name, mobile_number, home_address, email_address, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("sssssssssi", $_SESSION['appointment_type'], $_SESSION['appointment_date'], $_SESSION['appointment_time_slot'], $_SESSION['first_name'], $_SESSION['middle_name'], $_SESSION['last_name'], $_SESSION['mobile_number'], $_SESSION['home_address'], $_SESSION['email_address'], $_SESSION['auth_user']['id']);
+    $stmt->execute();
+    
+
+    // Close the database connection
+    $stmt->close();
+    $conn->close();
+
+    // Redirect to the next page or display a success message
+    header("Location: home.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +51,7 @@ require './function/config.php';
             <h1>Appointment Confirmation</h1>
 
             <div class="container">
-                <form action="home.php" method="POST">
+                <form method="POST">
                     <div class="form-group">
                         <label>Please tick the checkboxes to confirm your availability and understanding of the
                             appointment details:</label>
@@ -40,7 +59,7 @@ require './function/config.php';
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="availability" name="availability"
                                 required>
-                            <label class="form-check-label" for="availability">I confirm my availability for the
+                            <label class="form-check-label" for="availability"> I confirm my availability for the
                                 scheduled appointment on [date] at [time].</label>
                         </div>
 
@@ -52,13 +71,13 @@ require './function/config.php';
 
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="changes" name="changes" required>
-                            <label class="form-check-label" for="changes">I will notify you promptly if there are any
+                            <label class="form-check-label" for="changes"> I will notify you promptly if there are any
                                 changes or if I need to reschedule the appointment.</label>
                         </div>
                     </div>
 
                     <div class="button-container">
-                        <button type="submit" class="btnn" onclick="submitForm()">Submit</button>
+                        <button type="submit" class="btnn">Submit</button>
                     </div>
 
                 </form>
@@ -69,7 +88,7 @@ require './function/config.php';
 </body>
 
 </html>
-<script>
+<!-- <script>
     function submitForm() {
         // Perform form submission here
 
@@ -77,4 +96,4 @@ require './function/config.php';
         window.close();
     }
 
-</script>
+</script> -->

@@ -64,9 +64,10 @@ if ($result) {
                     <div class="img" style="margin: 0 auto; text-align: center;">
                         <img src="./upload/news/<?php echo $image; ?>" alt="Image">
                     </div>
-                    <p style="white-space: pre-line;">
+                    <p style=" white-space: pre-line;">
                         <?php echo $content; ?>
-                    </p>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,7 +75,7 @@ if ($result) {
 
     <?php include './function/footer.php' ?>
 
-    
+
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const homeSection = document.querySelector('.home');

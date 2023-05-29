@@ -29,7 +29,7 @@ require './function/config.php';
     <div class="content">
         <h2>SET UP AN APPOINTMENT ONLINE</h2>
         <img src="image/book-appointment/imnotarobot.png" alt="">
-        <a href="book-appointment2.php" class="get-started btnn">Get Started</a>
+        <a href="book-appointment2.php" class="get-started btnn" style="text-decoration:none; color: black;">Get Started</a>
 
     </div>
 </body>

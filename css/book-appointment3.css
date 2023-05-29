@@ -62,7 +62,7 @@
 .content {
   background-color: #253239;
   width: 60rem;
-  height: 60rem;
+  height: 61rem;
   margin: 0 auto;
   margin-top: 20px;
   text-align: center;
@@ -91,6 +91,7 @@
   color: black;
   text-align: center;
   line-height: 2.5rem;
+  border: none;
 }
 
 .form-group label {
@@ -163,6 +164,28 @@
   flex-basis: 20%;
   text-align: center;
 }
+
+.unselectable {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.notification {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* CSS code */
+.hidden {
+  display: none;
+}
+
 
 @media screen and (max-width: 600px) {
   .btnn {

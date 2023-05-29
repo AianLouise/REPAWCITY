@@ -1,3 +1,40 @@
+<?php
+session_start();
+require './function/config.php';
+
+$errorMessage = "";
+// Check if there is an error message in the URL
+if (isset($_GET['error']) && $_GET['error'] == 1) {
+    $errorMessage = "The selected date and time slot are already booked. Please choose another slot.";
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Get the selected date and time slot from the form
+    $date = $_POST["date"];
+    $timeSlot = $_POST["time-slot"];
+
+    // Check if the selected date and time slot are not in the database
+    $query = "SELECT * FROM appointment WHERE appointment_date = '$date' AND time_slot = '$timeSlot'";
+    $result = mysqli_query($conn, $query);
+    $rowCount = mysqli_num_rows($result);
+    if ($rowCount > 0) {
+        // The selected date and time slot are already booked, handle the error condition
+        $errorMessage = "The selected date and time slot are already booked. Please choose another slot.";
+    } else {
+        // Store the data in the session
+        $_SESSION["appointment_date"] = $date;
+        $_SESSION["appointment_time_slot"] = $timeSlot;
+
+        // Redirect to the next page or perform further actions
+        header("Location: book-appointment4.php");
+        exit();
+    }
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +47,93 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev',
+                    center: 'title',
+                    right: 'next'
+                },
+                selectable: true,
+                select: function (start, end) {
+                    var selectedDate = moment(start).format('YYYY-MM-DD');
+                    var today = moment().startOf('day'); // Get the start of the current day
+
+                    if (moment(selectedDate).isBefore(today)) {
+                        // Do not select the date if it is before the current day
+                        $('#calendar').fullCalendar('unselect');
+                        return;
+                    }
+
+                    $('#date-input').val(selectedDate).change(); // Update the input value and trigger change event
+                },
+                events: [
+                    // Example of dynamically generated events from the database
+                    <?php
+                    // Retrieve the dates from the appointment table in the database
+                    $query = "SELECT appointment_date, time_slot FROM appointment";
+                    $result = mysqli_query($conn, $query);
+
+                    // Generate event objects for each date
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $date = $row['appointment_date'];
+                        $time_slot = $row['time_slot'];
+
+                        $event = [
+                            "title" => "$time_slot",
+                            "start" => $date,
+                            "end" => $date,
+                            "color" => "#378006"
+                        ];
+                        echo json_encode($event) . ",";
+                    }
+                    ?>
+                ],
+                eventRender: function (event, element) {
+                    // Check if there are two events on the same day
+                    if (event.title === 'Morning Session' && hasAfternoonSession(event.start)) {
+                        element.css('background-color', '#fad046'); // Set background color to #fad046
+                        element.css('border-color', '#fad046');
+                        element.addClass('unselectable'); // Add a class to disable selection of the date
+                    } else if (event.title === 'Afternoon Session' && hasMorningSession(event.start)) {
+                        element.css('background-color', '#fad046'); // Set background color to #fad046
+                        element.css('border-color', '#fad046');
+                        element.addClass('unselectable'); // Add a class to disable selection of the date
+                    }
+                },
+
+            });
+
+            // Check if there is a Morning Session on the given date
+            function hasMorningSession(date) {
+                var events = $('#calendar').fullCalendar('clientEvents');
+                for (var i = 0; i < events.length; i++) {
+                    if (events[i].title === 'Morning Session' && moment(events[i].start).isSame(date, 'day')) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Check if there is an Afternoon Session on the given date
+            function hasAfternoonSession(date) {
+                var events = $('#calendar').fullCalendar('clientEvents');
+                for (var i = 0; i < events.length; i++) {
+                    if (events[i].title === 'Afternoon Session' && moment(events[i].start).isSame(date, 'day')) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+    </script>
+
+
 </head>
 
 <body>
@@ -40,61 +164,34 @@
                 </div>
             </div>
             <div class="container" style="margin-top: 20px;">
-                <form method="POST" action="process_appointment.php">
+                <form method="POST">
                     <div class="form-group">
                         <label for="date">Date:</label>
-                        <input type="date" class="form-control" name="date" id="date-input" style="width: 20rem;"
-                            required>
+                        <input type="date" class="form-control" name="date" id="date-input" required
+                            min="<?php echo date('Y-m-d'); ?>">
                     </div>
                     <div class="form-group">
-                        <label for="time">Time:</label>
-                        <input type="time" class="form-control" name="time" style="width: 20rem;" required>
+                        <select id="time-slot" name="time-slot" class="form-control" required>
+                            <option value="">Select Session</option>
+                            <option value="Morning Session">Morning Session (9:00 AM - 11:30 AM)</option>
+                            <option value="Afternoon Session">Afternoon Session (1:00 PM - 4:30 PM)</option>
+                        </select>
+                    </div>
+
+                    <div class="notification error <?php echo empty($errorMessage) ? 'hidden' : ''; ?>">
+                        <?php echo $errorMessage; ?>
+                    </div>
+
+                    <div class="col">
+                        <a href="book-appointment2.php" class="btnn  back"
+                            style="text-decoration:none; color: black;">Back</a>
+                        <button type="submit" class="btnn next">Next</button>
                     </div>
                 </form>
             </div>
 
-            <div class="button-container">
-                <a href="book-appointment2.php" class="btnn  back">Back</a>
-                <a href="book-appointment4.php" class="btnn  next">Next</a>
-            </div>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev',
-                    center: 'title',
-                    right: 'next'
-                },
-                selectable: true,
-                select: function(start, end) {
-                    var selectedDate = moment(start).format('YYYY-MM-DD');
-                    $('#date-input').val(selectedDate).change(); // Update the input value and trigger change event
-                },
-                events: [
-                    // Add your events here
-                    {
-                        title: 'Appointment',
-                        start: '2023-05-20T10:00:00',
-                        end: '2023-05-20T11:00:00',
-                        color: '#378006'
-                    },
-                    {
-                        title: 'Appointment',
-                        start: '2023-05-21T14:00:00',
-                        end: '2023-05-21T15:00:00',
-                        color: '#378006'
-                    },
-                    // Add more events as needed
-                ]
-            });
-        });
-    </script>
 </body>
 
 </html>

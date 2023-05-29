@@ -1,6 +1,18 @@
 <?php
 session_start(); // Add this line to start the session
 require './function/config.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve and process the form data
+    $type = $_POST['type'];
+    // ... process other form fields and store the data as needed
+
+    // Store the collected data in session variables
+    $_SESSION['appointment_type'] = $type;
+    // ... store other form fields in session variables as needed
+    header("Location: book-appointment3.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +26,6 @@ require './function/config.php';
     <link rel="stylesheet" href="css/book-appointment2.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
     <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
@@ -28,23 +39,25 @@ require './function/config.php';
     </div>
     <div class="content">
         <h2>APPOINTMENT TYPE</h2>
-        <select name="action" id="action" style="width: 20rem; height: 3rem;" class="type">
-            <option value="">Select</option>
-            <option value="adopt">Adopt</option>
-            <option value="donate">Donate</option>
-            <option value="visit">Visit</option>
-            <option value="volunteer">Volunteer</option>
-        </select>
-        <div class="row">
-            <div class="col">
-                <a href="book-appointment.php" class="btnn back">Back</a>
+        <form method="POST">
+            <select name="type" id="type" style="width: 20rem; height: 3rem;" class="type" required>
+                <option value="">Select</option>
+                <option value="adopt">Adopt</option>
+                <option value="donate">Donate</option>
+                <option value="visit">Visit</option>
+                <option value="volunteer">Volunteer</option>
+            </select>
+            <div class="row">
+                <div class="col">
+                    <a href="book-appointment.php" class="btnn back" style="text-decoration:none; color: black;">Back</a>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btnn next" >Next</button>
+                </div>
             </div>
-            <div class="col">
-                <a href="book-appointment3.php" class="btnn next">Next</a>
-            </div>
-        </div>
-
+        </form>
     </div>
+
 </body>
 
 </html>

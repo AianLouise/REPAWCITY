@@ -370,13 +370,13 @@ span {
   }
 
   .headline .details p {
-    font-size: 0.4cm;
+    font-size: 0.3cm;
   }
 
   .card-container {
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    margin: 5px;
     margin-top: 4%;
   }
 

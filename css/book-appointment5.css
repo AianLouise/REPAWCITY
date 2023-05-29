@@ -15,6 +15,7 @@
   width: 20rem;
   height: 3rem;
   text-align: center;
+  border: none;
 }
 
 .navbar1 {
@@ -75,10 +76,10 @@
 }
 
 .container {
+  color: white ;
   font-size: 1.3em;
   width: 35rem;
   margin: 0 auto;
-  background-color: #ffffff;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -91,7 +92,7 @@ h1 {
 
 .form-check-label {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: lighter;
 }
 
 .button-container {
@@ -103,7 +104,9 @@ h1 {
   width: 20px;
   height: 20px;
 }
-
+label{
+  margin-left: 10px;
+}
 @media screen and (max-width: 600px) {
   .btnn {
     width: 2rem;

@@ -27,7 +27,7 @@
                 <a href="success-stories.php" class="a1">Success Stories</a>
                 <a href="FAQ.php" class="a2">FAQ</a>
                 <a href="contact.php" class="a3">Contact</a>
-                <a href="#" class="a4">Team</a>
+                <a href="team.php" class="a4">Team</a>
             </div>
         </div>
         <?php

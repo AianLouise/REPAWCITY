@@ -76,7 +76,7 @@ $loggedIn = isset($_SESSION['auth_user']);
                     <p class="about">
                         <?php echo $row["about"]; ?>
                     </p><br>
-                    <a href="" class="contact-btn btn"><i class="fa-solid fa-phone icon" style="color: #ffffff;"></i>
+                    <a href="book-appointment.php" class="contact-btn btn"><i class="fa-solid fa-phone icon" style="color: #ffffff;"></i>
                         Contact us to Meet
                         <?php echo $row["name"]; ?>
                     </a>

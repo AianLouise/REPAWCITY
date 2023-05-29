@@ -15,6 +15,7 @@
   width: 20rem;
   height: 3rem;
   text-align: center;
+  border: none;
 }
 
 .navbar1 {
@@ -63,7 +64,7 @@
   align-items: center;
   background-color: #253239;
   width: 60rem;
-  height: 55rem;
+  height: 57rem;
   margin: 0 auto;
   margin-top: 20px;
   text-align: center;
@@ -130,10 +131,10 @@ h1 {
 form {
   width: 40rem;
   margin-top: -50px;
-  background-color: #ffffff;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
 }
 
 label {
@@ -153,20 +154,9 @@ input[type="email"] {
   text-align: center;
 }
 
-button[type="submit"] {
-  background-color: #4caf50;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 16px;
+span{
+  color: red;
 }
-
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
 @media screen and (max-width: 600px) {
   .btnn {
     width: 2rem;
@@ -252,7 +242,6 @@ button[type="submit"]:hover {
   form {
     width: 100%;
     margin-top: -50px;
-    background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

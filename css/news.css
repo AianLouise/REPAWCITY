@@ -133,9 +133,24 @@
   font-size: 0.5cm;
 }
 
+.headline{
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.headline-link {
+  text-decoration: none;
+  color: black;
+}
+
+.headline:hover {
+  transform: scale(1.01);
+}
+
 .card-container {
   display: flex;
   justify-content: space-between;
+  margin: 10px;
   margin-top: 4%;
 }
 
@@ -145,6 +160,9 @@
   height: 23rem;
   background-color: white;
   border-radius: 10px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .card-container .card img {
@@ -184,6 +202,10 @@
   font-size: 0.4cm;
 }
 
+.latest {
+  margin-bottom: 5px;
+}
+
 span {
   font-family: Calibri, sans-serif;
   font-weight: 500;
@@ -195,6 +217,44 @@ span {
   text-align: justify;
   bottom: 3%;
   right: 10%;
+}
+
+.card-container.latest-news {
+  position: relative;
+}
+
+.news-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #888888 #f1f1f1;
+}
+
+.news-slider::-webkit-scrollbar {
+  width: 8px;
+}
+
+.news-slider::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.news-slider::-webkit-scrollbar-thumb {
+  background-color: #888888;
+  border-radius: 4px;
+}
+
+.news-slider::-webkit-scrollbar-thumb:hover {
+  background-color: #555555;
+}
+
+.latest.card {
+  flex: 0 0 auto;
+  border-radius: 10px;
+}
+
+.latest.card:hover {
+  transform: scale(1.02);
 }
 
 @media screen and (max-width: 600px) {
@@ -279,7 +339,7 @@ span {
 
   .headline .img {
     width: 24vw;
-    height: 13vh;
+    height: 24.5vh;
     position: relative;
     overflow: hidden;
     border-radius: 10px;
@@ -289,7 +349,7 @@ span {
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 40%;
+    top: 0%;
     left: 0;
     padding: 20px;
     object-fit: cover;
@@ -316,21 +376,23 @@ span {
   .card-container {
     display: flex;
     justify-content: space-between;
+    margin: 10px;
     margin-top: 4%;
-    margin-left: -20%;
   }
 
   .card {
     position: relative;
-    width: 20rem;
-    height: 20rem;
+    width: 10rem;
+    height: 18rem;
     background-color: white;
     border-radius: 10px;
+    margin-right: 20px;
+    margin-top: 10px;
     margin-left: 10px;
   }
 
   .card-container .card img {
-    width: 30vw;
+    width: 35vw;
     height: 15vh;
     position: relative;
     overflow: hidden;
@@ -352,7 +414,7 @@ span {
   .latest-news .details {
     position: absolute;
     text-align: justify;
-    top: 40%;
+    top: 43%;
     left: 10%;
     width: 80%;
   }

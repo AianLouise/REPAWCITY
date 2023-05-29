@@ -19,7 +19,7 @@
             <a href="adoptpage.php?type=Dog">ADOPT A DOG</a><br>
             <a href="adoptpage.php?type=Cat">ADOPT A CAT</a><br>
             <a href="donatepage.php" >DONATE</a><br>
-            <a href="#">SUCCESS STORIES</a><br>
+            <a href="success-stories.php">SUCCESS STORIES</a><br>
             <a href="volunteer.php">VOLUNTEER</a><br>
             <a href="news.php">NEWS</a>
         </div>
@@ -37,7 +37,7 @@
             <a href="https://goo.gl/maps/CxUucZAbZ6mvNXRG7" target="_blank">View Google Maps here</a>
         </div>
         
-        
+        <a href="#top" class="scroll-to-top"><i class="fas fa-arrow-up"></i></a>
     </footer>
     <div class="info">
             <div class="contact">
@@ -47,10 +47,10 @@
             </div>
             <div class="information">
                 <h3>INFORMATION</h3>
-                <p>Mission</p>
-                <p>Assistance</p>
-                <p>Privacy Policy</p>
-                <p>Terms of Service</p>
+                <a href="mission.php" style="text-decoration: none; color: white;"><p>Mission</p></a>
+                <a href="FAQ.php" style="text-decoration: none; color: white;"><p>Assistance</p></a>
+                <a href="privacy-policy.php" style="text-decoration: none; color: white;"><p>Privacy Policy</p></a>
+                <a href="terms-of-use.php" style="text-decoration: none; color: white;"><p>Terms of Service</p></a>
             </div>
             <div class="social">
                 <h3>SOCIAL</h3>

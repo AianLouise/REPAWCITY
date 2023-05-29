@@ -62,7 +62,7 @@
 .content {
   background-color: #253239;
   width: 60rem;
-  height: 55rem;
+  height: 60rem;
   margin: 0 auto;
   margin-top: 20px;
   text-align: center;
@@ -102,17 +102,12 @@
   font-size: 20px;
 }
 
-.day.highlight {
-  background-color: #fad046;
-  color: white;
-}
-
 .info {
-  margin-top: 1rem;
+  margin-top: 10px;
   color: white;
 }
 .info2 {
-  margin-top: 1rem;
+  margin-top: 10px;
   color: white;
 }
 .info .available .square {
@@ -131,32 +126,41 @@
 }
 
 .calendar-container {
-  max-width: 500px;
+  max-width: 550px;
   margin: 0 auto;
   padding-top: 30px;
 }
 
-.calendar {
-  display: flex;
-  flex-wrap: wrap;
+#calendar {
+  width: 35rem;
+  height: auto;
+  border: 1px solid black;
   background-color: white;
+  padding: 20px;
+  text-align: left;
   border-radius: 10px;
 }
 
-.day {
-  width: calc(100% / 7);
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
+.fc-day-number {
+  text-align: left;
+  margin-top: 20px;
+  margin-right: 25px;
 }
 
-.navigation {
-  display: flex;
-  align-items: center;
+.fc-toolbar {
   justify-content: space-between;
-  margin-bottom: 20px;
-  color: white;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.fc-left,
+.fc-right {
+  flex-basis: 40%;
+  text-align: left;
+}
+
+.fc-center {
+  flex-basis: 20%;
   text-align: center;
 }
 
@@ -241,5 +245,14 @@
     height: 2rem;
     background-color: #fad046;
     left: 5%;
+  }
+  #calendar {
+    width: 25rem;
+    height: auto;
+    border: 1px solid black;
+    background-color: white;
+    padding: 20px;
+    text-align: left;
+    border-radius: 10px;
   }
 }

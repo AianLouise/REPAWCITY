@@ -82,11 +82,13 @@ mysqli_close($conn);
             <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
             <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
             <a href="admin-manage-user.php" class="menu"> Manage Users</a>
+            <a href="admin-add-news.php" class="menu"> Add News</a>
+            <a href="admin-manage-news.php" class="menu"> Manage News</a>
         </div>
         <div class="main">
             <div class="modify-featured">
                 <div class="container mt-4 table-container">
-                    <h1>Database Table</h1>
+                    <h1>Pets List</h1>
                     <table class="table" style="text-align:center">
                         <thead>
                             <tr>

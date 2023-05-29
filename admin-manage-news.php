@@ -5,66 +5,32 @@ require './function/config.php';
 if (isset($_POST['promote'])) {
     // Retrieve the data from the form
     $id = $_POST['id'];
-    $userType = $_POST['user_type'];
+    $is_featured = $_POST['is_featured'];
 
-    // Check the user type
-    if ($userType == 1) {
+    if ($is_featured == 1) {
         echo '<script language="javascript">';
-        echo 'alert("Already an Admin");';
-        echo 'window.location.href = "admin-manage-user.php";';
+        echo 'alert("Already a Headline");';
+        echo 'window.location.href = "admin-manage-news.php";';
         echo '</script>';
         exit;
-    } elseif ($userType == 2) {
-        // Promote to admin
-        $sql = "UPDATE user SET user_type = 1 WHERE user_id = '$id'";
-        if (mysqli_query($conn, $sql)) {
-            echo '<script language="javascript">';
-            echo 'alert("Promoted to Admin");';
-            echo 'window.location.href = "admin-manage-user.php";';
-            echo '</script>';
-            exit;
+    } elseif ($is_featured == 0) {
+        // Set all other news as not featured (is_featured = 0)
+        $updateAllSql = "UPDATE news SET is_featured = 0 WHERE news_id <> '$id'";
+        if (mysqli_query($conn, $updateAllSql)) {
+            // Set the selected news as featured (is_featured = 1)
+            $updateSql = "UPDATE news SET is_featured = 1 WHERE news_id = '$id'";
+            if (mysqli_query($conn, $updateSql)) {
+                echo '<script language="javascript">';
+                echo 'alert("Set as Headlined");';
+                echo 'window.location.href = "admin-manage-news.php";';
+                echo '</script>';
+                exit;
+            } else {
+                echo "Error setting as Headlined: " . mysqli_error($conn);
+                exit;
+            }
         } else {
-            echo "Error promoting user to admin: " . mysqli_error($conn);
-            exit;
-        }
-    } else {
-        echo "Invalid user type";
-        exit;
-    }
-}
-
-
-// Close the database connection
-mysqli_close($conn);
-?>
-
-<?php
-require './function/config.php';
-
-// Check if the form is submitted
-if (isset($_POST['demote'])) {
-    // Retrieve the data from the form
-    $id = $_POST['id'];
-    $userType = $_POST['user_type'];
-
-    // Check the user type
-    if ($userType == 2) {
-        echo '<script language="javascript">';
-        echo 'alert("Already a Regular User");';
-        echo 'window.location.href = "admin-manage-user.php";';
-        echo '</script>';
-        exit;
-    } elseif ($userType == 1) {
-        // Demote to regular user
-        $sql = "UPDATE user SET user_type = 2 WHERE user_id = '$id'";
-        if (mysqli_query($conn, $sql)) {
-            echo '<script language="javascript">';
-            echo 'alert("Demoted to Regular User");';
-            echo 'window.location.href = "admin-manage-user.php";';
-            echo '</script>';
-            exit;
-        } else {
-            echo "Error demoting user to regular user: " . mysqli_error($conn);
+            echo "Error updating news: " . mysqli_error($conn);
             exit;
         }
     } else {
@@ -82,25 +48,17 @@ require './function/config.php';
 if (isset($_POST['update'])) {
     // Retrieve the data from the form
     $id = $_POST['id'];
-    $firstName = mysqli_real_escape_string($conn, $_POST['fname']);
-    $lastName = mysqli_real_escape_string($conn, $_POST['lname']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $details = mysqli_real_escape_string($conn, $_POST['details']);
 
-    // Update the data in the database
-    if (!empty($password)) {
-        $sql = "UPDATE user SET fname = '$firstName', lname = '$lastName', email = '$email', password = '$password' WHERE user_id = '$id'";
-    } else {
-        // If no new password is provided, update only the other fields
-        $sql = "UPDATE user SET fname = '$firstName', lname = '$lastName', email = '$email' WHERE user_id = '$id'";
-    }
+    $sql = "UPDATE news SET title = '$title', details = '$details' WHERE news_id = '$id'";
 
     // Perform the database query
     if (mysqli_query($conn, $sql)) {
         echo "
             <script> 
                 alert('Data updated successfully'); 
-                window.location.href = 'admin-manage-user.php';
+                window.location.href = 'admin-manage-news.php';
             </script>";
     } else {
         echo "Error updating data: " . mysqli_error($conn);
@@ -118,13 +76,13 @@ if (isset($_POST['delete'])) {
     $id = $_POST['id'];
 
     // Delete the record from the database
-    $sql = "DELETE FROM pets WHERE pets_id='$id'";
+    $sql = "DELETE FROM news WHERE news_id='$id'";
 
     if (mysqli_query($conn, $sql)) {
         echo "
         <script> 
             alert('Record deleted successfully'); 
-            document.location.href = 'admin-manage-pets.php';
+            document.location.href = 'admin-manage-news.php';
         </script>";
     } else {
         echo "Error deleting record: " . mysqli_error($conn);
@@ -191,17 +149,16 @@ mysqli_close($conn);
         <div class="main">
             <div class="modify-featured">
                 <div class="container mt-4 table-container">
-                    <h1>User List</h1>
+                    <h1>News List</h1>
                     <table class="table" style="text-align:center">
                         <thead>
                             <tr>
-                                <th>User ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Password</th>
-                                <th>User Type</th>
-                                <th>Date Created</th>
+                                <th>News ID</th>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Details</th>
+                                <th>Date Published</th>
+                                <th>Is_Featured</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -209,7 +166,7 @@ mysqli_close($conn);
                             require './function/config.php';
 
                             // Query the database table
-                            $sql = "SELECT user_id, fname ,lname , email, password, user_type, created_at FROM user";
+                            $sql = "SELECT news_id, image ,title , details, date_published, is_featured FROM news";
                             $result = $conn->query($sql);
 
                             // Fetch and display the data
@@ -219,25 +176,20 @@ mysqli_close($conn);
 
                                     <tr>
                                         <td>
-                                            <?php echo $row["user_id"]; ?>
+                                            <?php echo $row["news_id"]; ?>
+                                        </td>
+                                        <td><img src="./upload/news/<?php echo $row['image']; ?>" alt="" height="50"></td>
+                                        <td>
+                                            <?php echo $row["title"]; ?>
                                         </td>
                                         <td>
-                                            <?php echo $row["fname"]; ?>
+                                            <?php echo $row["details"]; ?>
                                         </td>
                                         <td>
-                                            <?php echo $row["lname"]; ?>
+                                            <?php echo $row["date_published"]; ?>
                                         </td>
                                         <td>
-                                            <?php echo $row["email"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["password"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["user_type"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["created_at"]; ?>
+                                            <?php echo $row["is_featured"]; ?>
                                         </td>
                                     </tr>
 
@@ -263,45 +215,33 @@ mysqli_close($conn);
                                 <input type="text" class="form-control" id="id" name="id" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="user_type">User Type:</label>
-                                <input type="text" class="form-control" id="user_type" name="user_type" required
+                                <label for="user_type">Is_Featured:</label>
+                                <input type="text" class="form-control" id="is_featured" name="is_featured" required
                                     readonly>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="fname">First Name:</label>
-                                <input type="text" class="form-control" id="fname" name="fname" required>
+                                <label for="fname">Title:</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="lname">Last Name:</label>
-                                <input type="text" class="form-control" id="lname" name="lname" required>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="about">Details:</label>
+                            <textarea class="form-control" id="details" name="details" rows="4" required></textarea>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="password">Password:</label>
-                                <input type="text" class="form-control" id="password" name="password" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="date_created">Date Created:</label>
-                                <input type="text" class="form-control" id="date_created" name="date_created" required
-                                    readonly>
+                                <label for="date_created">Date Published:</label>
+                                <input type="text" class="form-control" id="date_published" name="date_published"
+                                    required readonly>
                             </div>
 
                         </div>
                         <div class="form-group text-center">
                             <button type="submit" name="update" class="btn btn-primary" id="btn-update">Update</button>
                             <button type="submit" name="delete" class="btn btn-danger" id="btn-delete">Delete</button>
-                            <button type="submit" name="promote" class="btn btn-primary"
-                                id="btn-promote">Promote</button>
-                            <button type="submit" name="demote" class="btn btn-danger" id="btn-demote">Demote</button>
+                            <button type="submit" name="promote" class="btn btn-primary"id="btn-promote">Set as Headline</button>
                         </div>
                     </form>
                 </div>
@@ -329,21 +269,17 @@ mysqli_close($conn);
 
                 // Get the selected row's data
                 var id = $(this).find("td:nth-child(1)").text().trim();
-                var fname = $(this).find("td:nth-child(2)").html().trim();
-                var lname = $(this).find("td:nth-child(3)").text().trim();
-                var email = $(this).find("td:nth-child(4)").text().trim();
-                var password = $(this).find("td:nth-child(5)").text().trim();
-                var user_type = $(this).find("td:nth-child(6)").text().trim();
-                var date_created = $(this).find("td:nth-child(7)").text().trim();
+                var is_featured = $(this).find("td:nth-child(6)").html().trim();
+                var tilte = $(this).find("td:nth-child(3)").text().trim();
+                var details = $(this).find("td:nth-child(4)").text().trim();
+                var date_published = $(this).find("td:nth-child(5)").text().trim();
 
                 // Populate the input fields with the selected row data
                 $("#id").val(id);
-                $("#fname").val(fname);
-                $("#lname").val(lname);
-                $("#email").val(email);
-                $("#password").val(password);
-                $("#user_type").val(user_type);
-                $("#date_created").val(date_created);
+                $("#is_featured").val(is_featured);
+                $("#title").val(tilte);
+                $("#details").val(details);
+                $("#date_published").val(date_published);
             });
         });
     </script>

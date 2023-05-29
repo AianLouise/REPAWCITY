@@ -6,6 +6,9 @@
   text-decoration: none;
   /* outline: auto; */
 }
+.main {
+  height: 75rem;
+}
 
 .btnn {
   width: 2rem;
@@ -57,52 +60,43 @@
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: #253239;
   width: 60rem;
-  height: 35rem;
+  height: 55rem;
   margin: 0 auto;
   margin-top: 20px;
   text-align: center;
-  position: relative;
 }
 
-.content h1 {
+.content .title {
   color: white;
+  font-weight: 100;
+  margin-top: 20px;
 }
 
 .container {
-  font-size: 1.3em;
-  width: 35rem;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-h1 {
+.back,
+.next {
+  text-decoration: none;
+  margin-top: 10px; /* Adjust the margin-top value as needed */
+  display: inline-block;
+  width: 10rem;
+  height: 2.5rem;
+  background-color: #fad046;
+  color: black;
   text-align: center;
-  margin-top: 30px;
+  line-height: 2.5rem;
 }
 
-.form-check-label {
-  font-size: 20px;
-  font-weight: bold;
+.form-group label {
+  color: white;
 }
 
-.button-container {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.form-check-input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-}
 
 @media screen and (max-width: 600px) {
   .btnn {
@@ -166,9 +160,24 @@ h1 {
     align-items: center;
     background-color: #253239;
     width: 100%;
-    height: 45rem;
+    height: 60rem;
     margin: 0 auto;
     margin-top: 20px;
     text-align: center;
+  }
+
+  .info .available .square {
+    position: absolute;
+    width: 3rem;
+    height: 2rem;
+    background-color: white;
+    left: 5%;
+  }
+  .info2 .unavailable .square {
+    position: absolute;
+    width: 3rem;
+    height: 2rem;
+    background-color: #fad046;
+    left: 5%;
   }
 }

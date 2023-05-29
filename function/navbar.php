@@ -24,7 +24,7 @@
         <div class="dropdown dr">
             <a href="javascript:void(0);" class="list n6">About Us &#9660;</a>
             <div class="dropdown-content">
-                <a href="#" class="a1">Success Stories</a>
+                <a href="success-stories.php" class="a1">Success Stories</a>
                 <a href="FAQ.php" class="a2">FAQ</a>
                 <a href="contact.php" class="a3">Contact</a>
                 <a href="#" class="a4">Team</a>

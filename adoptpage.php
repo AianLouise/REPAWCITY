@@ -60,7 +60,7 @@ $pet_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
             </a>
 
         </div>
-        <div class="pets">
+        <div class="pets" id="pets">
             <h1 class="adopt-title">MEET OUR DOGS</h1>
             <p class="sort">Sort by:</p>
             <div class="menu">
@@ -149,7 +149,7 @@ $pet_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         echo '</a>';
                     }
                 } else {
-                    echo 'No pets found.';
+                    echo '<p>No pets found.</p>';
                 }
                 ?>
 
@@ -161,3 +161,36 @@ $pet_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
 </body>
 
 </html>
+
+<script>
+    // Add this script at the bottom of the HTML file or in a separate JavaScript file
+    document.addEventListener('DOMContentLoaded', function () {
+        var typeSelect = document.getElementById('type');
+        var sexSelect = document.getElementById('sex');
+        var weightSelect = document.getElementById('weight');
+        var ageSelect = document.getElementById('age');
+
+        typeSelect.addEventListener('change', function () {
+            scrollToSection('pets');
+        });
+
+        sexSelect.addEventListener('change', function () {
+            scrollToSection('pets');
+        });
+
+        weightSelect.addEventListener('change', function () {
+            scrollToSection('pets');
+        });
+
+        ageSelect.addEventListener('change', function () {
+            scrollToSection('pets');
+        });
+
+        function scrollToSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+</script>

@@ -7,6 +7,11 @@
   /* outline: auto; */
 }
 
+.navbar .n6 {
+  background-color: #d6bca8;
+  border-radius: 10px;
+}
+
 .btn {
   background-color: #253239;
   color: #f1f1f1;

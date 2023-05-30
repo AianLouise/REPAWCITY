@@ -6,9 +6,9 @@ require './function/config.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Prepare and execute the database query
-    $query = "INSERT INTO appointment (appointment_type, appointment_date, time_slot, first_name, middle_name, last_name, mobile_number, home_address, email_address, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO appointment (appointment_type, appointment_date, time_slot, first_name, middle_name, last_name, mobile_number, home_address, email_address, status, user_id, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssssssssi", $_SESSION['appointment_type'], $_SESSION['appointment_date'], $_SESSION['appointment_time_slot'], $_SESSION['first_name'], $_SESSION['middle_name'], $_SESSION['last_name'], $_SESSION['mobile_number'], $_SESSION['home_address'], $_SESSION['email_address'], $_SESSION['auth_user']['id']);
+    $stmt->bind_param("ssssssssssis", $_SESSION['appointment_type'], $_SESSION['appointment_date'], $_SESSION['appointment_time_slot'], $_SESSION['first_name'], $_SESSION['middle_name'], $_SESSION['last_name'], $_SESSION['mobile_number'], $_SESSION['home_address'], $_SESSION['email_address'],  $_SESSION['status'], $_SESSION['auth_user']['id'], $_SESSION['message']);
     $stmt->execute();
     
 
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Redirect to the next page or display a success message
     header("Location: home.php");
-    exit;
+    exit();
 }
 ?>
 
@@ -88,12 +88,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 
 </html>
-<!-- <script>
-    function submitForm() {
-        // Perform form submission here
-
-        // Close the current window/tab
-        window.close();
-    }
-
-</script> -->

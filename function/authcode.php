@@ -67,7 +67,7 @@ if (isset($_POST["register"])) {
             ];
 
             echo '<script language="javascript">';
-            echo 'window.location = "../adminpage.php";';
+            echo 'window.location = "../admin-dashboard.php";';
             echo 'alert("Logged In Successfully as Admin");';
             echo '</script>';
         } elseif ($userType == 2) {

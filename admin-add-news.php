@@ -68,7 +68,8 @@ if (isset($_POST["submit"])) {
     </nav>
     <div class="setting">
         <div class="sidebar">
-            <a href="adminpage.php" class="menu"> Add Pets</a>
+            <a href="admin-dashboard.php" class="menu"> Dashboard</a>
+            <a href="admin-add-pets.php" class="menu"> Add Pets</a>
             <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
             <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
             <a href="admin-manage-user.php" class="menu"> Manage Users</a>

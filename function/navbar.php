@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +39,29 @@
                 <div class="dropdown-content">
                     <a href="edit-profile.php">Edit Profile</a>
                     <a href="change-password.php">Change Password</a>
+                    <?php
+                    // Check if the user_id is in appointment
+                    $userId = $_SESSION['auth_user']['id'];
+                    $query = "SELECT appointment_type, appointment_id FROM appointment WHERE user_id = ?";
+                    $stmt = $conn->prepare($query);
+                    $stmt->bind_param("i", $userId);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    // Check if any appointments are found
+                    if ($result->num_rows > 0) {
+                        // Display dropdown option for each appointment type
+                        while ($row = $result->fetch_assoc()) {
+                            $appointmentType = $row['appointment_type'];
+                            $appointmentId = $row['appointment_id'];
+                            ?>
+                            <a href="notification.php?appointmentId=<?php echo $appointmentId; ?>" class="list appointment-dropdown"
+                                onclick="changePassword('<?php echo $appointmentType; ?> Appointment')"><?php echo $appointmentType; ?> Appointment</a>
+                            <?php
+                        }
+                        
+                    }
+                    ?>
                 </div>
             </div>
             <a href="javascript:void(0);" class="list logout" onclick="logout()">Logout</a>

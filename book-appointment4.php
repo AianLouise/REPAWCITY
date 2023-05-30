@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['mobile_number'] = $_POST['mobile_number'];
     $_SESSION['home_address'] = $_POST['home_address'];
     $_SESSION['email_address'] = $_POST['email_address'];
-
+    $_SESSION['status'] = 'Pending';
+    $_SESSION['message'] = '"Your appointment is currently pending approval."';
     // Redirect to the next page or perform other actions
     header('Location: book-appointment5.php');
     exit();

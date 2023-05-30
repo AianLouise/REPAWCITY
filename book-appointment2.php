@@ -42,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST">
             <select name="type" id="type" style="width: 20rem; height: 3rem;" class="type" required>
                 <option value="">Select</option>
-                <option value="adopt">Adopt</option>
-                <option value="donate">Donate</option>
-                <option value="visit">Visit</option>
-                <option value="volunteer">Volunteer</option>
+                <option value="Adopt">Adopt</option>
+                <option value="Donate">Donate</option>
+                <option value="Visit">Visit</option>
+                <option value="Volunteer">Volunteer</option>
             </select>
             <div class="row">
                 <div class="col">

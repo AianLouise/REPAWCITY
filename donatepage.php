@@ -7,6 +7,7 @@ session_start(); // Add this line to start the session
 <html lang="en">
 
 <head>
+    <link rel="icon" href="image/icon.png" type="image/png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,7 +86,7 @@ session_start(); // Add this line to start the session
                 <div class="card">
                     <h2>Cash</h2>
                     <hr style="margin-bottom:90px;">
-                    <p>Please let us know when would be a good time for you to drop by the shelter. <br><br>
+                    <p>Please <a href="contact.php">let us know</a> when would be a good time for you to drop by the shelter. <br><br>
                         We'll be very pleased to meet you and show some of our pets that we're helping!</p>
                 </div>
             </div>

@@ -1,9 +1,11 @@
 <?php
 require './function/config.php';
+session_start();
 
 if (isset($_POST["submit"])) {
     $title = mysqli_real_escape_string($conn, $_POST["title"]);
     $details = mysqli_real_escape_string($conn, $_POST["details"]);
+    $user_id = $_SESSION['auth_user']['id'];
 
     if ($_FILES["image"]["error"] === 4) {
         echo "<script> alert('Image Does Not Exist'); </script>";
@@ -24,7 +26,7 @@ if (isset($_POST["submit"])) {
             $newImageName .= '.' . $imageExtension;
 
             move_uploaded_file($tmpName, 'upload/news/' . $newImageName);
-            $query = "INSERT INTO news (title,details,image) VALUES('$title' , '$details' , '$newImageName')";
+            $query = "INSERT INTO news (title, details, image, user_id) VALUES ('$title', '$details', '$newImageName', '$user_id')";
             $result = mysqli_query($conn, $query);
             if ($result) {
                 echo "
@@ -39,10 +41,12 @@ if (isset($_POST["submit"])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <link rel="icon" href="image/icon.png" type="image/png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

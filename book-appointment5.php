@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 
     // Redirect to the next page or display a success message
-    header("Location: home.php");
+    header("Location: book-appointment6.php");
     exit();
 }
 ?>
@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
+    <link rel="icon" href="image/icon.png" type="image/png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="checkbox" class="form-check-input" id="availability" name="availability"
                                 required>
                             <label class="form-check-label" for="availability"> I confirm my availability for the
-                                scheduled appointment on [date] at [time].</label>
+                                scheduled appointment on <?php echo date('F j, Y', strtotime($_SESSION['appointment_date'])); ?> at <?php echo $_SESSION['appointment_time_slot']; ?>.</label>
                         </div>
 
                         <div class="form-check">

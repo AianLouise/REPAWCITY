@@ -8,6 +8,7 @@ $loggedIn = isset($_SESSION['auth_user']);
 <html lang="en">
 
 <head>
+    <link rel="icon" href="image/icon.png" type="image/png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +32,7 @@ $loggedIn = isset($_SESSION['auth_user']);
             </a>
         </div>
         <div class="pets">
-            <h1 class="adopt-title">MEET OUR DOGS</h1>
+            <h1 class="adopt-title">MEET OUR PETS</h1>
             <a href="adoptpage.php">
                 <p class="back"><i class="fa-sharp fa-solid fa-arrow-left"></i> Back </p>
             </a>

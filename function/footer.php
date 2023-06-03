@@ -50,7 +50,7 @@
                 <a href="mission.php" style="text-decoration: none; color: white;"><p>Mission</p></a>
                 <a href="FAQ.php" style="text-decoration: none; color: white;"><p>Assistance</p></a>
                 <a href="privacy-policy.php" style="text-decoration: none; color: white;"><p>Privacy Policy</p></a>
-                <a href="terms-of-use.php" style="text-decoration: none; color: white;"><p>Terms of Service</p></a>
+                <a href="terms-of-use.php" style="text-decoration: none; color: white;"><p>Terms of Use</p></a>
             </div>
             <div class="social">
                 <h3>SOCIAL</h3>

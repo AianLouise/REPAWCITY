@@ -28,6 +28,7 @@
                 <a href="FAQ.php" class="a2">FAQ</a>
                 <a href="contact.php" class="a3">Contact</a>
                 <a href="team.php" class="a4">Team</a>
+                <a href="reference.php" class="a5">References</a>
             </div>
         </div>
         <?php

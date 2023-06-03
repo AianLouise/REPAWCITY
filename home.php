@@ -1,5 +1,5 @@
-<?php require './function/config.php' ?>
 <?php
+require './function/config.php';
 session_start(); // Add this line to start the session
 ?>
 
@@ -27,7 +27,9 @@ session_start(); // Add this line to start the session
             <img src="./image/pets.png" class="paw-bg3">
             <h1 class="title">They are waiting for YOU!</h1>
         </div>
+
         <div class="pets">
+
             <div class="menu">
                 <a href="adoptpage.php?type=Dog" class="find-dog">
                     <i class="fa-solid fa-dog fa-lg"></i> Find a Dog
@@ -38,14 +40,19 @@ session_start(); // Add this line to start the session
                 <a href="volunteer.php" class="volunteer"><i class="fa-solid fa-handshake-angle fa-lg"></i>
                     Volunteer</a>
             </div>
+
             <h2 class="adopt-title">Pets Available for Adoption</h2>
+
             <a href="adoptpage.php">
                 <p class="see-more">See More <i class="fa-sharp fa-solid fa-arrow-right"></i></p>
             </a>
+
         </div>
     </section>
+
     <section class="hero">
         <div class="adoption">
+            <!-- Display featured pets -->
             <?php for ($i = 1; $i <= 4; $i++):
                 $rows = mysqli_query($conn, "SELECT * FROM pets WHERE is_featured = $i");
                 foreach ($rows as $row): ?>
@@ -61,6 +68,7 @@ session_start(); // Add this line to start the session
             endfor; ?>
         </div>
     </section>
+
     <section class="donate-container">
         <img class="donate-bg" src="./image/donatebg.png" alt="">
         <h1 class="donate-title">Planning to Donate?</h1>

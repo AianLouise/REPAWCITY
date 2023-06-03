@@ -51,8 +51,12 @@ session_start(); // Add this line to start the session
                         $title = $featuredNews['title'];
                         $details = $featuredNews['details'];
 
-                        // Check the length of the details paragraph
+
                         $maxCharacters = 300; // Maximum number of characters to show
+                        if (strlen($title) > 50) {// if the title is too long
+                            $maxCharacters = 200; //  Set maximum number of characters to show
+                        }
+                        // Check the length of the details paragraph
                         if (strlen($details) > $maxCharacters) {
                             $details = substr($details, 0, $maxCharacters) . '...'; // Cut the paragraph and add ellipsis
                         }

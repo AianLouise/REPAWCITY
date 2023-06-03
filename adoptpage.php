@@ -3,10 +3,10 @@ session_start();
 require './function/config.php';
 include './function/navbar.php';
 
+
 $loggedIn = isset($_SESSION['auth_user']);
 
 // Retrieve the selected filter values from the form submission
-
 $type = $_POST['type'] ?? $_GET['type'] ?? '';
 $sex = $_POST['sex'] ?? '';
 $weight = $_POST['weight'] ?? '';

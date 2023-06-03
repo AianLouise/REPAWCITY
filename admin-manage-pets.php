@@ -344,6 +344,7 @@ mysqli_close($conn);
                         <div class="form-group text-center">
                             <button type="submit" name="update" class="btn btn-primary" id="btn-update">Update</button>
                             <button type="submit" name="delete" class="btn btn-danger" id="btn-delete">Delete</button>
+                            <button type="submit" name="adopted" class="btn btn-primary" id="btn-adopted">Mark as Adopted</button>
                         </div>
                     </form>
                 </div>

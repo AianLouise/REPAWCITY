@@ -1,7 +1,7 @@
 <?php
 require './function/config.php';
 
-// Check if the form is submitted
+// Promote Button
 if (isset($_POST['promote'])) {
     // Retrieve the data from the form
     $id = $_POST['id'];
@@ -39,12 +39,7 @@ if (isset($_POST['promote'])) {
     }
 }
 
-// Close the database connection
-mysqli_close($conn);
-?>
-
-<?php
-require './function/config.php';
+//Update Button
 if (isset($_POST['update'])) {
     // Retrieve the data from the form
     $id = $_POST['id'];
@@ -65,12 +60,7 @@ if (isset($_POST['update'])) {
     }
 }
 
-?>
-
-<?php
-require './function/config.php';
-
-// Check if the form is submitted
+// Delete Button
 if (isset($_POST['delete'])) {
     // Retrieve the id of the record to delete
     $id = $_POST['id'];
@@ -93,7 +83,6 @@ if (isset($_POST['delete'])) {
 mysqli_close($conn);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,8 +94,6 @@ mysqli_close($conn);
     <title>Admin Panel</title>
     <link rel="stylesheet" href="css/admin-pets.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sigmar">
-    <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -138,6 +125,7 @@ mysqli_close($conn);
         <a href="index.php" class="logo"><img src="./image/logo (1).png" class="img-logo"></a>
         <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
     </nav>
+
     <div class="setting">
         <div class="sidebar">
             <a href="admin-dashboard.php" class="menu"> Dashboard</a>
@@ -148,11 +136,13 @@ mysqli_close($conn);
             <a href="admin-add-news.php" class="menu"> Add News</a>
             <a href="admin-manage-news.php" class="menu"> Manage News</a>
         </div>
+
         <div class="main">
             <div class="modify-featured">
                 <div class="container mt-4 table-container">
                     <h1>News List</h1>
                     <table class="table" style="text-align:center">
+
                         <thead>
                             <tr>
                                 <th>News ID</th>
@@ -163,6 +153,7 @@ mysqli_close($conn);
                                 <th>Is_Featured</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             <?php
                             require './function/config.php';
@@ -257,7 +248,6 @@ mysqli_close($conn);
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         $(document).ready(function () {

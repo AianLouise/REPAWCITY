@@ -1,5 +1,6 @@
 <?php
 require './function/config.php';
+session_start();
 
 if (isset($_POST["submit"])) {
     $name = mysqli_real_escape_string($conn, $_POST["name"]);
@@ -10,6 +11,7 @@ if (isset($_POST["submit"])) {
     $age = mysqli_real_escape_string($conn, $_POST["age"]);
     $date = mysqli_real_escape_string($conn, $_POST["date"]);
     $about = mysqli_real_escape_string($conn, $_POST["about"]);
+    $user_id = $_SESSION['auth_user']['id'];
 
     if ($_FILES["image"]["error"] === 4) {
         echo "<script> alert('Image Does Not Exist'); </script>";
@@ -30,13 +32,12 @@ if (isset($_POST["submit"])) {
             $newImageName .= '.' . $imageExtension;
 
             move_uploaded_file($tmpName, 'upload/' . $newImageName);
-            $query = "INSERT INTO pets (name,type,breed,sex,weight,age,about,date,image) VALUES('$name' , '$type', '$breed' , '$sex' , '$weight' , '$age', '$about', '$date', '$newImageName')";
+            $query = "INSERT INTO pets (name,type,breed,sex,weight,age,about,date,image, user_id) VALUES('$name' , '$type', '$breed' , '$sex' , '$weight' , '$age', '$about', '$date', '$newImageName', '$user_id')";
             $result = mysqli_query($conn, $query);
             if ($result) {
                 echo "
                 <script> 
-                    alert('Successfully Added'); 
-                    document.location.href = 'adminpage.php';
+                    document.location.href = 'admin-add-pets.php';
                 </script>";
             } else {
                 echo "Error: " . mysqli_error($conn); // Display the specific error message
@@ -56,8 +57,6 @@ if (isset($_POST["submit"])) {
     <title>Admin Panel</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sigmar">
-    <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -73,7 +72,9 @@ if (isset($_POST["submit"])) {
         <a href="index.php" class="logo"><img src="./image/logo (1).png" class="img-logo"></a>
         <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
     </nav>
+
     <div class="setting">
+
         <div class="sidebar">
             <a href="admin-dashboard.php" class="menu"> Dashboard</a>
             <a href="admin-add-pets.php" class="menu"> Add Pets</a>
@@ -83,8 +84,8 @@ if (isset($_POST["submit"])) {
             <a href="admin-add-news.php" class="menu"> Add News</a>
             <a href="admin-manage-news.php" class="menu"> Manage News</a>
         </div>
-        <div class="main">
 
+        <div class="main">
             <div class="container mt-1 pet-form">
                 <h1>Pet Form</h1>
                 <form action="#" method="POST" enctype="multipart/form-data">
@@ -207,7 +208,6 @@ if (isset($_POST["submit"])) {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

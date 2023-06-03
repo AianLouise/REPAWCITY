@@ -23,40 +23,41 @@ session_start(); // Add this line to start the session
             <div class="contact-wrapper">
                 <div class="contact-container">
                     <div class="contact-info">
-                        <?php
-                        // Fetch the message for a specific appointment
-                        if (isset($_GET['appointmentId'])) {
-                            $appointmentId = $_GET['appointmentId'];
+                        <p>
+                            <?php
+                            // Fetch the message for a specific appointment
+                            if (isset($_GET['appointmentId'])) {
+                                $appointmentId = $_GET['appointmentId'];
 
-                            // Query the appointment table to retrieve the message
-                            $query = "SELECT message FROM appointment WHERE appointment_id = '$appointmentId'";
-                            $result = mysqli_query($conn, $query);
+                                // Query the appointment table to retrieve the message
+                                $query = "SELECT message FROM appointment WHERE appointment_id = '$appointmentId'";
+                                $result = mysqli_query($conn, $query);
 
-                            // Check if a message is found
-                            if (mysqli_num_rows($result) > 0) {
-                                // Display the message
-                                $row = mysqli_fetch_assoc($result);
-                                $message = $row['message'];
-                                $formattedMessage = nl2br($message); // Convert new lines to HTML line breaks
-                                ?>
-                                <p>
-                                    <?php echo $formattedMessage; ?>
-                                </p>
-                                <?php
+                                // Check if a message is found
+                                if (mysqli_num_rows($result) > 0) {
+                                    // Display the message
+                                    $row = mysqli_fetch_assoc($result);
+                                    $message = $row['message'];
+                                    $formattedMessage = nl2br($message); // Convert new lines to HTML line breaks
+                                    ?>
+                                    <p>
+                                        <?php echo $formattedMessage; ?>
+                                    </p>
+                                    <?php
+                                } else {
+                                    // No message found for the specified appointment
+                                    ?>
+                                    <p>No message found for this appointment.</p>
+                                    <?php
+                                }
                             } else {
-                                // No message found for the specified appointment
+                                // No appointment ID provided
                                 ?>
-                                <p>No message found for this appointment.</p>
+                                <p>No appointment ID provided.</p>
                                 <?php
                             }
-                        } else {
-                            // No appointment ID provided
                             ?>
-                            <p>No appointment ID provided.</p>
-                            <?php
-                        }
-                        ?>
-
+                        </p>
                     </div>
                 </div>
             </div>

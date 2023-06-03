@@ -76,7 +76,7 @@ session_start(); // Add this line to start the session
             </div>
         </div>
         <div class="button">
-            <img src=".\image\volunteer\title2.png" alt="Image 1">
+            <a href="book-appointment.php" target="_blank"><img src=".\image\volunteer\title2.png" alt="Image 1"></a>
         </div>
 
     </section>

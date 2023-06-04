@@ -51,6 +51,7 @@ $pet_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 <body>
     <section class="home">
+
         <div class="top">
             <img src="./image/doggo.png" class="paw-bg">
             <img src="./image/catto.png" class="paw-bg2">
@@ -64,6 +65,7 @@ $pet_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <div class="pets" id="pets">
             <h1 class="adopt-title">MEET OUR PETS</h1>
             <p class="sort">Sort by:</p>
+             <!-- Sorting menu -->
             <div class="menu">
                 <form action="" method="post">
                     <div class="form-row">

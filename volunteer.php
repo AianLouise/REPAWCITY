@@ -1,6 +1,8 @@
-<?php require './function/config.php' ?>
-<?php
+<?php require './function/config.php';
+
 session_start(); // Add this line to start the session
+
+$loggedIn = isset($_SESSION['auth_user']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +78,7 @@ session_start(); // Add this line to start the session
             </div>
         </div>
         <div class="button">
-            <a href="book-appointment.php" target="_blank"><img src=".\image\volunteer\title2.png" alt="Image 1"></a>
+            <a href="<?php echo $loggedIn ? 'book-appointment.php' : 'loginpage.php'; ?>" <?php echo $loggedIn ? 'target="_blank"' : ''; ?>><img src=".\image\volunteer\title2.png" alt="Image 1"></a>
         </div>
 
     </section>

@@ -118,13 +118,13 @@ if (isset($_POST['delete'])) {
     $id = $_POST['id'];
 
     // Delete the record from the database
-    $sql = "DELETE FROM pets WHERE pets_id='$id'";
+    $sql = "DELETE FROM user WHERE user_id='$id'";
 
     if (mysqli_query($conn, $sql)) {
         echo "
         <script> 
             alert('Record deleted successfully'); 
-            document.location.href = 'admin-manage-pets.php';
+            document.location.href = 'admin-manage-user.php';
         </script>";
     } else {
         echo "Error deleting record: " . mysqli_error($conn);

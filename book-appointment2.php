@@ -5,11 +5,10 @@ require './function/config.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve and process the form data
     $type = $_POST['type'];
-    // ... process other form fields and store the data as needed
 
     // Store the collected data in session variables
     $_SESSION['appointment_type'] = $type;
-    // ... store other form fields in session variables as needed
+    
     header("Location: book-appointment3.php");
     exit();
 }
@@ -40,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="content">
         <h2>APPOINTMENT TYPE</h2>
+        <!-- Form for Appointment Type -->
         <form method="POST">
             <select name="type" id="type" style="width: 20rem; height: 3rem;" class="type" required>
                 <option value="">Select</option>

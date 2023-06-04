@@ -20,7 +20,11 @@ if (isset($_POST['submit'])) {
     $sql4 = "UPDATE pets SET is_featured = 4 WHERE pets_id = '$featuredImage4'";
 
     if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3) && mysqli_query($conn, $sql4)) {
-        echo "Records updated successfully";
+        echo "
+        <script> 
+            alert('Records updated successfully'); 
+            window.location.href = 'admin-manage-featured.php';
+        </script>";
     } else {
         echo "Error updating records: " . mysqli_error($conn);
     }

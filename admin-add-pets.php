@@ -37,6 +37,7 @@ if (isset($_POST["submit"])) {
             if ($result) {
                 echo "
                 <script> 
+                    alert('Pets added successfully'); 
                     document.location.href = 'admin-add-pets.php';
                 </script>";
             } else {

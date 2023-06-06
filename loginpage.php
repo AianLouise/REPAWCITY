@@ -41,7 +41,7 @@
                 <i class="fa-solid fa-eye" id="show-password"></i>
             </div>
             <a href="" class="forgot-pass">
-                <p>Forgot Password?</p>
+                <p></p>
             </a>
             <input type="submit" name="login" value="Login" class="loginbtn">
             <a href="signuppage.php" class="account">

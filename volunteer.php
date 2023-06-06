@@ -29,7 +29,7 @@ $loggedIn = isset($_SESSION['auth_user']);
             <h1>Join a passionate community of animal lovers and contribute to a meaningful cause.</h1>
         </div>
         <div class="content2">
-            <img src=".\image\volunteer\title1.png" alt="Image 1">
+        <a href="<?php echo $loggedIn ? 'book-appointment.php' : 'loginpage.php'; ?>" <?php echo $loggedIn ? 'target="_blank"' : ''; ?>><img src=".\image\volunteer\title1.png" alt="Image 1"></a>
         </div>
         <div class="content3">
             <img src=".\image\volunteer\img2.jpg" alt="Image 1">

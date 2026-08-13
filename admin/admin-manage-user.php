@@ -1,369 +1,222 @@
 <?php
 require '../includes/admin_guard.php';
+require '../includes/config.php';
 
-// Check if the form is submitted
+$redirect = 'window.location.href = "admin-manage-user.php";';
+
 if (isset($_POST['promote'])) {
-    // Retrieve the data from the form
     $id = $_POST['id'];
     $userType = $_POST['user_type'];
 
-    // Check the user type
     if ($userType == 1) {
-        echo '<script language="javascript">';
-        echo 'alert("Already an Admin");';
-        echo 'window.location.href = "admin-manage-user.php";';
-        echo '</script>';
+        echo '<script>alert("Already an Admin");' . $redirect . '</script>';
         exit;
     } elseif ($userType == 2) {
-        // Promote to admin
         $sql = "UPDATE user SET user_type = 1 WHERE user_id = '$id'";
         if (mysqli_query($conn, $sql)) {
-            echo '<script language="javascript">';
-            echo 'alert("Promoted to Admin");';
-            echo 'window.location.href = "admin-manage-user.php";';
-            echo '</script>';
-            exit;
-        } else {
-            echo "Error promoting user to admin: " . mysqli_error($conn);
+            echo '<script>alert("Promoted to Admin");' . $redirect . '</script>';
             exit;
         }
-    } else {
-        echo "Invalid user type";
+        echo "Error promoting user to admin: " . mysqli_error($conn);
         exit;
     }
+    echo "Invalid user type";
+    exit;
 }
 
-
-// Close the database connection
-mysqli_close($conn);
-?>
-
-<?php
-require '../includes/config.php';
-
-// Check if the form is submitted
 if (isset($_POST['demote'])) {
-    // Retrieve the data from the form
     $id = $_POST['id'];
     $userType = $_POST['user_type'];
 
-    // Check the user type
     if ($userType == 2) {
-        echo '<script language="javascript">';
-        echo 'alert("Already a Regular User");';
-        echo 'window.location.href = "admin-manage-user.php";';
-        echo '</script>';
+        echo '<script>alert("Already a Regular User");' . $redirect . '</script>';
         exit;
     } elseif ($userType == 1) {
-        // Demote to regular user
         $sql = "UPDATE user SET user_type = 2 WHERE user_id = '$id'";
         if (mysqli_query($conn, $sql)) {
-            echo '<script language="javascript">';
-            echo 'alert("Demoted to Regular User");';
-            echo 'window.location.href = "admin-manage-user.php";';
-            echo '</script>';
-            exit;
-        } else {
-            echo "Error demoting user to regular user: " . mysqli_error($conn);
+            echo '<script>alert("Demoted to Regular User");' . $redirect . '</script>';
             exit;
         }
-    } else {
-        echo "Invalid user type";
+        echo "Error demoting user to regular user: " . mysqli_error($conn);
         exit;
     }
+    echo "Invalid user type";
+    exit;
 }
 
-// Close the database connection
-mysqli_close($conn);
-?>
-
-<?php
-require '../includes/config.php';
 if (isset($_POST['update'])) {
-    // Retrieve the data from the form
     $id = $_POST['id'];
     $firstName = mysqli_real_escape_string($conn, $_POST['fname']);
     $lastName = mysqli_real_escape_string($conn, $_POST['lname']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
-    // Update the data in the database using prepared statements
     if (!empty($password)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "UPDATE user SET fname = ?, lname = ?, email = ?, password = ? WHERE user_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssssi", $firstName, $lastName, $email, $hashed_password, $id);
     } else {
-        // If no new password is provided, update only the other fields
         $sql = "UPDATE user SET fname = ?, lname = ?, email = ? WHERE user_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssi", $firstName, $lastName, $email, $id);
     }
 
-    // Perform the database query
     if ($stmt->execute()) {
-        echo "
-            <script> 
-                alert('Data updated successfully'); 
-                window.location.href = 'admin-manage-user.php';
-            </script>";
+        echo '<script>alert("Data updated successfully");' . $redirect . '</script>';
     } else {
         echo "Error updating data: " . mysqli_error($conn);
     }
     $stmt->close();
 }
 
-?>
-
-<?php
-require '../includes/config.php';
-
-// Check if the form is submitted
 if (isset($_POST['delete'])) {
-    // Retrieve the id of the record to delete
     $id = $_POST['id'];
-
-    // Delete the record from the database
     $sql = "DELETE FROM user WHERE user_id='$id'";
 
     if (mysqli_query($conn, $sql)) {
-        echo "
-        <script> 
-            alert('Record deleted successfully'); 
-            document.location.href = 'admin-manage-user.php';
-        </script>";
+        echo '<script>alert("Record deleted successfully");' . $redirect . '</script>';
     } else {
         echo "Error deleting record: " . mysqli_error($conn);
     }
 }
-
-// Close the database connection
-mysqli_close($conn);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="icon" href="../image/icon.png" type="image/png">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="../css/admin-pets.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
-    <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/../css/all.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/../css/bootstrap.min.css">
-    <style>
-        /* Custom CSS to remove text decoration */
-        a,
-        .form-control {
-            text-decoration: none !important;
-        }
+    <title>Manage Users — rePaw City Admin</title>
+    <?php require '../includes/admin_head.php'; ?>
 
+    <style>
         .table-container {
             max-height: 400px;
             overflow-y: scroll;
         }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 
-<body>
-    <nav class="navbar">
-        <a href="../index.php" class="logo"><img src="../image/logo (1).png" class="img-logo"></a>
-        <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
-    </nav>
-    <div class="setting">
-        <div class="sidebar">
-            <a href="admin-dashboard.php" class="menu"> Dashboard</a>
-            <a href="admin-add-pets.php" class="menu"> Add Pets</a>
-            <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
-            <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
-            <a href="admin-manage-user.php" class="menu"> Manage Users</a>
-            <a href="admin-add-news.php" class="menu"> Add News</a>
-            <a href="admin-manage-news.php" class="menu"> Manage News</a>
-        </div>
-        <div class="main">
-            <div class="modify-featured">
-                <div class="container mt-4 table-container">
-                    <h1>User List</h1>
-                    <table class="table" style="text-align:center">
-                        <thead>
+<body class="font-sans bg-repaw-bg text-repaw-text antialiased">
+    <?php require '../includes/admin_navbar.php'; ?>
+
+    <div class="flex min-h-[calc(100vh-4rem)]">
+        <?php require '../includes/admin_sidebar.php'; ?>
+
+        <main class="flex-1 p-6 sm:p-10 space-y-8">
+            <div class="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="mui-icon text-3xl text-repaw-dark">group</span>
+                    <h1 class="font-serif text-3xl font-bold text-repaw-dark">User List</h1>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-repaw-hover/40 table-container">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-repaw-bg/70 text-repaw-dark sticky top-0">
                             <tr>
-                                <th>User ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Password</th>
-                                <th>User Type</th>
-                                <th>Date Created</th>
+                                <th class="px-3 py-3 font-semibold">User ID</th>
+                                <th class="px-3 py-3 font-semibold">First Name</th>
+                                <th class="px-3 py-3 font-semibold">Last Name</th>
+                                <th class="px-3 py-3 font-semibold">Email</th>
+                                <th class="px-3 py-3 font-semibold">Password</th>
+                                <th class="px-3 py-3 font-semibold">User Type</th>
+                                <th class="px-3 py-3 font-semibold">Date Created</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="divide-y divide-repaw-hover/40">
                             <?php
-                            require '../includes/config.php';
-
-                            // Query the database table
                             $sql = "SELECT user_id, fname ,lname , email, password, user_type, created_at FROM user";
                             $result = $conn->query($sql);
 
-                            // Fetch and display the data
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    ?>
-
-                                    <tr>
-                                        <td>
-                                            <?php echo $row["user_id"]; ?>
+                            ?>
+                                    <tr class="table-row hover:bg-repaw-bg/40 cursor-pointer">
+                                        <td class="px-3 py-3"><?php echo $row["user_id"]; ?></td>
+                                        <td class="px-3 py-3"><?php echo $row["fname"]; ?></td>
+                                        <td class="px-3 py-3"><?php echo $row["lname"]; ?></td>
+                                        <td class="px-3 py-3"><?php echo $row["email"]; ?></td>
+                                        <td class="px-3 py-3">••••••••</td>
+                                        <td class="px-3 py-3">
+                                            <span class="inline-block rounded-full px-3 py-1 text-xs font-medium <?php echo $row["user_type"] == 1 ? 'bg-repaw-dark text-repaw-bg' : 'bg-repaw-hover/60 text-repaw-dark'; ?>">
+                                                <?php echo $row["user_type"] == 1 ? 'Admin' : 'User'; ?>
+                                            </span>
                                         </td>
-                                        <td>
-                                            <?php echo $row["fname"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["lname"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["email"]; ?>
-                                        </td>
-                                        <td>
-                                            ••••••••
-                                        </td>
-                                        <td>
-                                            <?php echo $row["user_type"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["created_at"]; ?>
-                                        </td>
+                                        <td class="px-3 py-3"><?php echo $row["created_at"]; ?></td>
                                     </tr>
-
-                                    <?php
+                            <?php
                                 }
                             } else {
-                                echo "<tr><td colspan='6'>No data available</td></tr>";
+                                echo "<tr><td colspan='7' class='px-3 py-6 text-center text-repaw-text/70'>No data available</td></tr>";
                             }
-
-                            // Close the connection
-                            $conn->close();
                             ?>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="container mt-1">
-                    <h1>User Details</h1>
-                    <form action="#" method="POST" enctype="multipart/form-data">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="id">ID:</label>
-                                <input type="text" class="form-control" id="id" name="id" readonly>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="user_type">User Type:</label>
-                                <input type="text" class="form-control" id="user_type" name="user_type" required
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="fname">First Name:</label>
-                                <input type="text" class="form-control" id="fname" name="fname" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="lname">Last Name:</label>
-                                <input type="text" class="form-control" id="lname" name="lname" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="password">New Password (leave blank to keep current):</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Leave blank to keep current password">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="date_created">Date Created:</label>
-                                <input type="text" class="form-control" id="date_created" name="date_created" required
-                                    readonly>
-                            </div>
-
-                        </div>
-                        <div class="form-group text-center">
-                            <button type="submit" name="update" class="btn btn-primary" id="btn-update">Update</button>
-                            <button type="submit" name="delete" class="btn btn-danger" id="btn-delete">Delete</button>
-                            <button type="submit" name="promote" class="btn btn-primary"
-                                id="btn-promote">Promote</button>
-                            <button type="submit" name="demote" class="btn btn-danger" id="btn-demote">Demote</button>
-                        </div>
-                    </form>
-                </div>
-
             </div>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <div class="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+                <h1 class="font-serif text-2xl font-bold text-repaw-dark mb-6">User Details</h1>
+                <form action="#" method="POST" enctype="multipart/form-data" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="id" class="block text-sm font-medium text-repaw-dark mb-1.5">ID:</label>
+                            <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="id" name="id" readonly>
+                        </div>
+                        <div>
+                            <label for="user_type" class="block text-sm font-medium text-repaw-dark mb-1.5">User Type:</label>
+                            <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="user_type" name="user_type" required readonly>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="fname" class="block text-sm font-medium text-repaw-dark mb-1.5">First Name:</label>
+                            <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="fname" name="fname" required>
+                        </div>
+                        <div>
+                            <label for="lname" class="block text-sm font-medium text-repaw-dark mb-1.5">Last Name:</label>
+                            <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="lname" name="lname" required>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-repaw-dark mb-1.5">Email:</label>
+                            <input type="email" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="email" name="email" required>
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-repaw-dark mb-1.5">New Password (leave blank to keep current):</label>
+                            <input type="password" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="password" name="password" placeholder="Leave blank to keep current password">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="date_created" class="block text-sm font-medium text-repaw-dark mb-1.5">Date Created:</label>
+                        <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="date_created" name="date_created" required readonly>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="submit" name="update" class="inline-flex items-center gap-2 bg-repaw-text text-repaw-bg rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors duration-300"><span class="mui-icon">save</span> Update</button>
+                        <button type="submit" name="delete" class="inline-flex items-center gap-2 bg-repaw-danger text-white rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:opacity-90 transition-opacity"><span class="mui-icon">delete</span> Delete</button>
+                        <button type="submit" name="promote" class="inline-flex items-center gap-2 bg-repaw-accent text-repaw-dark rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark hover:text-repaw-accent transition-colors duration-300"><span class="mui-icon">arrow_upward</span> Promote</button>
+                        <button type="submit" name="demote" class="inline-flex items-center gap-2 bg-repaw-hover/70 text-repaw-dark rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-hover transition-colors"><span class="mui-icon">arrow_downward</span> Demote</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
 
     <script>
-        $(document).ready(function () {
-            // Handle click event on table rows
-            $(".table tbody tr").click(function () {
-                // Remove the active class from other rows
-                $(".table tbody tr").removeClass("active");
-
-                // Add the active class to the clicked row
-                $(this).addClass("active");
-
-                // Get the selected row's data
-                var id = $(this).find("td:nth-child(1)").text().trim();
-                var fname = $(this).find("td:nth-child(2)").html().trim();
-                var lname = $(this).find("td:nth-child(3)").text().trim();
-                var email = $(this).find("td:nth-child(4)").text().trim();
-                var user_type = $(this).find("td:nth-child(6)").text().trim();
-                var date_created = $(this).find("td:nth-child(7)").text().trim();
-
-                // Populate the input fields with the selected row data
-                $("#id").val(id);
-                $("#fname").val(fname);
-                $("#lname").val(lname);
-                $("#email").val(email);
-                $("#password").val(""); // Never pre-fill the password field
-                $("#user_type").val(user_type);
-                $("#date_created").val(date_created);
+        document.querySelectorAll(".table-row").forEach(function (row) {
+            row.addEventListener("click", function () {
+                const cell = i => row.children[i].textContent.trim();
+                document.getElementById("id").value = cell(0);
+                document.getElementById("fname").value = cell(1);
+                document.getElementById("lname").value = cell(2);
+                document.getElementById("email").value = cell(3);
+                document.getElementById("user_type").value = cell(5);
+                document.getElementById("date_created").value = cell(6);
+                document.getElementById("password").value = "";
             });
         });
     </script>
-
-
 </body>
 
 </html>
-
-<script>
-    function logout() {
-        if (confirm("Are you sure you want to log out?")) {
-            // Perform logout action
-            window.location.href = "../auth/logout.php";
-        }
-    }
-</script>

@@ -28,164 +28,91 @@ if (isset($_POST['submit'])) {
     } else {
         echo "Error updating records: " . mysqli_error($conn);
     }
-
-    // Retrieve the current values of is_featured column from the database
-    $featuredImage1 = "";
-    $featuredImage2 = "";
-    $featuredImage3 = "";
-    $featuredImage4 = "";
-
-    $sql = "SELECT pets_id, is_featured FROM pets WHERE is_featured > 0";
-    $result = mysqli_query($conn, $sql);
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $id = $row['pets_id'];
-        $isFeatured = $row['is_featured'];
-
-        if ($isFeatured == 1) {
-            $featuredImage1 = $id;
-        } elseif ($isFeatured == 2) {
-            $featuredImage2 = $id;
-        } elseif ($isFeatured == 3) {
-            $featuredImage3 = $id;
-        } elseif ($isFeatured == 4) {
-            $featuredImage4 = $id;
-        }
-    }
 }
-
-// Close the database connection
-mysqli_close($conn);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="icon" href="../image/icon.png" type="image/png">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="../css/admin-featured.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
-    <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/../css/all.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/../css/bootstrap.min.css">
+    <title>Modify Featured — rePaw City Admin</title>
+    <?php require '../includes/admin_head.php'; ?>
 </head>
 
-<body>
-    <nav class="navbar">
-        <a href="../index.php" class="logo"><img src="../image/logo (1).png" class="img-logo"></a>
-        <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
-    </nav>
-    <div class="setting">
-        <div class="sidebar">
-            <a href="admin-dashboard.php" class="menu"> Dashboard</a>
-            <a href="admin-add-pets.php" class="menu"> Add Pets</a>
-            <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
-            <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
-            <a href="admin-manage-user.php" class="menu"> Manage Users</a>
-            <a href="admin-add-news.php" class="menu"> Add News</a>
-            <a href="admin-manage-news.php" class="menu"> Manage News</a>
-        </div>
-        <div class="main">
-            <div class="modify-featured">
-                <div class="container mt-4 table-container">
-                    <h1>Pets List</h1>
-                    <table class="table" style="text-align:center">
-                        <thead>
+<body class="font-sans bg-repaw-bg text-repaw-text antialiased">
+    <?php require '../includes/admin_navbar.php'; ?>
+
+    <div class="flex min-h-[calc(100vh-4rem)]">
+        <?php require '../includes/admin_sidebar.php'; ?>
+
+        <main class="flex-1 p-6 sm:p-10">
+            <div class="max-w-5xl mx-auto bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="mui-icon text-3xl text-repaw-dark">stars</span>
+                    <h1 class="font-serif text-3xl font-bold text-repaw-dark">Pets List</h1>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-repaw-hover/40">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-repaw-bg/70 text-repaw-dark">
                             <tr>
-                                <th>ID</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Is_Featured</th>
+                                <th class="px-4 py-3 font-semibold">ID</th>
+                                <th class="px-4 py-3 font-semibold">Image</th>
+                                <th class="px-4 py-3 font-semibold">Name</th>
+                                <th class="px-4 py-3 font-semibold">Is Featured</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="divide-y divide-repaw-hover/40">
                             <?php
-                            require '../includes/config.php';
-
-                            // Query the database table
                             $sql = "SELECT pets_id, name, image , is_featured, sex FROM pets";
                             $result = $conn->query($sql);
 
-                            // Fetch and display the data
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <td>
-                                            <?php echo $row["pets_id"]; ?>
-                                        </td>
-                                        <td><img src="../upload/<?php echo $row['image']; ?>" alt="" height="50"></td>
-                                        <td>
-                                            <?php echo $row["name"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["is_featured"]; ?>
-                                        </td>
+                            ?>
+                                    <tr class="hover:bg-repaw-bg/40">
+                                        <td class="px-4 py-3"><?php echo $row["pets_id"]; ?></td>
+                                        <td class="px-4 py-3"><img src="../upload/<?php echo $row['image']; ?>" alt="" class="h-12 w-12 rounded-lg object-cover"></td>
+                                        <td class="px-4 py-3 font-medium text-repaw-dark"><?php echo $row["name"]; ?></td>
+                                        <td class="px-4 py-3"><?php echo $row["is_featured"]; ?></td>
                                     </tr>
-                                    <?php
+                            <?php
                                 }
                             } else {
-                                echo "<tr><td colspan='6'>No data available</td></tr>";
+                                echo "<tr><td colspan='4' class='px-4 py-6 text-center text-repaw-text/70'>No data available</td></tr>";
                             }
-
-                            // Close the connection
-                            $conn->close();
                             ?>
                         </tbody>
                     </table>
                 </div>
 
-                <h4 style="text-align: center;">Select IDs to set as Featured Images</h4>
-                <form method="POST">
-                    <div class="form-container">
-                        <div class="form-group">
-                            <label for="featured_image_1">Featured Image 1:</label>
-                            <input type="number" name="featured_image_1" id="featured_image_1"
-                                value="<?php echo isset($featuredImage1) ? $featuredImage1 : ''; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="featured_image_2">Featured Image 2:</label>
-                            <input type="number" name="featured_image_2" id="featured_image_2"
-                                value="<?php echo isset($featuredImage2) ? $featuredImage2 : ''; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="featured_image_3">Featured Image 3:</label>
-                            <input type="number" name="featured_image_3" id="featured_image_3"
-                                value="<?php echo isset($featuredImage3) ? $featuredImage3 : ''; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="featured_image_4">Featured Image 4:</label>
-                            <input type="number" name="featured_image_4" id="featured_image_4"
-                                value="<?php echo isset($featuredImage4) ? $featuredImage4 : ''; ?>">
-                        </div>
+                <h4 class="text-center font-serif text-xl font-semibold text-repaw-dark mt-10 mb-6">Select IDs to set as Featured Images</h4>
+                <form method="POST" class="max-w-md mx-auto grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="featured_image_1" class="block text-sm font-medium text-repaw-dark mb-1.5">Featured Image 1:</label>
+                        <input type="number" name="featured_image_1" id="featured_image_1" value="<?php echo isset($featuredImage1) ? $featuredImage1 : ''; ?>" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text">
                     </div>
-                    <input type="submit" class="btn btn-primary" name="submit" value="Set as Featured Images">
+                    <div>
+                        <label for="featured_image_2" class="block text-sm font-medium text-repaw-dark mb-1.5">Featured Image 2:</label>
+                        <input type="number" name="featured_image_2" id="featured_image_2" value="<?php echo isset($featuredImage2) ? $featuredImage2 : ''; ?>" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text">
+                    </div>
+                    <div>
+                        <label for="featured_image_3" class="block text-sm font-medium text-repaw-dark mb-1.5">Featured Image 3:</label>
+                        <input type="number" name="featured_image_3" id="featured_image_3" value="<?php echo isset($featuredImage3) ? $featuredImage3 : ''; ?>" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text">
+                    </div>
+                    <div>
+                        <label for="featured_image_4" class="block text-sm font-medium text-repaw-dark mb-1.5">Featured Image 4:</label>
+                        <input type="number" name="featured_image_4" id="featured_image_4" value="<?php echo isset($featuredImage4) ? $featuredImage4 : ''; ?>" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <button type="submit" name="submit" class="inline-flex items-center gap-2 w-full bg-repaw-text text-repaw-bg rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors duration-300">
+                            <span class="mui-icon">stars</span> Set as Featured Images
+                        </button>
+                    </div>
                 </form>
-
             </div>
-        </div>
+        </main>
     </div>
-    </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 
 </html>
-
-<script>
-    function logout() {
-        if (confirm("Are you sure you want to log out?")) {
-            // Perform logout action
-            window.location.href = "../auth/logout.php";
-        }
-    }
-</script>

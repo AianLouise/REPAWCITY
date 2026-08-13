@@ -1,8 +1,7 @@
 <?php
-session_start(); // Add this line to start the session
-require '../includes/config.php';
-
+require '../includes/user_guard.php';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

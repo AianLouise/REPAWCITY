@@ -87,6 +87,7 @@ if (isset($_POST["register"])) {
             $_SESSION['auth'] = true;
             $_SESSION['auth_user'] = [
                 'id' => $userID,
+                'user_type' => $userType,
                 // Save the ID in the session
                 'fname' => $userdata['fname'],
                 'lname' => $userdata['lname'],
@@ -102,6 +103,7 @@ if (isset($_POST["register"])) {
             $_SESSION['auth'] = true;
             $_SESSION['auth_user'] = [
                 'id' => $userID,
+                'user_type' => $userType,
                 // Save the ID in the session
                 'fname' => $userdata['fname'],
                 'lname' => $userdata['lname'],

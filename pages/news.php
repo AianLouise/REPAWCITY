@@ -1,48 +1,58 @@
 <?php require '../includes/config.php' ?>
 <?php
-session_start(); // Add this line to start the session
+session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="icon" href="../image/icon.png" type="image/png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rePaw City</title>
-    <link rel="stylesheet" href="../css/news.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
-    <script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
-
+    <link rel="icon" href="../image/icon.png" type="image/png">
+    <title>News — rePaw City</title>
+    <meta name="description" content="Latest news, updates, and pet care tips from rePaw City.">
 </head>
 
-<body>
+<body class="font-sans bg-repaw-bg text-repaw-text antialiased">
+
     <?php include '../includes/navbar.php' ?>
 
-    <section class="home">
-        <div class="top">
-            <div class="title">
-                <h2>BLOGS, LATEST NEWS, AND UPDATES</h2> <br>
+    <main id="top">
+        <!-- Hero -->
+        <section class="relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-repaw-bg/90 via-repaw-bg/70 to-repaw-accent/40 pointer-events-none"></div>
+            <div class="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-20 text-center">
+                <h1 class="font-serif text-4xl sm:text-5xl font-bold text-repaw-dark">Blogs, Latest News & Updates</h1>
+                <p class="mt-4 text-lg text-repaw-text/90 max-w-2xl mx-auto">Stay up to date with rePaw City and learn how to care for your new companion.</p>
             </div>
-            <div class="tips">
-                <h1>PET CARE TIPS</h1>
-                <p>How to Ensure a Happy and Healthy Life for Your New Companion: <br>
-                    Discover essential tips for providing optimal care and well- being to your newly adopted pet,
-                    including nutrition, exercise, grooming, and more
-                </p>
-                <br>
-                <div class="slideshow-container">
-                    <img src="../image/news/pet-tips.jpg" alt="Image 1">
-                    <img src="../image/news/pet-tips2.jpg" alt="Image 2">
-                    <img src="../image/news/pet-tips3.jpg" alt="Image 3">
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-20 pb-20">
+            <!-- Pet care tips -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h2 class="font-serif text-3xl font-bold text-repaw-dark mb-4">Pet Care Tips</h2>
+                    <p class="text-repaw-text/90 leading-relaxed">
+                        How to Ensure a Happy and Healthy Life for Your New Companion: discover essential tips for
+                        providing optimal care and well-being to your newly adopted pet, including nutrition,
+                        exercise, grooming, and more.
+                    </p>
+                </div>
+                <div class="slideshow-container relative rounded-3xl overflow-hidden aspect-video bg-repaw-bg/60 shadow-sm">
+                    <img src="../image/news/pet-tips.jpg" alt="Pet tips 1" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700">
+                    <img src="../image/news/pet-tips2.jpg" alt="Pet tips 2" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0">
+                    <img src="../image/news/pet-tips3.jpg" alt="Pet tips 3" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0">
                 </div>
             </div>
-            <div class="news">
-                <div class="headline">
+
+            <!-- Featured + latest news -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Featured -->
+                <div class="lg:col-span-2">
+                    <h2 class="font-serif text-2xl font-bold text-repaw-dark mb-5">Featured News</h2>
                     <?php
-                    // Fetch the featured news item from the database
                     $featuredNews = mysqli_query($conn, "SELECT * FROM news WHERE is_featured = 1");
                     $featuredNews = mysqli_fetch_assoc($featuredNews);
 
@@ -51,49 +61,40 @@ session_start(); // Add this line to start the session
                         $title = $featuredNews['title'];
                         $details = $featuredNews['details'];
 
-
-                        $maxCharacters = 300; // Maximum number of characters to show
-                        if (strlen($title) > 50) {// if the title is too long
-                            $maxCharacters = 200; //  Set maximum number of characters to show
+                        $maxCharacters = 300;
+                        if (strlen($title) > 50) {
+                            $maxCharacters = 200;
                         }
-                        // Check the length of the details paragraph
                         if (strlen($details) > $maxCharacters) {
-                            $details = substr($details, 0, $maxCharacters) . '...'; // Cut the paragraph and add ellipsis
+                            $details = substr($details, 0, $maxCharacters) . '...';
                         }
-                        ?>
-                        <a href="news-page.php?news_id=<?php echo $featuredNews['news_id']; ?>" class="headline-link">
-                            <div class="img">
-                                <img src="../upload/news/<?php echo $image; ?>" alt="Image">
+                    ?>
+                        <a href="news-page.php?news_id=<?php echo $featuredNews['news_id']; ?>"
+                           class="group block bg-white/70 rounded-3xl overflow-hidden border border-repaw-hover/40 shadow-sm hover:shadow-xl transition-shadow duration-300">
+                            <div class="aspect-video overflow-hidden bg-repaw-bg/60">
+                                <img src="../upload/news/<?php echo htmlspecialchars($image, ENT_HTML5, 'UTF-8'); ?>" alt="Featured news" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                             </div>
-                            <div class="details">
-                                <h1>
-                                    <?php echo $title; ?>
-                                </h1>
-                                <p>
-                                    <?php echo $details; ?>
-                                </p>
+                            <div class="p-6">
+                                <h3 class="font-serif text-2xl font-semibold text-repaw-dark"><?php echo htmlspecialchars($title, ENT_HTML5, 'UTF-8'); ?></h3>
+                                <p class="mt-3 text-repaw-text/80 leading-relaxed"><?php echo htmlspecialchars($details, ENT_HTML5, 'UTF-8'); ?></p>
                             </div>
                         </a>
                     <?php } else { ?>
-                        <div class="img">
-                            <img src="#" alt="Image">
-                        </div>
-                        <div class="details">
-                            <h1>No Featured News Available</h1>
-                            <p>There is no featured news at the moment. Check back later for updates.</p>
+                        <div class="bg-white/70 rounded-3xl p-6 border border-repaw-hover/40">
+                            <h3 class="font-serif text-2xl font-semibold text-repaw-dark">No Featured News Available</h3>
+                            <p class="mt-3 text-repaw-text/80">There is no featured news at the moment. Check back later for updates.</p>
                         </div>
                     <?php } ?>
                 </div>
 
-
-                <div class="card-container latest-news">
-                    <div class="news-slider">
+                <!-- Latest list -->
+                <div>
+                    <h2 class="font-serif text-2xl font-bold text-repaw-dark mb-5">Latest News</h2>
+                    <div class="space-y-4">
                         <?php
-                        // Fetch the data from the database and store it in an array
                         $newsItems = mysqli_query($conn, "SELECT * FROM news ORDER BY date_published DESC");
                         $newsItems = mysqli_fetch_all($newsItems, MYSQLI_ASSOC);
 
-                        // Loop through the news items and populate the HTML template
                         foreach ($newsItems as $newsItem) {
                             $newsId = $newsItem['news_id'];
                             $image = $newsItem['image'];
@@ -101,16 +102,10 @@ session_start(); // Add this line to start the session
                             $details = $newsItem['details'];
                             $date = $newsItem['date_published'];
 
-                            // Set the timezone to Philippines
                             date_default_timezone_set('Asia/Manila');
-
-                            // Get the datetime when the news was posted
                             $newsDatetime = $date;
-
-                            // Get the current datetime
                             $currentDatetime = date('Y-m-d H:i:s');
 
-                            // Calculate the time elapsed
                             $datetime1 = new DateTime($newsDatetime);
                             $datetime2 = new DateTime($currentDatetime);
                             $interval = date_diff($datetime1, $datetime2);
@@ -122,7 +117,6 @@ session_start(); // Add this line to start the session
                             $minutes = $interval->format('%i');
 
                             $timeElapsed = '';
-
                             if ($years > 0) {
                                 $timeElapsed = ($years > 1) ? $years . ' years ago' : '1 year ago';
                             } elseif ($months > 0) {
@@ -137,41 +131,28 @@ session_start(); // Add this line to start the session
                                 $timeElapsed = 'Just now';
                             }
 
-                            // Check the length of the details paragraph
-                            $maxCharacters = 100; // Maximum number of characters to show
+                            $maxCharacters = 100;
                             if (strlen($details) > $maxCharacters) {
-                                $details = substr($details, 0, $maxCharacters) . '...'; // Cut the paragraph and add ellipsis
+                                $details = substr($details, 0, $maxCharacters) . '...';
                             }
-                            ?>
-                            <a href="news-page.php?news_id=<?php echo $newsId; ?>" class="latest card"
-                                style="text-decoration: none; display: inline-block; transition: transform 0.3s; color: black;">
-                                <div class="img">
-                                    <img src="../upload/news/<?php echo $image; ?>" alt="Image">
-                                </div>
-                                <div class="details">
-                                    <h1>
-                                        <?php echo $title; ?>
-                                    </h1>
-                                    <br>
-                                    <p>
-                                        <?php echo $details; ?> <span>See more.</span>
-                                    </p>
-                                </div>
-                                <p class="date"><span>
-                                        <?php echo $timeElapsed; ?>
-                                    </span></p>
-                            </a>
-
-                            <?php
-                        }
                         ?>
+                            <a href="news-page.php?news_id=<?php echo $newsId; ?>"
+                               class="group flex gap-4 bg-white/70 rounded-2xl p-4 border border-repaw-hover/40 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <div class="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-repaw-bg/60">
+                                    <img src="../upload/news/<?php echo htmlspecialchars($image, ENT_HTML5, 'UTF-8'); ?>" alt="News thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                </div>
+                                <div class="min-w-0">
+                                    <h4 class="font-serif text-base font-semibold text-repaw-dark truncate"><?php echo htmlspecialchars($title, ENT_HTML5, 'UTF-8'); ?></h4>
+                                    <p class="mt-1 text-sm text-repaw-text/80 leading-snug line-clamp-2"><?php echo htmlspecialchars($details, ENT_HTML5, 'UTF-8'); ?></p>
+                                    <p class="mt-1 text-xs text-repaw-text/60"><?php echo $timeElapsed; ?></p>
+                                </div>
+                            </a>
+                        <?php } ?>
                     </div>
                 </div>
-
-
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <?php include '../includes/footer.php' ?>
 
@@ -191,7 +172,7 @@ session_start(); // Add this line to start the session
 
             slides[slideIndex - 1].style.opacity = 1;
 
-            setTimeout(showSlides, 4000); // Delay between slides (2 seconds)
+            setTimeout(showSlides, 4000);
         }
         showSlides();
     </script>

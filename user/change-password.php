@@ -1,6 +1,5 @@
 <?php
-session_start();
-require '../includes/config.php';
+require '../includes/user_guard.php';
 
 if (isset($_POST['update'])) {
     $oldpassword = $_POST['oldpassword'];

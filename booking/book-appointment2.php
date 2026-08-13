@@ -1,6 +1,5 @@
 <?php
-session_start(); // Add this line to start the session
-require '../includes/config.php';
+require '../includes/user_guard.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve and process the form data

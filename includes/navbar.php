@@ -45,7 +45,23 @@ if (!empty($_SESSION['auth']) && !empty($_SESSION['auth_user']['id'])) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap">
-<script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght@24,400..700&display=swap">
+<style>
+    .mui-icon {
+        font-family: 'Material Symbols Rounded';
+        font-weight: normal;
+        font-style: normal;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+</style>
 <script>
     tailwind.config = {
         theme: {
@@ -118,9 +134,7 @@ if (!empty($_SESSION['auth']) && !empty($_SESSION['auth_user']['id'])) {
                     <button class="nav-link-custom items-center gap-1 focus:outline-none <?php echo $aboutActive ? 'nav-link-active' : ''; ?>"
                             aria-haspopup="true" aria-expanded="false">
                         About Us
-                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
+                        <span class="mui-icon text-[20px] transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
                     </button>
                     <div class="dropdown-menu group-hover:block group-focus-within:block">
                         <?php foreach ($aboutLinks as $link): ?>

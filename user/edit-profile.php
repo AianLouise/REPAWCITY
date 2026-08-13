@@ -1,6 +1,5 @@
 <?php
-session_start();
-require '../includes/config.php';
+require '../includes/user_guard.php';
 
 if (isset($_POST['update'])) {
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);

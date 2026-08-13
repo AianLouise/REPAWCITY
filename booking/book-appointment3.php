@@ -1,6 +1,5 @@
 <?php
-session_start();
-require '../includes/config.php';
+require '../includes/user_guard.php';
 
 $errorMessage = "";
 // Check if there is an error message in the URL

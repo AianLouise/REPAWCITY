@@ -78,214 +78,122 @@ if (isset($_POST['delete'])) {
         echo "Error deleting record: " . mysqli_error($conn);
     }
 }
-
-// Close the database connection
-mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="icon" href="../image/icon.png" type="image/png">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="../css/admin-pets.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/../css/all.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/../css/bootstrap.min.css">
-    <style>
-        /* Custom CSS to remove text decoration */
-        a,
-        .form-control {
-            text-decoration: none !important;
-        }
+    <title>Manage News — rePaw City Admin</title>
+    <?php require '../includes/admin_head.php'; ?>
 
+    <style>
         .table-container {
             max-height: 400px;
             overflow-y: scroll;
         }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 
-<body>
-    <nav class="navbar">
-        <a href="../index.php" class="logo"><img src="../image/logo (1).png" class="img-logo"></a>
-        <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
-    </nav>
+<body class="font-sans bg-repaw-bg text-repaw-text antialiased">
+    <?php require '../includes/admin_navbar.php'; ?>
 
-    <div class="setting">
-        <div class="sidebar">
-            <a href="admin-dashboard.php" class="menu"> Dashboard</a>
-            <a href="admin-add-pets.php" class="menu"> Add Pets</a>
-            <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
-            <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
-            <a href="admin-manage-user.php" class="menu"> Manage Users</a>
-            <a href="admin-add-news.php" class="menu"> Add News</a>
-            <a href="admin-manage-news.php" class="menu"> Manage News</a>
-        </div>
+    <div class="flex min-h-[calc(100vh-4rem)]">
+        <?php require '../includes/admin_sidebar.php'; ?>
 
-        <div class="main">
-            <div class="modify-featured">
-                <div class="container mt-4 table-container">
-                    <h1>News List</h1>
-                    <table class="table" style="text-align:center">
+        <main class="flex-1 p-6 sm:p-10 space-y-8">
+            <div class="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="mui-icon text-3xl text-repaw-dark">newspaper</span>
+                    <h1 class="font-serif text-3xl font-bold text-repaw-dark">News List</h1>
+                </div>
 
-                        <thead>
+                <div class="overflow-x-auto rounded-2xl border border-repaw-hover/40 table-container">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-repaw-bg/70 text-repaw-dark sticky top-0">
                             <tr>
-                                <th>News ID</th>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Details</th>
-                                <th>Date Published</th>
-                                <th>Is_Featured</th>
+                                <th class="px-3 py-3 font-semibold">News ID</th>
+                                <th class="px-3 py-3 font-semibold">Image</th>
+                                <th class="px-3 py-3 font-semibold">Title</th>
+                                <th class="px-3 py-3 font-semibold">Details</th>
+                                <th class="px-3 py-3 font-semibold">Date Published</th>
+                                <th class="px-3 py-3 font-semibold">Is Featured</th>
                             </tr>
                         </thead>
-
-                        <tbody>
+                        <tbody class="divide-y divide-repaw-hover/40">
                             <?php
-                            require '../includes/config.php';
-
-                            // Query the database table
                             $sql = "SELECT news_id, image ,title , details, date_published, is_featured FROM news";
                             $result = $conn->query($sql);
 
-                            // Fetch and display the data
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    ?>
-
-                                    <tr>
-                                        <td>
-                                            <?php echo $row["news_id"]; ?>
-                                        </td>
-                                        <td><img src="../upload/news/<?php echo $row['image']; ?>" alt="" height="50"></td>
-                                        <td>
-                                            <?php echo $row["title"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["details"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["date_published"]; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row["is_featured"]; ?>
-                                        </td>
+                            ?>
+                                    <tr class="table-row hover:bg-repaw-bg/40 cursor-pointer">
+                                        <td class="px-3 py-3"><?php echo $row["news_id"]; ?></td>
+                                        <td class="px-3 py-3"><img src="../upload/news/<?php echo $row['image']; ?>" alt="" class="h-12 w-12 rounded-lg object-cover"></td>
+                                        <td class="px-3 py-3 font-medium text-repaw-dark"><?php echo $row["title"]; ?></td>
+                                        <td class="px-3 py-3 max-w-xs"><?php echo $row["details"]; ?></td>
+                                        <td class="px-3 py-3"><?php echo $row["date_published"]; ?></td>
+                                        <td class="px-3 py-3"><?php echo $row["is_featured"]; ?></td>
                                     </tr>
-
-                                    <?php
+                            <?php
                                 }
                             } else {
-                                echo "<tr><td colspan='6'>No data available</td></tr>";
+                                echo "<tr><td colspan='6' class='px-3 py-6 text-center text-repaw-text/70'>No data available</td></tr>";
                             }
-
-                            // Close the connection
-                            $conn->close();
                             ?>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="container mt-1">
-                    <h1>User Details</h1>
-                    <form action="#" method="POST" enctype="multipart/form-data">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="id">ID:</label>
-                                <input type="text" class="form-control" id="id" name="id" readonly>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="user_type">Is_Featured:</label>
-                                <input type="text" class="form-control" id="is_featured" name="is_featured" required
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="fname">Title:</label>
-                                <input type="text" class="form-control" id="title" name="title" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="about">Details:</label>
-                            <textarea class="form-control" id="details" name="details" rows="4" required></textarea>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="date_created">Date Published:</label>
-                                <input type="text" class="form-control" id="date_published" name="date_published"
-                                    required readonly>
-                            </div>
-
-                        </div>
-                        <div class="form-group text-center">
-                            <button type="submit" name="update" class="btn btn-primary" id="btn-update">Update</button>
-                            <button type="submit" name="delete" class="btn btn-danger" id="btn-delete">Delete</button>
-                            <button type="submit" name="promote" class="btn btn-primary"id="btn-promote">Set as Headline</button>
-                        </div>
-                    </form>
-                </div>
-
             </div>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+            <div class="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+                <h1 class="font-serif text-2xl font-bold text-repaw-dark mb-6">News Details</h1>
+                <form action="#" method="POST" enctype="multipart/form-data" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="id" class="block text-sm font-medium text-repaw-dark mb-1.5">ID:</label>
+                            <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="id" name="id" readonly>
+                        </div>
+                        <div>
+                            <label for="is_featured" class="block text-sm font-medium text-repaw-dark mb-1.5">Is Featured:</label>
+                            <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="is_featured" name="is_featured" required readonly>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-repaw-dark mb-1.5">Title:</label>
+                        <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="title" name="title" required>
+                    </div>
+                    <div>
+                        <label for="details" class="block text-sm font-medium text-repaw-dark mb-1.5">Details:</label>
+                        <textarea class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="details" name="details" rows="4" required></textarea>
+                    </div>
+                    <div>
+                        <label for="date_published" class="block text-sm font-medium text-repaw-dark mb-1.5">Date Published:</label>
+                        <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="date_published" name="date_published" required readonly>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="submit" name="update" class="inline-flex items-center gap-2 bg-repaw-text text-repaw-bg rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors duration-300"><span class="mui-icon">save</span> Update</button>
+                        <button type="submit" name="delete" class="inline-flex items-center gap-2 bg-repaw-danger text-white rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:opacity-90 transition-opacity"><span class="mui-icon">delete</span> Delete</button>
+                        <button type="submit" name="promote" class="inline-flex items-center gap-2 bg-repaw-accent text-repaw-dark rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark hover:text-repaw-accent transition-colors duration-300"><span class="mui-icon">push_pin</span> Set as Headline</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
 
     <script>
-        $(document).ready(function () {
-            // Handle click event on table rows
-            $(".table tbody tr").click(function () {
-                // Remove the active class from other rows
-                $(".table tbody tr").removeClass("active");
-
-                // Add the active class to the clicked row
-                $(this).addClass("active");
-
-                // Get the selected row's data
-                var id = $(this).find("td:nth-child(1)").text().trim();
-                var is_featured = $(this).find("td:nth-child(6)").html().trim();
-                var tilte = $(this).find("td:nth-child(3)").text().trim();
-                var details = $(this).find("td:nth-child(4)").text().trim();
-                var date_published = $(this).find("td:nth-child(5)").text().trim();
-
-                // Populate the input fields with the selected row data
-                $("#id").val(id);
-                $("#is_featured").val(is_featured);
-                $("#title").val(tilte);
-                $("#details").val(details);
-                $("#date_published").val(date_published);
+        document.querySelectorAll(".table-row").forEach(function (row) {
+            row.addEventListener("click", function () {
+                const cell = i => row.children[i].textContent.trim();
+                document.getElementById("id").value = cell(0);
+                document.getElementById("is_featured").value = cell(5);
+                document.getElementById("title").value = cell(2);
+                document.getElementById("details").value = cell(3);
+                document.getElementById("date_published").value = cell(4);
             });
         });
     </script>
-
-
 </body>
 
 </html>
-
-<script>
-    function logout() {
-        if (confirm("Are you sure you want to log out?")) {
-            // Perform logout action
-            window.location.href = "../auth/logout.php";
-        }
-    }
-</script>

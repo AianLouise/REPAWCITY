@@ -2,7 +2,24 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap">
-<script src="https://kit.fontawesome.com/98b545cfa6.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght@24,400..700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    .mui-icon {
+        font-family: 'Material Symbols Rounded';
+        font-weight: normal;
+        font-style: normal;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+</style>
 <script>
     tailwind.config = {
         theme: {
@@ -29,10 +46,10 @@
 <footer class="relative mt-12 bg-repaw-accent rounded-t-[6rem] font-sans overflow-hidden">
     <!-- Decorative paw print watermark -->
     <div class="absolute -top-10 -right-10 opacity-10 pointer-events-none select-none" aria-hidden="true">
-        <i class="fa-solid fa-paw text-[20rem] text-repaw-dark"></i>
+        <span class="mui-icon text-[20rem] text-repaw-dark">pets</span>
     </div>
     <div class="absolute bottom-0 -left-16 opacity-10 pointer-events-none select-none" aria-hidden="true">
-        <i class="fa-solid fa-paw text-[16rem] text-repaw-dark"></i>
+        <span class="mui-icon text-[16rem] text-repaw-dark">pets</span>
     </div>
 
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 pb-10 relative z-10">
@@ -115,7 +132,7 @@
                     <span class="absolute -bottom-1 left-0 w-10 h-[3px] bg-repaw-dark rounded-full"></span>
                 </h3>
                 <div class="flex items-start gap-3">
-                    <i class="fa-solid fa-location-dot text-repaw-dark mt-1 text-lg"></i>
+                    <span class="mui-icon text-repaw-dark mt-1 text-lg">place</span>
                     <p class="text-repaw-text/90 text-sm leading-relaxed">
                         #135 Purok 3, Balsik,<br>
                         Hermosa, Bataan,<br>
@@ -124,7 +141,7 @@
                 </div>
                 <a href="https://goo.gl/maps/CxUucZAbZ6mvNXRG7" target="_blank" rel="noopener noreferrer"
                    class="mt-4 inline-flex items-center gap-2 text-repaw-dark font-semibold text-sm hover:underline underline-offset-4 transition-colors duration-200">
-                    <i class="fa-solid fa-map-location-dot"></i>
+                        <span class="mui-icon">map</span>
                     View Google Maps
                 </a>
             </div>
@@ -140,11 +157,11 @@
                 <h3 class="font-serif text-lg font-semibold text-repaw-dark mb-4">Contact</h3>
                 <div class="space-y-2.5">
                     <p class="flex items-center gap-3 text-repaw-text/90 text-sm">
-                        <i class="fa-solid fa-phone text-repaw-dark"></i>
+                        <span class="mui-icon text-repaw-dark">call</span>
                         +63 923 4897 632
                     </p>
                     <p class="flex items-center gap-3 text-repaw-text/90 text-sm">
-                        <i class="fa-solid fa-envelope text-repaw-dark"></i>
+                        <span class="mui-icon text-repaw-dark">mail</span>
                         repawcity@gmail.com
                     </p>
                 </div>
@@ -156,25 +173,25 @@
                 <ul class="space-y-2.5">
                     <li>
                         <a href="/pages/mission.php" class="text-repaw-text/90 hover:text-repaw-dark transition-colors duration-200 text-sm inline-flex items-center gap-2 group">
-                            <i class="fa-solid fa-chevron-right text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors"></i>
+                            <span class="mui-icon text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors">chevron_right</span>
                             Mission
                         </a>
                     </li>
                     <li>
                         <a href="/pages/FAQ.php" class="text-repaw-text/90 hover:text-repaw-dark transition-colors duration-200 text-sm inline-flex items-center gap-2 group">
-                            <i class="fa-solid fa-chevron-right text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors"></i>
+                            <span class="mui-icon text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors">chevron_right</span>
                             Assistance
                         </a>
                     </li>
                     <li>
                         <a href="/pages/privacy-policy.php" class="text-repaw-text/90 hover:text-repaw-dark transition-colors duration-200 text-sm inline-flex items-center gap-2 group">
-                            <i class="fa-solid fa-chevron-right text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors"></i>
+                            <span class="mui-icon text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors">chevron_right</span>
                             Privacy Policy
                         </a>
                     </li>
                     <li>
                         <a href="/pages/terms-of-use.php" class="text-repaw-text/90 hover:text-repaw-dark transition-colors duration-200 text-sm inline-flex items-center gap-2 group">
-                            <i class="fa-solid fa-chevron-right text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors"></i>
+                            <span class="mui-icon text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors">chevron_right</span>
                             Terms of Use
                         </a>
                     </li>
@@ -187,15 +204,15 @@
                 <div class="flex gap-3">
                     <a href="#" aria-label="Facebook"
                        class="w-11 h-11 rounded-full bg-repaw-dark text-repaw-accent flex items-center justify-center hover:bg-repaw-text hover:scale-110 transition-all duration-300 shadow-md">
-                        <i class="fa-brands fa-facebook-f text-lg"></i>
+                        <i class="bi bi-facebook text-lg"></i>
                     </a>
                     <a href="#" aria-label="Instagram"
                        class="w-11 h-11 rounded-full bg-repaw-dark text-repaw-accent flex items-center justify-center hover:bg-repaw-text hover:scale-110 transition-all duration-300 shadow-md">
-                        <i class="fa-brands fa-instagram text-lg"></i>
+                        <i class="bi bi-instagram text-lg"></i>
                     </a>
                     <a href="#" aria-label="TikTok"
                        class="w-11 h-11 rounded-full bg-repaw-dark text-repaw-accent flex items-center justify-center hover:bg-repaw-text hover:scale-110 transition-all duration-300 shadow-md">
-                        <i class="fa-brands fa-tiktok text-lg"></i>
+                        <i class="bi bi-tiktok text-lg"></i>
                     </a>
                 </div>
             </div>
@@ -235,7 +252,7 @@
 <a href="#top" id="scroll-to-top"
    class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-repaw-dark text-white flex items-center justify-center shadow-lg hover:bg-repaw-text hover:scale-110 transition-all duration-300 z-50 opacity-0 pointer-events-none"
    aria-label="Scroll to top">
-    <i class="fa-solid fa-arrow-up text-lg"></i>
+    <span class="mui-icon text-lg">arrow_upward</span>
 </a>
 
 <script>

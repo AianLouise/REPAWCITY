@@ -57,63 +57,46 @@ if (isset($_POST["submit"])) {
 <html lang="en">
 
 <head>
-    <link rel="icon" href="../image/icon.png" type="image/png">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="../css/admin.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/../css/all.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/../css/bootstrap.min.css">
-    <style>
-        a,
-        .form-control {
-            text-decoration: none !important;
-        }
-    </style>
+    <title>Add Pets — rePaw City Admin</title>
+    <?php require '../includes/admin_head.php'; ?>
 </head>
 
-<body>
-    <nav class="navbar">
-        <a href="../index.php" class="logo"><img src="../image/logo (1).png" class="img-logo"></a>
-        <a href="javascript:void(0);" class="list" onclick="logout()">Logout</a>
-    </nav>
+<body class="font-sans bg-repaw-bg text-repaw-text antialiased">
+    <!-- Admin top bar -->
+    <?php require '../includes/admin_navbar.php'; ?>
 
-    <div class="setting">
+    <div class="flex min-h-[calc(100vh-4rem)]">
+        <!-- Sidebar -->
+        <?php require '../includes/admin_sidebar.php'; ?>
 
-        <div class="sidebar">
-            <a href="admin-dashboard.php" class="menu"> Dashboard</a>
-            <a href="admin-add-pets.php" class="menu"> Add Pets</a>
-            <a href="admin-manage-pets.php" class="menu"> Manage Pets</a>
-            <a href="admin-manage-featured.php" class="menu"> Modify Featured Image</a>
-            <a href="admin-manage-user.php" class="menu"> Manage Users</a>
-            <a href="admin-add-news.php" class="menu"> Add News</a>
-            <a href="admin-manage-news.php" class="menu"> Manage News</a>
-        </div>
+        <!-- Main -->
+        <main class="flex-1 p-6 sm:p-10">
+            <div class="max-w-3xl mx-auto bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="mui-icon text-3xl text-repaw-dark">pets</span>
+                    <h1 class="font-serif text-3xl font-bold text-repaw-dark">Pet Form</h1>
+                </div>
 
-        <div class="main">
-            <div class="container mt-1 pet-form">
-                <h1>Pet Form</h1>
-                <form action="#" method="POST" enctype="multipart/form-data">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="name">Pet Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                <form action="#" method="POST" enctype="multipart/form-data" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-repaw-dark mb-1.5">Pet Name:</label>
+                            <input type="text" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="name" name="name" required>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="type">Pet Type:</label>
-                            <select class="form-control" id="type" name="type" required>
+                        <div>
+                            <label for="type" class="block text-sm font-medium text-repaw-dark mb-1.5">Pet Type:</label>
+                            <select class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="type" name="type" required>
                                 <option value="">Select Type</option>
                                 <option value="Dog">Dog</option>
                                 <option value="Cat">Cat</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="breed">Breed:</label>
-                            <select name="breed" id="breed" class="form-control">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="breed" class="block text-sm font-medium text-repaw-dark mb-1.5">Breed:</label>
+                            <select name="breed" id="breed" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text">
                                 <option value="">Select Breed</option>
                                 <optgroup label="Dog Breeds">
                                     <option value="Aspin">Aspin</option>
@@ -159,21 +142,21 @@ if (isset($_POST["submit"])) {
                                     <option value="Abyssinian">Abyssinian</option>
                                 </optgroup>
                             </select>
-
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="sex">Sex:</label>
-                            <select class="form-control" id="sex" name="sex" required>
+                        <div>
+                            <label for="sex" class="block text-sm font-medium text-repaw-dark mb-1.5">Sex:</label>
+                            <select class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="sex" name="sex" required>
                                 <option value="">Select Sex</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="weight">Weight:</label>
-                            <select class="form-control" id="weight" name="weight" required>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="weight" class="block text-sm font-medium text-repaw-dark mb-1.5">Weight:</label>
+                            <select class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="weight" name="weight" required>
                                 <option value="">Select Weight</option>
                                 <option value="Less than 5 lbs">Less than 5 lbs</option>
                                 <option value="5-10 lbs">5-10 lbs</option>
@@ -182,9 +165,9 @@ if (isset($_POST["submit"])) {
                                 <option value="over 50 lbs">over 50 lbs</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="age">Age:</label>
-                            <select class="form-control" id="age" name="age" required>
+                        <div>
+                            <label for="age" class="block text-sm font-medium text-repaw-dark mb-1.5">Age:</label>
+                            <select class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="age" name="age" required>
                                 <option value="">Select Age</option>
                                 <option value="Less than 6 months">Less than 6 months</option>
                                 <option value="6 months to 5 years">6 months to 5 years</option>
@@ -192,38 +175,28 @@ if (isset($_POST["submit"])) {
                                 <option value="over 10 years">over 10 years</option>
                             </select>
                         </div>
+                    </div>
 
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-repaw-dark mb-1.5">Date of Rescue:</label>
+                        <input type="date" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="date" name="date" required>
                     </div>
-                    <div class="form-group">
-                        <label for="date">Date of Rescue:</label>
-                        <input type="date" class="form-control" id="date" name="date" required>
+                    <div>
+                        <label for="about" class="block text-sm font-medium text-repaw-dark mb-1.5">About:</label>
+                        <textarea class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text" id="about" name="about" rows="4" required></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="about">About:</label>
-                        <textarea class="form-control" id="about" name="about" rows="4" required></textarea>
+                    <div>
+                        <label for="image" class="block text-sm font-medium text-repaw-dark mb-1.5">Image:</label>
+                        <input type="file" class="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text file:mr-4 file:rounded-lg file:border-0 file:bg-repaw-text file:px-4 file:py-2 file:text-repaw-bg" id="image" name="image" required>
                     </div>
-                    <div class="form-group">
-                        <label for="image">Image:</label>
-                        <input type="file" class="form-control-file" id="image" name="image" required>
-                    </div>
-                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+
+                    <button type="submit" name="submit" class="inline-flex items-center gap-2 w-full sm:w-auto bg-repaw-text text-repaw-bg rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors duration-300">
+                        <span class="mui-icon">add_circle</span> Submit
+                    </button>
                 </form>
             </div>
-
-        </div>
+        </main>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
 </body>
 
 </html>
-
-<script>
-    function logout() {
-        if (confirm("Are you sure you want to log out?")) {
-            // Perform logout action
-            window.location.href = "../auth/logout.php";
-        }
-    }
-</script>

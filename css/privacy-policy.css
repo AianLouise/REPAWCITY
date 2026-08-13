@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Acme", serif;
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   /* outline: auto; */
 }
@@ -36,6 +36,7 @@
 }
 
 .contact-heading {
+  font-family: "Playfair Display", serif;
   text-align: center;
   margin-bottom: 20px;
   background-color: #fad046;
@@ -44,6 +45,7 @@
 }
 
 .contact-heading h2 {
+  font-family: "Playfair Display", serif;
   margin: 0;
   color: #000000;
   font-size: 24px;
@@ -97,6 +99,7 @@
   margin: 0 10px;
 }
 .map-container {
+  font-family: "Playfair Display", serif;
   width: 500px;
   height: 430px;
 }

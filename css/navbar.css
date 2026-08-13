@@ -1,160 +1,165 @@
-* {
-  margin: 0;
+.repaw-nav {
+  background-color: #f5e6d3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  height: 80px;
+  line-height: 80px;
+}
+
+.repaw-nav .nav-wrapper {
+  font-family: "Playfair Display", serif;
+  height: 80px;
+  line-height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.repaw-nav .brand-logo {
+  font-family: "Playfair Display", serif;
+  position: relative;
+  height: 80px;
+  width: auto;
+  display: flex;
+  align-items: center;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Acme", serif;
-  text-decoration: none;
-  /* outline: auto; */
-}
-body {
-  position: relative;
+  left: 0;
+  transform: none;
 }
 
-.navbar {
-  width: 100%;
-  z-index: 999;
+.repaw-nav .brand-logo img {
+  height: 55px;
+  width: auto;
 }
 
-.navbar a {
-  display: inline-block;
+.repaw-nav .nav-items {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  margin: 0;
+}
+
+.repaw-nav .nav-link {
   color: #6c4421;
-  text-decoration: none;
   font-size: 18px;
-  padding: 13px 30px 13px 30px;
-  margin-top: 20px;
-  margin-bottom: 15px;
-  margin-left: 10px;
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 18px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 0;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
 }
-.navbar a.logo {
-  padding: 3px 2px 1px 2px;
-  vertical-align: middle;
-  margin-top: 0.5rem;
-  margin-left: 20px;
-}
-.navbar .list:hover {
+
+.repaw-nav .nav-link:hover,
+.repaw-nav .nav-link:focus {
+  font-family: "Playfair Display", serif;
   background-color: #d6bca8;
-  border-radius: 10px;
-}
-.img-logo {
-  width: 8rem;
-  top: 1.6%;
+  color: #4a2c17;
+  outline: none;
 }
 
-.navbar .icon {
-  display: none;
+.repaw-nav .dropdown-content {
+  background-color: #f9f5f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  margin-top: 0;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  background-color: #ffffff;
+.repaw-nav .dropdown-content li > a {
+  font-family: "Playfair Display", serif;
   color: #6c4421;
-  padding: 13px 30px 13px 30px;
-  font-size: 18px;
-  border: none;
-  cursor: pointer;
-  border-radius: 10px;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  padding: 12px 20px;
+  transition: background-color 0.2s ease;
 }
 
-.dropdown-content {
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 200px;
-  padding: 1px 1px 1px 1px;
-  z-index: 999;
-}
-
-.dropdown-content a {
-  color: black;
-  text-decoration: none;
-  display: block;
-  width: 11rem;
-}
-
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
+.repaw-nav .dropdown-content li > a:hover,
+.repaw-nav .dropdown-content li > a:focus {
+  font-family: "Playfair Display", serif;
   background-color: #d6bca8;
+  color: #4a2c17;
 }
 
-.navbar a.login {
-  margin-left: 20rem;
-}
-.dd-p {
-  position: relative;
-}
-
-.dd-p .dropdown-content {
-  position: absolute;
+.repaw-nav .dropdown-trigger {
+  display: flex;
+  align-items: center;
+  height: 80px;
 }
 
-/* Adjust the margin-left for the dropdown */
-.navbar .dropdown.dd-p {
-  margin-left: 15rem;
+.repaw-nav .sidenav {
+  background-color: #f5e6d3;
+  padding-top: 20px;
+}
+
+.repaw-nav .sidenav li > a {
+  color: #6c4421;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+}
+
+.repaw-nav .sidenav li > a:hover,
+.repaw-nav .sidenav li > a:focus {
+  background-color: #d6bca8;
+  color: #4a2c17;
+}
+
+.repaw-nav .sidenav .collapsible-header {
+  color: #6c4421;
+  font-family: "Inter", sans-serif;
+}
+
+.repaw-nav .sidenav .collapsible-body li a {
+  padding-left: 50px;
+}
+
+.logout-btn {
+  color: #c62828 !important;
+}
+
+.signup-btn {
+  background-color: #6c4421;
+  color: #f5e6d3 !important;
+  border-radius: 20px;
+  padding: 0 20px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.signup-btn:hover,
+.signup-btn:focus {
+  font-family: "Playfair Display", serif;
+  background-color: #4a2c17;
+}
+
+.signup-btn-mobile {
+  color: #6c4421;
+  font-weight: bold;
+}
+
+.repaw-nav .sidenav-trigger {
+  color: #6c4421;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+  .repaw-nav .nav-wrapper {
+    padding: 0 12px;
+  }
+
+  .repaw-nav .brand-logo img {
+  font-family: "Playfair Display", serif;
+    height: 45px;
+  }
 }
 
 @media screen and (max-width: 600px) {
-  .navbar a:not(.logo),
-  .navbar .dr:not(.logo) {
+  .repaw-nav .nav-items {
     display: none;
-  }
-  .navbar a.icon {
-    float: right;
-    display: block;
-    margin-top: 15px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .navbar.responsive {
-    position: relative;
-  }
-  .navbar.responsive .logo {
-    display: none;
-  }
-  .navbar.responsive a.icon {
-    position: absolute;
-    display: block;
-    top: -12px;
-    right: 20px;
-    float: right;
-    padding: 10px; /* Add this line */
-    z-index: 1000;
-  }
-  .navbar.responsive a, .navbar.responsive .dr {
-    float: none;
-    display: block;
-    text-align: center;
-    margin-top: 15px; /* Adjust as needed */
-  }
-  .navbar.responsive .dropdown {
-    float: none;
-    display: block;
-    text-align: center;
-  }
-  .dropdown:hover .dropdown-content {
-    display: block;
-    margin-top: -15px;
-    margin-left: 8rem;
-  }
-  .dropdown .dropdown-content a:hover {
-    display: block;
-  }
-  .navbar a.login {
-    margin-left: 0;
-  }
-  .navbar .dropdown.dd-p {
-    margin-left: 0rem;
   }
 }

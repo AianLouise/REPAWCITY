@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Acme", serif;
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   /* outline: auto; */
 }
@@ -35,6 +35,7 @@
   margin-left: 10px;
 }
 .navbar1 a.logo {
+  font-family: "Playfair Display", serif;
   padding: 3px 2px 1px 2px;
   vertical-align: middle;
   margin-top: 0.5rem;
@@ -42,11 +43,13 @@
 }
 
 .img-logo {
+  font-family: "Playfair Display", serif;
   width: 8rem;
   top: 1.6%;
 }
 
 .navbar1 h1 {
+  font-family: "Playfair Display", serif;
   position: absolute;
   left: 15%;
   top: 3%;
@@ -72,6 +75,7 @@
 }
 
 .content h2 {
+  font-family: "Playfair Display", serif;
   color: white;
   font-weight: 100;
   margin-bottom: 20px;
@@ -107,6 +111,7 @@
 }
 
 .content h1 {
+  font-family: "Playfair Display", serif;
   color: white;
   position: absolute;
   top: 0;
@@ -124,6 +129,7 @@
 }
 
 h1 {
+  font-family: "Playfair Display", serif;
   text-align: center;
   margin-top: 30px;
 }
@@ -138,6 +144,7 @@ form {
 }
 
 label {
+  font-family: "Playfair Display", serif;
   display: block;
   margin-bottom: 5px;
 }
@@ -185,6 +192,7 @@ span{
     margin-left: 10px;
   }
   .navbar1 a.logo {
+  font-family: "Playfair Display", serif;
     padding: 3px 2px 1px 2px;
     vertical-align: middle;
     margin-top: 0.5rem;
@@ -192,11 +200,13 @@ span{
   }
 
   .img-logo {
+  font-family: "Playfair Display", serif;
     width: 6rem;
     top: 1.6%;
   }
 
   .navbar1 h1 {
+  font-family: "Playfair Display", serif;
     position: absolute;
     left: 30%;
     top: 4%;
@@ -248,6 +258,7 @@ span{
   }
 
   .info {
+  font-family: "Playfair Display", serif;
     width: 100%;
     color: gray;
     margin-top: 10px;

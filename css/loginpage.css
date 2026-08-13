@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Acme", serif;
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   /* outline: auto; */
 }
@@ -28,6 +28,7 @@
 }
 
 .login .content h1 {
+  font-family: "Playfair Display", serif;
   font-size: 5rem;
 }
 
@@ -112,6 +113,7 @@
 }
 
 @media screen and (max-width: 600px) {
+  font-family: "Playfair Display", serif;
   .login {
     min-height: 100vh;
     display: flex;
@@ -133,6 +135,7 @@
   }
 
   .login .content h1 {
+  font-family: "Playfair Display", serif;
     font-size: 3rem;
   }
 

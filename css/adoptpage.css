@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Acme", serif;
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   /* outline: auto; */
 }
@@ -20,6 +20,7 @@
 }
 
 .home .top {
+  font-family: "Playfair Display", serif;
   min-height: 30vh;
   display: flex;
   background-color: #fad046;
@@ -110,6 +111,7 @@
 }
 
 .home .pets .adopt-title {
+  font-family: "Playfair Display", serif;
   position: absolute;
   color: white;
   font-weight: normal;
@@ -159,12 +161,14 @@
 }
 
 .feature img {
+  font-family: "Playfair Display", serif;
   width: 100%;
   height: 100%;
   border-radius: 5px;
 }
 
 .feature h4 {
+  font-family: "Playfair Display", serif;
   color: #f9f9f9;
   font-size: 2rem;
   text-align: left;
@@ -240,6 +244,7 @@
   }
 
   .home .pets {
+  font-family: "Playfair Display", serif;
     min-height: 35vh;
     display: flex;
     background-color: #253239;
@@ -296,6 +301,7 @@
   }
 
   .adoption {
+  font-family: "Playfair Display", serif;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -329,12 +335,14 @@
   }
 
   .feature img {
+  font-family: "Playfair Display", serif;
     width: 100%;
     height: 100%;
     border-radius: 10px;
   }
 
   .feature h4 {
+  font-family: "Playfair Display", serif;
     color: #f9f9f9;
     font-size: 1.2rem;
     text-align: left;

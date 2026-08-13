@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Acme", serif;
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   /* outline: auto; */
 }
@@ -75,6 +75,7 @@
   color: black;
 }
 .menu a {
+  font-family: "Playfair Display", serif;
   display: inline-block;
   padding: 10px;
   transition: transform 0.3s;
@@ -152,6 +153,7 @@
 }
 
 .feature h4 {
+  font-family: "Playfair Display", serif;
   position: absolute;
   background-color: #fff1f1;
   bottom: 0;
@@ -355,6 +357,7 @@
   }
 
   .home .pets .menu .find-dog {
+  font-family: "Playfair Display", serif;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
   }
@@ -392,6 +395,7 @@
     border-radius: 10%;
   }
   .feature h4 {
+  font-family: "Playfair Display", serif;
     position: absolute;
     background-color: #fff1f1;
     bottom: 0;
@@ -426,6 +430,7 @@
     left: 72%;
   }
   .feature h4 {
+  font-family: "Playfair Display", serif;
     position: absolute;
     background-color: #fff1f1;
     bottom: -10%;

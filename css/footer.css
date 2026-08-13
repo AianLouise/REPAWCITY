@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Acme", serif;
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   /* outline: auto; */
 }
@@ -46,6 +46,7 @@
   left: 23%;
 }
 .footer .about-us h3 {
+  font-family: "Playfair Display", serif;
   font-size: 1.8rem;
 }
 
@@ -54,6 +55,7 @@
 }
 
 .footer .address h3 {
+  font-family: "Playfair Display", serif;
   font-size: 1.8rem;
 }
 
@@ -97,6 +99,7 @@
 }
 
 .info .social h3 {
+  font-family: "Playfair Display", serif;
   margin-top: 10px;
   text-align: center;
 }
@@ -158,9 +161,11 @@
   }
 
   .footer .about-us h3 {
+  font-family: "Playfair Display", serif;
     font-size: 1.1rem;
   }
   .footer .address h3 {
+  font-family: "Playfair Display", serif;
     font-size: 1.1rem;
   }
 
@@ -184,6 +189,7 @@
     text-align: center;
   }
   .info h3{
+  font-family: "Playfair Display", serif;
     font-size: 15px;
   }
   .info p{
@@ -209,6 +215,7 @@
   }
   
   .info .social h3 {
+  font-family: "Playfair Display", serif;
     margin-top: 0px;
     text-align: center;
     

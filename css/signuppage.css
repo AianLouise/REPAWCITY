@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Acme", serif;
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   /* outline: auto; */
 }
@@ -27,6 +27,7 @@
   color: white;
 }
 .signup .content h1 {
+  font-family: "Playfair Display", serif;
   font-size: 4rem;
 }
 .signup-form .content .sub-title {
@@ -90,6 +91,7 @@
 }
 
 @media screen and (max-width: 600px) {
+  font-family: "Playfair Display", serif;
   .signup {
     min-height: 100vh;
     display: flex;
@@ -110,6 +112,7 @@
     color: white;
   }
   .signup .content h1 {
+  font-family: "Playfair Display", serif;
     font-size: 3rem;
   }
   .signup-form .content .sub-title {

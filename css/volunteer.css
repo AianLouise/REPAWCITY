@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Acme", serif;
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   /* outline: auto; */
 }
@@ -40,6 +40,7 @@
 }
 
 .title h1 {
+  font-family: "Playfair Display", serif;
   position: absolute;
   width: 45rem;
   text-align: center;
@@ -108,6 +109,7 @@
 }
 
 .requirement h1 {
+  font-family: "Playfair Display", serif;
   font-size: 1cm;
 }
 
@@ -162,6 +164,7 @@
 }
 
 .opportunity h1 {
+  font-family: "Playfair Display", serif;
   font-size: 1cm;
 }
 
@@ -210,6 +213,7 @@
 }
 
 .benefits h1 {
+  font-family: "Playfair Display", serif;
   font-size: 1cm;
 }
 
@@ -281,6 +285,7 @@
   }
 
   .title h1 {
+  font-family: "Playfair Display", serif;
     position: absolute;
     width: 15rem;
     text-align: center;
@@ -352,6 +357,7 @@
   }
 
   .requirement h1 {
+  font-family: "Playfair Display", serif;
     font-size: 0.6cm;
     width: 20rem;
     margin-left: 40px;
@@ -410,6 +416,7 @@
   }
 
   .opportunity h1 {
+  font-family: "Playfair Display", serif;
     font-size: 0.6cm;
     width: 20rem;
     margin-left: 40px;
@@ -462,6 +469,7 @@
   }
 
   .benefits h1 {
+  font-family: "Playfair Display", serif;
     font-size: 0.6cm;
     width: 20rem;
     margin-left: 40px;

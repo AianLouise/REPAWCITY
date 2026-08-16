@@ -33,50 +33,72 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-repaw-bg/90 via-repaw-bg/70 to-repaw-accent/40 pointer-events-none" />
         <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
-          <div className="max-w-3xl">
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-repaw-dark leading-tight">
-              Meet the rescues<br />
-              <span className="text-repaw-text">of {SHELTER.address.line2.replace(' City, Metro Manila', '').replace(', Metro Manila', '')}.</span>
-            </h1>
-            <p className="mt-6 text-lg text-repaw-text/90 leading-relaxed max-w-xl">
-              rePaw City is a shelter in {SHELTER.address.line2} helping stray dogs and cats get healthy, vaccinated, and adopted. Our pets are seen by appointment only.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-4">
-              <Link
-                to="/adopt"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-repaw-text text-repaw-bg px-7 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors duration-300"
-              >
-                <span className="mui-icon text-[20px]">pets</span> Adopt a Pet
-              </Link>
-              <Link
-                to="/donate"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-repaw-accent text-repaw-dark px-7 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark hover:text-repaw-accent transition-colors duration-300"
-              >
-                <span className="mui-icon text-[20px]">favorite</span> Donate
-              </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="max-w-3xl">
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-repaw-dark leading-tight">
+                Meet the rescues<br />
+                <span className="text-repaw-text">of {SHELTER.address.line2.replace(' City, Metro Manila', '').replace(', Metro Manila', '')}.</span>
+              </h1>
+              <p className="mt-6 text-lg text-repaw-text/90 leading-relaxed max-w-xl">
+                rePaw City is a shelter in {SHELTER.address.line2} helping stray dogs and cats get healthy, vaccinated, and adopted. Our pets are seen by appointment only.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-4">
+                <Link
+                  to="/adopt"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-repaw-text text-repaw-bg px-7 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors duration-300"
+                >
+                  <span className="mui-icon text-[20px]">pets</span> Adopt a Pet
+                </Link>
+                <Link
+                  to="/donate"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-repaw-accent text-repaw-dark px-7 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark hover:text-repaw-accent transition-colors duration-300"
+                >
+                  <span className="mui-icon text-[20px]">favorite</span> Donate
+                </Link>
+              </div>
+
+              {availableCount !== undefined && (
+                <dl className="mt-7 inline-flex items-center gap-3 rounded-full bg-white/70 border border-repaw-hover/40 px-5 py-3 shadow-sm">
+                  <dt className="sr-only">Available pets</dt>
+                  <dd className="font-serif text-2xl font-bold text-repaw-dark leading-none">{availableCount}</dd>
+                  <dd className="text-sm text-repaw-text/80 leading-snug whitespace-nowrap">
+                    pets ready for adoption right now
+                  </dd>
+                </dl>
+              )}
+
+              <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-repaw-text/80">
+                <li className="inline-flex items-center gap-2">
+                  <span className="mui-icon text-[18px] text-repaw-text">vaccines</span> Vaccinated &amp; vet-checked
+                </li>
+                <li className="inline-flex items-center gap-2">
+                  <span className="mui-icon text-[18px] text-repaw-text">event_available</span> Seen by appointment only
+                </li>
+                <li className="inline-flex items-center gap-2">
+                  <span className="mui-icon text-[18px] text-repaw-text">place</span> Based in {SHELTER.address.line2}
+                </li>
+              </ul>
             </div>
 
-            {availableCount !== undefined && (
-              <dl className="mt-7 inline-flex items-center gap-3 rounded-full bg-white/70 border border-repaw-hover/40 px-5 py-3 shadow-sm">
-                <dt className="sr-only">Available pets</dt>
-                <dd className="font-serif text-2xl font-bold text-repaw-dark leading-none">{availableCount}</dd>
-                <dd className="text-sm text-repaw-text/80 leading-snug whitespace-nowrap">
-                  pets ready for adoption right now
-                </dd>
-              </dl>
-            )}
+            <div className="relative hidden lg:block">
+              <img
+                src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1200&auto=format&fit=crop"
+                alt="Rescued dogs at rePaw City shelter"
+                className="w-full h-[420px] xl:h-[460px] object-cover rounded-[3rem] shadow-lg border-4 border-white/70"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur rounded-2xl border border-repaw-hover/40 px-5 py-4 shadow-lg">
+                <p className="font-serif text-2xl font-bold text-repaw-dark leading-none">{SHELTER.address.line2}</p>
+                <p className="mt-1 text-sm text-repaw-text/80">rescues rehomed with love</p>
+              </div>
+            </div>
 
-            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-repaw-text/80">
-              <li className="inline-flex items-center gap-2">
-                <span className="mui-icon text-[18px] text-repaw-text">vaccines</span> Vaccinated &amp; vet-checked
-              </li>
-              <li className="inline-flex items-center gap-2">
-                <span className="mui-icon text-[18px] text-repaw-text">event_available</span> Seen by appointment only
-              </li>
-              <li className="inline-flex items-center gap-2">
-                <span className="mui-icon text-[18px] text-repaw-text">place</span> Based in {SHELTER.address.line2}
-              </li>
-            </ul>
+            <div className="lg:hidden">
+              <img
+                src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1200&auto=format&fit=crop"
+                alt="Rescued dogs at rePaw City shelter"
+                className="w-full aspect-[16/10] object-cover rounded-[2rem] shadow-lg border-4 border-white/70"
+              />
+            </div>
           </div>
         </div>
       </section>

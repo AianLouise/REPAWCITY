@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\AdoptionApplication;
 use App\Models\Appointment;
-use App\Models\Donation;
 use App\Models\Pet;
 use App\Models\PetRecord;
 use App\Models\ShelterSchedule;
@@ -109,31 +108,6 @@ class DemoDataSeeder extends Seeder
                 ],
                 'notes' => $i % 4 === 1 ? 'Great applicant, schedule a home visit.' : null,
             ]);
-        }
-
-        // --- Donations ---
-        foreach ($demoUsers as $i => $user) {
-            if ($i % 2 === 0) {
-                Donation::create([
-                    'donor_name' => $user->fname.' '.$user->lname,
-                    'donor_email' => $user->email,
-                    'type' => 'cash',
-                    'amount' => [250, 500, 1000, 1500][$i % 4],
-                    'date' => now()->subDays($i % 20)->toDateString(),
-                    'notes' => 'Supporting rePaw City!',
-                    'user_id' => $user->id,
-                ]);
-            } else {
-                Donation::create([
-                    'donor_name' => $user->fname.' '.$user->lname,
-                    'donor_email' => $user->email,
-                    'type' => 'in_kind',
-                    'item_description' => ['Dog food x5', 'Old blankets', 'Cat litter', 'Pet toys'][$i % 4],
-                    'date' => now()->subDays($i % 20)->toDateString(),
-                    'notes' => null,
-                    'user_id' => $user->id,
-                ]);
-            }
         }
 
         // --- Volunteers + shifts ---

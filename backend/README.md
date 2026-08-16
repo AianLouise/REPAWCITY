@@ -66,7 +66,6 @@ Demo users created by `DemoDataSeeder` use `demoN@repawcity.com` / `demo1234`.
 - `GET /api/admin/reports` (monthly analytics)
 
 ### Community
-- `POST /api/donations`, `GET /api/admin/donations`
 - `POST /api/volunteers/apply`, `GET /api/volunteers/my`, `GET /api/volunteers/shifts`, `PUT .../{shift}/hours`
 - `GET /api/admin/volunteers`, `PUT .../{volunteer}/status`, `POST .../shifts`
 

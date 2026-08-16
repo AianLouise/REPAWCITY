@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\AdoptionApplication;
 use App\Models\Appointment;
-use App\Models\Donation;
 use App\Models\Pet;
 use App\Models\User;
 use App\Models\Volunteer;
@@ -64,10 +63,6 @@ class ReportTest extends TestCase
             'pet_id' => $this->pet->id, 'user_id' => $this->user->id,
             'status' => 'submitted', 'answers' => ['housing' => 'x'],
         ]);
-        Donation::create([
-            'donor_name' => 'A', 'donor_email' => 'a@a.com', 'type' => 'cash',
-            'amount' => 500, 'date' => now()->toDateString(),
-        ]);
 
         $this->actingAs($this->admin, 'sanctum')
             ->getJson('/api/admin/reports?months=12')
@@ -75,7 +70,6 @@ class ReportTest extends TestCase
             ->assertJsonCount(12, 'series')
             ->assertJsonPath('totals.appointments', 1)
             ->assertJsonPath('totals.applications', 1)
-            ->assertJsonPath('totals.donations_cash', 500)
             ->assertJsonPath('series.11.appointments', 1);
     }
 

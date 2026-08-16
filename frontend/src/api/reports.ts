@@ -6,8 +6,6 @@ export interface ReportMonth {
   appointments: number
   applications: number
   adoptions: number
-  donations_cash: number
-  donations_in_kind: number
   volunteer_hours: number
 }
 
@@ -18,7 +16,6 @@ export interface ReportData {
     appointments: number
     applications: number
     adoptions: number
-    donations_cash: number
     volunteer_hours: number
   }
   top_pets_by_appointments: { pet_id: number; name: string; appointments: number }[]

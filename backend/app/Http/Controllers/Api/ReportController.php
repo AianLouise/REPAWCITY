@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\AdoptionApplication;
 use App\Models\Appointment;
-use App\Models\Donation;
 use App\Models\VolunteerShift;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -44,11 +43,6 @@ class ReportController extends Controller
             ->groupBy(fn ($a) => $a->updated_at->format('Y-m'))
             ->map->count();
 
-        $donationRows = Donation::query()
-            ->where('date', '>=', $from)
-            ->get(['date', 'type', 'amount'])
-            ->groupBy(fn ($d) => $d->date->format('Y-m'));
-
         $volunteerHours = VolunteerShift::query()
             ->where('date', '>=', $from)
             ->get(['date', 'hours_logged'])
@@ -59,17 +53,12 @@ class ReportController extends Controller
         for ($i = 0; $i < $months; $i++) {
             $key = $from->copy()->addMonths($i)->format('Y-m');
 
-            $monthDonations = $donationRows->get($key, collect());
-            $cashTotal = $monthDonations->where('type', 'cash')->sum('amount');
-
             $series[] = [
                 'month' => $key,
                 'label' => $from->copy()->addMonths($i)->format('M Y'),
                 'appointments' => (int) ($appointments[$key] ?? 0),
                 'applications' => (int) ($applications[$key] ?? 0),
                 'adoptions' => (int) ($adoptions[$key] ?? 0),
-                'donations_cash' => (float) $cashTotal,
-                'donations_in_kind' => (int) $monthDonations->where('type', 'in_kind')->count(),
                 'volunteer_hours' => (int) (($volunteerHours[$key] ?? collect())->sum('hours_logged') ?? 0),
             ];
         }
@@ -111,7 +100,6 @@ class ReportController extends Controller
                 'appointments' => array_sum(array_column($series, 'appointments')),
                 'applications' => array_sum(array_column($series, 'applications')),
                 'adoptions' => array_sum(array_column($series, 'adoptions')),
-                'donations_cash' => round(array_sum(array_column($series, 'donations_cash')), 2),
                 'volunteer_hours' => array_sum(array_column($series, 'volunteer_hours')),
             ],
             'top_pets_by_appointments' => $topPets,

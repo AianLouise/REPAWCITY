@@ -7,23 +7,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Phase 4: donations, volunteers, and volunteer shifts.
+     * Phase 4: volunteers and volunteer shifts.
      */
     public function up(): void
     {
-        Schema::create('donations', function (Blueprint $table) {
-            $table->id();
-            $table->string('donor_name');
-            $table->string('donor_email');
-            $table->enum('type', ['cash', 'in_kind']);
-            $table->decimal('amount', 10, 2)->nullable();
-            $table->string('item_description')->nullable();
-            $table->date('date');
-            $table->text('notes')->nullable();
-            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->timestamps();
-        });
-
         Schema::create('volunteers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
@@ -53,6 +40,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('volunteer_shifts');
         Schema::dropIfExists('volunteers');
-        Schema::dropIfExists('donations');
     }
 };

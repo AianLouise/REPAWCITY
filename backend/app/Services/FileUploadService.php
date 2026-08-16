@@ -57,6 +57,18 @@ class FileUploadService
     }
 
     /**
+     * Whether a thumbnail exists for the given stored image.
+     */
+    public function thumbExists(string $directory, ?string $filename): bool
+    {
+        if (! $filename) {
+            return false;
+        }
+
+        return Storage::disk($this->disk())->exists($directory.'/thumbs/'.$filename);
+    }
+
+    /**
      * Public URL for the thumbnail of a stored image.
      */
     public function thumbUrl(string $directory, string $filename): string

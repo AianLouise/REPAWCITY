@@ -46,11 +46,10 @@ export default function AdminReports() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard label="Appointments" value={data?.totals.appointments ?? 0} icon="event" />
         <StatCard label="Applications" value={data?.totals.applications ?? 0} icon="how_to_reg" />
         <StatCard label="Adoptions" value={data?.totals.adoptions ?? 0} icon="favorite" />
-        <StatCard label="Cash Donations" value={`₱ ${Number(data?.totals.donations_cash ?? 0).toLocaleString()}`} icon="volunteer_activism" />
         <StatCard label="Volunteer Hours" value={data?.totals.volunteer_hours ?? 0} icon="schedule" />
       </div>
 
@@ -73,13 +72,6 @@ export default function AdminReports() {
               <BarChart color="#fad046" data={(data?.series ?? []).map((s) => ({ label: s.label, value: s.adoptions }))} />
             </div>
           </div>
-        </ChartCard>
-
-        <ChartCard title="Donations (cash ₱)">
-          <BarChart
-            color="#2f7d4f"
-            data={(data?.series ?? []).map((s) => ({ label: s.label, value: s.donations_cash }))}
-          />
         </ChartCard>
 
         <ChartCard title="Volunteer hours per month">

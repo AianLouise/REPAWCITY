@@ -64,6 +64,10 @@ class Pet extends Model
 
     public function getThumbUrlAttribute(): string
     {
-        return app(\App\Services\FileUploadService::class)->thumbUrl('pets', $this->image);
+        $service = app(\App\Services\FileUploadService::class);
+
+        return $service->thumbExists('pets', $this->image)
+            ? $service->thumbUrl('pets', $this->image)
+            : $service->url('pets', $this->image);
     }
 }

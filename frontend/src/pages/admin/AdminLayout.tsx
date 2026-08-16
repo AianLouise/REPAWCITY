@@ -17,7 +17,6 @@ const navGroups: { group: string; links: { to: string; label: string; icon: stri
   {
     group: 'Community',
     links: [
-      { to: '/donations', label: 'Donations', icon: 'volunteer_activism' },
       { to: '/volunteers', label: 'Volunteers', icon: 'group' },
     ],
   },

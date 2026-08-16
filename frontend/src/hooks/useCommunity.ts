@@ -1,13 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { communityApi } from '../api/community'
 
-export function useAdminDonations() {
-  return useQuery({
-    queryKey: ['admin-donations'],
-    queryFn: communityApi.adminDonations,
-  })
-}
-
 export function useMyVolunteer() {
   return useQuery({
     queryKey: ['my-volunteer'],
@@ -33,16 +26,11 @@ export function useCommunityActions() {
   const queryClient = useQueryClient()
 
   const invalidate = () => {
-    void queryClient.invalidateQueries({ queryKey: ['admin-donations'] })
     void queryClient.invalidateQueries({ queryKey: ['my-volunteer'] })
     void queryClient.invalidateQueries({ queryKey: ['my-shifts'] })
     void queryClient.invalidateQueries({ queryKey: ['admin-volunteers'] })
   }
 
-  const storeDonation = useMutation({
-    mutationFn: communityApi.storeDonation,
-    onSuccess: invalidate,
-  })
   const applyVolunteer = useMutation({
     mutationFn: communityApi.applyVolunteer,
     onSuccess: invalidate,
@@ -61,5 +49,5 @@ export function useCommunityActions() {
     onSuccess: invalidate,
   })
 
-  return { storeDonation, applyVolunteer, logShiftHours, updateVolunteerStatus, assignShift }
+  return { applyVolunteer, logShiftHours, updateVolunteerStatus, assignShift }
 }

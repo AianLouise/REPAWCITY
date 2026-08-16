@@ -1,15 +1,5 @@
 import { api } from './client'
-import type { Donation, DonationTotals, Volunteer, VolunteerShift } from '../types'
-
-export interface DonationPayload {
-  donor_name: string
-  donor_email: string
-  type: 'cash' | 'in_kind'
-  amount?: number | null
-  item_description?: string | null
-  date: string
-  notes?: string | null
-}
+import type { Volunteer, VolunteerShift } from '../types'
 
 export interface VolunteerApplyPayload {
   availability?: string[]
@@ -18,15 +8,6 @@ export interface VolunteerApplyPayload {
 }
 
 export const communityApi = {
-  async storeDonation(payload: DonationPayload): Promise<void> {
-    await api.post('/donations', payload)
-  },
-
-  async adminDonations(): Promise<{ totals: DonationTotals; data: Donation[] }> {
-    const res = await api.get<{ totals: DonationTotals; data: Donation[] }>('/admin/donations')
-    return res.data
-  },
-
   async applyVolunteer(payload: VolunteerApplyPayload): Promise<Volunteer> {
     const res = await api.post<{ volunteer: Volunteer }>('/volunteers/apply', payload)
     return res.data.volunteer

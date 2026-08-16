@@ -103,19 +103,6 @@ export interface AuthResponse {
   token: string
 }
 
-export interface Donation {
-  id: number
-  donor_name: string
-  donor_email: string
-  type: 'cash' | 'in_kind'
-  amount: string | null
-  item_description: string | null
-  date: string
-  notes: string | null
-  user_id: number | null
-  created_at: string
-}
-
 export type VolunteerStatus = 'pending' | 'active' | 'inactive'
 
 export interface Volunteer {
@@ -143,11 +130,6 @@ export interface VolunteerShift {
   hours_logged: number
   activity: string | null
   created_at: string
-}
-
-export interface DonationTotals {
-  cash: string
-  in_kind_count: number
 }
 
 export interface SlotsResponse {

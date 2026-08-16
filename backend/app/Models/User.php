@@ -51,11 +51,6 @@ class User extends Authenticatable
         return $this->hasMany(AdoptionApplication::class);
     }
 
-    public function donations(): HasMany
-    {
-        return $this->hasMany(Donation::class);
-    }
-
     public function volunteer(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Volunteer::class);

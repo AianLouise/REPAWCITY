@@ -11,7 +11,6 @@ import AdminAddNews from './pages/admin/AdminAddNews'
 import AdminManageNews from './pages/admin/AdminManageNews'
 import AdminManageUsers from './pages/admin/AdminManageUsers'
 import AdminApplications from './pages/admin/AdminApplications'
-import AdminDonations from './pages/admin/AdminDonations'
 import AdminReports from './pages/admin/AdminReports'
 import AdminVolunteers from './pages/admin/AdminVolunteers'
 import AdminAvailability from './pages/admin/AdminAvailability'
@@ -45,7 +44,6 @@ export default function AdminApp() {
               <Route path="pets/featured" element={<AdminFeatured />} />
               <Route path="availability" element={<AdminAvailability />} />
               <Route path="applications" element={<AdminApplications />} />
-              <Route path="donations" element={<AdminDonations />} />
               <Route path="volunteers" element={<AdminVolunteers />} />
               <Route path="news/add" element={<AdminAddNews />} />
               <Route path="news/manage" element={<AdminManageNews />} />

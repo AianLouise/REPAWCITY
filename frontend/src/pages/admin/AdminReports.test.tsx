@@ -7,9 +7,9 @@ vi.mock('../../hooks/useReports', () => ({
   useReports: () => ({
     data: {
       months: 12,
-      totals: { appointments: 5, applications: 3, adoptions: 1, donations_cash: 500, volunteer_hours: 8 },
+      totals: { appointments: 5, applications: 3, adoptions: 1, volunteer_hours: 8 },
       series: [
-        { month: '2026-08', label: 'Aug 2026', appointments: 5, applications: 3, adoptions: 1, donations_cash: 500, donations_in_kind: 1, volunteer_hours: 8 },
+        { month: '2026-08', label: 'Aug 2026', appointments: 5, applications: 3, adoptions: 1, volunteer_hours: 8 },
       ],
       top_pets_by_appointments: [{ pet_id: 1, name: 'Cookie', appointments: 3 }],
       top_pets_by_applications: [{ pet_id: 1, name: 'Cookie', applications: 2 }],

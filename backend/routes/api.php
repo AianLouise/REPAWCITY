@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\AdoptionApplicationController;
 use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
-use App\Http\Controllers\Api\DonationController;
 use App\Http\Controllers\Api\FavoritesController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\NotificationsController;
@@ -29,7 +28,6 @@ Route::get('/news/{news}', [NewsController::class, 'show']);
 
 Route::get('/appointments/slots', [AppointmentController::class, 'slots']);
 Route::get('/schedules', [ScheduleController::class, 'index']);
-Route::post('/donations', [DonationController::class, 'store']);
 
 // Authenticated (any logged-in user)
 Route::middleware('auth:sanctum')->group(function () {
@@ -95,7 +93,6 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin')->group(functi
     Route::get('/adoption-applications', [AdoptionApplicationController::class, 'index']);
     Route::put('/adoption-applications/{application}/status', [AdoptionApplicationController::class, 'updateStatus']);
 
-    Route::get('/donations', [DonationController::class, 'index']);
     Route::get('/volunteers', [VolunteerController::class, 'index']);
     Route::put('/volunteers/{volunteer}/status', [VolunteerController::class, 'updateStatus']);
     Route::post('/volunteers/{volunteer}/shifts', [ShiftController::class, 'store']);

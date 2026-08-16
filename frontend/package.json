@@ -1,0 +1,47 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:admin": "vite --config vite.admin.config.ts",
+    "build": "tsc -b && vite build && vite build --config vite.admin.config.ts",
+    "build:client": "tsc -b && vite build",
+    "build:admin": "tsc -b && vite build --config vite.admin.config.ts",
+    "lint": "oxlint",
+    "test": "vitest run",
+    "preview": "vite preview",
+    "preview:admin": "vite preview --config vite.admin.config.ts"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.8.0",
+    "@tanstack/react-query": "^5.101.4",
+    "axios": "^1.19.0",
+    "date-fns": "^4.4.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-hook-form": "^7.85.0",
+    "react-router-dom": "^7.18.2",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.4",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.5",
+    "autoprefixer": "^10.5.4",
+    "jsdom": "^30.0.1",
+    "oxlint": "^1.75.0",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "vitest": "^4.1.10"
+  }
+}

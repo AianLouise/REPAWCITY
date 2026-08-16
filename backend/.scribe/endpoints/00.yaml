@@ -1,0 +1,1801 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/register
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Register a new user (ported from includes/authcode.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      fname:
+        custom: []
+        name: fname
+        description: 'Must not be greater than 250 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lname:
+        custom: []
+        name: lname
+        description: 'Must not be greater than 250 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address. Must not be greater than 250 characters.'
+        required: true
+        example: ashly64@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: true
+        example: pBNvYg
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      fname: b
+      lname: 'n'
+      email: ashly64@example.com
+      password: pBNvYg
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Log the user in and issue a token.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: ''
+        required: true
+        example: '|]|{+-'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      password: '|]|{+-'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/pets
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: |-
+        List pets with optional filters (ported from pages/adoptpage.php +
+        includes/userfunction.php).
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":[{"id":1,"name":"Alas","type":"Dog","breed":"Labrador Retriever","sex":"Male","weight":"5-10 lbs","age":"6 months to 5 years","date":"2023-05-03","about":"Alas is a playful and energetic Labrador Retriever who loves going on long walks and playing fetch. He''s looking for an active family who can give him plenty of exercise and attention.","image":"646ae881bbbf9.jpg","image_url":"\/storage\/pets\/646ae881bbbf9.jpg","is_featured":0},{"id":2,"name":"Cheryl","type":"Dog","breed":"Shih Tzu","sex":"Female","weight":"Less than 5 lbs","age":"Less than 6 months","date":"2023-05-10","about":"Cheryl is a loyal and intelligent Shih Tzu who would make a great companion and protector. She enjoys learning new tricks and is eager to please. She''s looking for a loving home with experienced dog owners.","image":"646ae9b514fc8.jpg","image_url":"\/storage\/pets\/646ae9b514fc8.jpg","is_featured":0},{"id":3,"name":"Chia","type":"Dog","breed":"Chihuahua","sex":"Female","weight":"Less than 5 lbs","age":"Less than 6 months","date":"2023-05-11","about":"Chia is a tiny and adorable Chihuahua with a big personality. She''s friendly, affectionate, and loves cuddling on laps. Chia is looking for a loving family who can shower her with lots of attention.","image":"646ae9f36b768.jpg","image_url":"\/storage\/pets\/646ae9f36b768.jpg","is_featured":0},{"id":4,"name":"Colcol","type":"Dog","breed":"Pomeranian","sex":"Female","weight":"Less than 5 lbs","age":"6 months to 5 years","date":"2023-05-01","about":"Colcol is a highly intelligent and active Pomeranian who excels in agility and obedience training. He needs a home with a large backyard and an owner who can provide mental stimulation and regular exercise.","image":"646aea3613c7c.jpg","image_url":"\/storage\/pets\/646aea3613c7c.jpg","is_featured":0},{"id":13,"name":"Cookies","type":"Cat","breed":"British Shorthair","sex":"Male","weight":"Less than 5 lbs","age":"6 months to 5 years","date":"2023-05-08","about":"Cookies is a playful and mischievous Domestic Shorthair who loves chasing toy mice and climbing on cat trees. She''s looking for a home where she can explore and entertain her humans with her silly antics.","image":"646aef92c6281.jpg","image_url":"\/storage\/pets\/646aef92c6281.jpg","is_featured":1},{"id":14,"name":"Daphne","type":"Cat","breed":"Siamese","sex":"Female","weight":"10-20 lbs","age":"6 months to 5 years","date":"2023-05-04","about":"Daphne is an elegant and talkative Siamese cat who loves engaging in conversations with her humans. She enjoys being the center of attention and would thrive in a home where she can receive lots of love and affection.","image":"646aefbb27df2.jpg","image_url":"\/storage\/pets\/646aefbb27df2.jpg","is_featured":0},{"id":5,"name":"Gia","type":"Dog","breed":"Golden Retriever","sex":"Female","weight":"10-20 lbs","age":"5 to 10 years","date":"2023-04-04","about":"Gia is a sweet and gentle Golden Retriever who loves everyone she meets. She enjoys playing fetch, going for swims, and snuggling up with her humans. Gia is looking for a loving family to shower her with affection.","image":"646aea625b1a5.jpg","image_url":"\/storage\/pets\/646aea625b1a5.jpg","is_featured":0},{"id":6,"name":"Haji","type":"Dog","breed":"Dalmatian","sex":"Male","weight":"10-20 lbs","age":"6 months to 5 years","date":"2023-05-02","about":"Haji is a beautiful and adventurous Dalmatian with striking blue eyes. He''s an active and independent dog who enjoys long hikes and exploring the outdoors. Haji is looking for an experienced owner who understands the needs of his breed.","image":"646aea9926207.jpg","image_url":"\/storage\/pets\/646aea9926207.jpg","is_featured":0},{"id":7,"name":"Kio","type":"Dog","breed":"Shih Tzu","sex":"Male","weight":"10-20 lbs","age":"6 months to 5 years","date":"2023-05-10","about":"Kio is a friendly and gentle Shih Tzu who loves being pampered. He enjoys lounging around the house and getting lots of belly rubs. Kio is looking for a calm and loving home where he can be the center of attention.","image":"646aeb529b730.jpg","image_url":"\/storage\/pets\/646aeb529b730.jpg","is_featured":0},{"id":15,"name":"Madam","type":"Cat","breed":"Maine Coon","sex":"Female","weight":"5-10 lbs","age":"6 months to 5 years","date":"2023-05-01","about":"Madam is a majestic and gentle Maine Coon with a luxurious coat. She''s a calm and affectionate cat who enjoys being brushed and lounging in sunny spots. Madam is looking for a peaceful and loving home.","image":"646aefe7498dd.jpg","image_url":"\/storage\/pets\/646aefe7498dd.jpg","is_featured":0},{"id":16,"name":"Maya","type":"Cat","breed":"Ragdoll","sex":"Female","weight":"over 50 lbs","age":"over 10 years","date":"2023-05-09","about":"Maya is a sweet and docile Ragdoll cat who loves being held and cuddled. She''s a gentle and easygoing companion who would fit well in a quiet and loving home environment.","image":"646af05049e4c.jpg","image_url":"\/storage\/pets\/646af05049e4c.jpg","is_featured":0},{"id":17,"name":"Mitoy","type":"Cat","breed":"Scottish Fold","sex":"Male","weight":"20-50 lbs","age":"5 to 10 years","date":"2023-04-08","about":"Mitoy is an adorable and curious Scottish Fold with unique folded ears. He''s playful and enjoys interactive toys and games. Mitoy is looking for a home where he can explore and satisfy his natural curiosity.","image":"646af0917bede.jpg","image_url":"\/storage\/pets\/646af0917bede.jpg","is_featured":0},{"id":18,"name":"Monami","type":"Cat","breed":"Persian","sex":"Female","weight":"Less than 5 lbs","age":"6 months to 5 years","date":"2023-05-10","about":"Monami is a regal and elegant Persian cat with a luxurious coat. She enjoys a calm and serene environment and loves lounging in her favorite spots. Monami is looking for a patient and dedicated owner who can provide her with the grooming and care she needs.","image":"646af0c07149d.jpg","image_url":"\/storage\/pets\/646af0c07149d.jpg","is_featured":0},{"id":8,"name":"Rovie","type":"Dog","breed":"Boxer","sex":"Male","weight":"20-50 lbs","age":"6 months to 5 years","date":"2023-05-09","about":"Rovie is a playful and energetic Boxer who always has a wagging tail. He loves playing with toys and going for long runs. Rovie is looking for an active family who can provide him with lots of exercise and playtime.","image":"646aeb784dd2d.jpg","image_url":"\/storage\/pets\/646aeb784dd2d.jpg","is_featured":0},{"id":9,"name":"Tenten","type":"Dog","breed":"Poodle","sex":"Male","weight":"10-20 lbs","age":"6 months to 5 years","date":"2023-05-17","about":"Tenten is a stylish and intelligent Poodle who enjoys learning new tricks and showing off his fancy haircuts. He''s a friendly and sociable dog who gets along well with children and other pets.","image":"646aec214669c.jpg","image_url":"\/storage\/pets\/646aec214669c.jpg","is_featured":0},{"id":10,"name":"Una","type":"Dog","breed":"Beagle","sex":"Female","weight":"5-10 lbs","age":"5 to 10 years","date":"2023-05-09","about":"Una is an adorable and curious Beagle who loves following her nose. She enjoys sniffing around and exploring new scents. Una is looking for an owner who can provide her with plenty of mental stimulation and scent-based activities.","image":"646aec4d43c77.jpg","image_url":"\/storage\/pets\/646aec4d43c77.jpg","is_featured":4},{"id":11,"name":"Xuan","type":"Dog","breed":"Bulldog","sex":"Female","weight":"10-20 lbs","age":"Less than 6 months","date":"2023-05-11","about":"Xuan is a charming and affectionate French Bulldog with a laid-back personality. He enjoys snuggling on the couch and getting belly rubs. Xuan is looking for a loving family who can give him lots of attention and care.","image":"646aece249f4c.jpg","image_url":"\/storage\/pets\/646aece249f4c.jpg","is_featured":3},{"id":12,"name":"Yuchi","type":"Dog","breed":"German Shepherd","sex":"Male","weight":"5-10 lbs","age":"Less than 6 months","date":"2023-05-12","about":"Yuchi is an intelligent and active Australian Shepherd who loves having a job to do. He excels in agility and obedience training and enjoys being challenged. Yuchi is looking for an experienced owner who can provide him with mental stimulation and regular exercise.","image":"646aef5e7c3de.jpg","image_url":"\/storage\/pets\/646aef5e7c3de.jpg","is_featured":2}],"links":{"first":"http:\/\/localhost:8000\/api\/pets?page=1","last":"http:\/\/localhost:8000\/api\/pets?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"http:\/\/localhost:8000\/api\/pets?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"http:\/\/localhost:8000\/api\/pets","per_page":24,"to":18,"total":18}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/pets/{pet_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show a single pet (ported from pages/adoptprofile.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      pet_id:
+        custom: []
+        name: pet_id
+        description: 'The ID of the pet.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      pet_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":1,"name":"Alas","type":"Dog","breed":"Labrador Retriever","sex":"Male","weight":"5-10 lbs","age":"6 months to 5 years","date":"2023-05-03","about":"Alas is a playful and energetic Labrador Retriever who loves going on long walks and playing fetch. He''s looking for an active family who can give him plenty of exercise and attention.","image":"646ae881bbbf9.jpg","image_url":"\/storage\/pets\/646ae881bbbf9.jpg","is_featured":0}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/news
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List news (ported from pages/news.php).'
+      description: '?featured=1 returns the single headline article.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":[{"id":1,"title":"\"Pets Bring Joy and Companionship to Families During Challenging Times\"","details":"In the midst of trying times, the presence of pets in households has become a source of comfort and companionship for families across the nation. From the smallest apartments to the largest homes, the...","image":"6476fc017381c.jpg","image_url":"\/storage\/news\/6476fc017381c.jpg","date_published":"2026-08-15T13:51:39.000000Z","is_featured":false},{"id":2,"title":"\"Pets: Our Furry Companions Who Brighten Our Lives\"","details":"Pets have long held a special place in our hearts, and their significance has only grown stronger over time. These beloved companions bring joy, laughter, and an unmatched sense of companionship to mi...","image":"6476fc88e150a.jpg","image_url":"\/storage\/news\/6476fc88e150a.jpg","date_published":"2026-08-15T13:51:39.000000Z","is_featured":false},{"id":3,"title":"\"Pets: The Healing Power of Unconditional Love and Companionship\"","details":"In a fast-paced and often chaotic world, pets have emerged as steadfast allies, offering a sanctuary of love, support, and unwavering companionship. Beyond the joy they bring to our lives, pets have a...","image":"6476fe0d82557.jpg","image_url":"\/storage\/news\/6476fe0d82557.jpg","date_published":"2026-08-15T13:51:39.000000Z","is_featured":false}],"links":{"first":"http:\/\/localhost:8000\/api\/news?page=1","last":"http:\/\/localhost:8000\/api\/news?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"http:\/\/localhost:8000\/api\/news?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"http:\/\/localhost:8000\/api\/news","per_page":10,"to":3,"total":3}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/news/{news_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show a single article (ported from pages/news-page.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      news_id:
+        custom: []
+        name: news_id
+        description: 'The ID of the news.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      news_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":1,"title":"\"Pets Bring Joy and Companionship to Families During Challenging Times\"","details":"In the midst of trying times, the presence of pets in households has become a source of comfort and companionship for families across the nation. From the smallest apartments to the largest homes, these faithful companions have brought immeasurable joy and emotional support to their human counterparts, proving that the bond between humans and animals is truly unbreakable.rnrnDuring the global pandemic and subsequent lockdowns, many individuals found themselves feeling isolated and overwhelmed. However, pet ownership offered solace, acting as a constant source of unconditional love and a reason to smile even during the darkest of days. The soothing presence of a loyal dog or the gentle purring of a contented cat served as a balm for anxious hearts.rnrnAccording to a recent survey conducted by the National Pet Owners Association, pet adoptions skyrocketed over the past year, with shelters and rescue organizations reporting a surge in demand. Families turned to four-legged companions, recognizing their ability to alleviate stress and loneliness, while providing a welcome distraction from the uncertainties of the world.rnrnDr. Emily Thompson, a veterinarian with years of experience, spoke about the remarkable impact pets have on their owners. \"Pets offer a sense of routine, purpose, and emotional stability. They provide a listening ear, a comforting presence, and a reason to get out of bed every morning. The human-animal bond is truly transformative.\"rnrnThe benefits of owning a pet extend beyond mere companionship. Studies have shown that interaction with animals can lower blood pressure, reduce anxiety, and even improve cardiovascular health. The responsibility of caring for a pet also fosters a sense of empathy and teaches children valuable life lessons about compassion, responsibility, and commitment.rnrnIn addition to traditional pets like dogs and cats, other animals have found their way into the hearts and homes of families. Exotic pets such as reptiles, birds, and small mammals have gained popularity, adding diversity to the range of animals that bring joy to households.rnrnBut it''s not just about the positive impact on individuals. Pets have also played a significant role in promoting community engagement. Local dog parks have become meeting grounds for neighbors, fostering connections and building a sense of belonging. Social media platforms are flooded with heartwarming stories and adorable pet pictures, creating virtual communities where pet lovers can share their experiences and seek advice.rnrnAs we navigate these uncertain times, it is evident that pets have become an invaluable source of love and support for their owners. They remind us to live in the present, cherish the simple pleasures, and find solace in the unspoken language of companionship. In a world that can often feel chaotic, our furry friends offer unwavering loyalty, unwavering comfort, and an unconditional love that knows no bounds.","image":"6476fc017381c.jpg","image_url":"\/storage\/news\/6476fc017381c.jpg","date_published":"2026-08-15T13:51:39.000000Z","is_featured":false}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/appointments/slots
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Return which time slots are already booked for a given date.'
+      description: 'Feeds the booking calendar (replaces the inline FullCalendar events).'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      date:
+        custom: []
+        name: date
+        description: 'Must be a valid date.'
+        required: true
+        example: '2026-08-15T06:42:16'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      date: '2026-08-15T06:42:16'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"date":"2026-08-15T06:42:16","booked":[]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/user
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Return the authenticated user.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/logout
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Revoke the current token.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: api/user/password
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Change the authenticated user's password."
+      description: |-
+        Ported from user/change-password.php. Legacy plain-text passwords are
+        handled automatically because seed data is now always hashed.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      old_password:
+        custom: []
+        name: old_password
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      new_password:
+        custom: []
+        name: new_password
+        description: 'Must be at least 8 characters.'
+        required: true
+        example: ngzmiyvdljnikhwaykcmyuwpwl
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      old_password: architecto
+      new_password: ngzmiyvdljnikhwaykcmyuwpwl
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/appointments
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: |-
+        Store a booked appointment (replaces the 6-step session wizard insert
+        from booking/book-appointment5.php).
+      description: |-
+        The slot is re-checked inside a transaction with a row lock so two
+        concurrent requests cannot double-book the same date + time slot.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      appointment_type:
+        custom: []
+        name: appointment_type
+        description: ''
+        required: true
+        example: Visit
+        type: string
+        enumValues:
+          - Adopt
+          - Donate
+          - Visit
+          - Volunteer
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      appointment_date:
+        custom: []
+        name: appointment_date
+        description: 'Must be a valid date. Must be a date after or equal to <code>today</code>.'
+        required: true
+        example: '2052-09-07'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      time_slot:
+        custom: []
+        name: time_slot
+        description: ''
+        required: true
+        example: 'Afternoon Session'
+        type: string
+        enumValues:
+          - 'Morning Session'
+          - 'Afternoon Session'
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      first_name:
+        custom: []
+        name: first_name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      middle_name:
+        custom: []
+        name: middle_name
+        description: 'Must not be greater than 250 characters.'
+        required: false
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      last_name:
+        custom: []
+        name: last_name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: z
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      mobile_number:
+        custom: []
+        name: mobile_number
+        description: 'Must not be greater than 20 characters.'
+        required: true
+        example: miyvdljnikhwaykc
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      home_address:
+        custom: []
+        name: home_address
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: m
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email_address:
+        custom: []
+        name: email_address
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        required: true
+        example: marquardt.noah@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      appointment_type: Visit
+      appointment_date: '2052-09-07'
+      time_slot: 'Afternoon Session'
+      first_name: 'n'
+      middle_name: g
+      last_name: z
+      mobile_number: miyvdljnikhwaykc
+      home_address: m
+      email_address: marquardt.noah@example.com
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/appointments/my
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: |-
+        List all appointments for the authenticated user
+        (feeds the Profile dropdown + user/notification.php replacement).
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/appointments/{appointment_id}/message'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: |-
+        Return the notification message for an appointment, only if it belongs
+        to the authenticated user (replaces user/notification.php, fixes the
+        original SQL-injection-prone GET parameter).
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      appointment_id:
+        custom: []
+        name: appointment_id
+        description: 'The ID of the appointment.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      appointment_id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/admin/dashboard
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: |-
+        Admin dashboard data (ported from admin/admin-dashboard.php):
+        stat counts, calendar events, and daily appointment tables.
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/admin/dashboard/daily
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Appointment rows for a given date + time slot.'
+      description: 'Used to fill the Morning/Afternoon session tables on the dashboard.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      date:
+        custom: []
+        name: date
+        description: 'Must be a valid date.'
+        required: true
+        example: '2026-08-15T06:42:16'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      time_slot:
+        custom: []
+        name: time_slot
+        description: ''
+        required: true
+        example: 'Afternoon Session'
+        type: string
+        enumValues:
+          - 'Morning Session'
+          - 'Afternoon Session'
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      date: '2026-08-15T06:42:16'
+      time_slot: 'Afternoon Session'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/admin/appointments/{appointment_id}/status'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: |-
+        Accept or cancel an appointment as an admin. Auto-generates the user
+        notification message (ported from admin/update_status.php).
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      appointment_id:
+        custom: []
+        name: appointment_id
+        description: 'The ID of the appointment.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      appointment_id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: true
+        example: Cancelled
+        type: string
+        enumValues:
+          - Accepted
+          - Cancelled
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      status: Cancelled
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/admin/pets
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Add a pet with image upload (ported from admin/admin-add-pets.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 250 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      type:
+        custom: []
+        name: type
+        description: ''
+        required: true
+        example: Dog
+        type: string
+        enumValues:
+          - Dog
+          - Cat
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      breed:
+        custom: []
+        name: breed
+        description: 'Must not be greater than 250 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      sex:
+        custom: []
+        name: sex
+        description: ''
+        required: true
+        example: Female
+        type: string
+        enumValues:
+          - Male
+          - Female
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      weight:
+        custom: []
+        name: weight
+        description: 'Must not be greater than 250 characters.'
+        required: true
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      age:
+        custom: []
+        name: age
+        description: 'Must not be greater than 250 characters.'
+        required: true
+        example: z
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      date:
+        custom: []
+        name: date
+        description: 'Must be a valid date.'
+        required: true
+        example: '2026-08-15T06:42:16'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      about:
+        custom: []
+        name: about
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      image:
+        custom: []
+        name: image
+        description: 'Must be an image. Must not be greater than 2048 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: b
+      type: Dog
+      breed: 'n'
+      sex: Female
+      weight: g
+      age: z
+      date: '2026-08-15T06:42:16'
+      about: architecto
+    fileParameters:
+      image: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/admin/pets/{pet_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update a pet (optional new image) (ported from admin/admin-manage-pets.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      pet_id:
+        custom: []
+        name: pet_id
+        description: 'The ID of the pet.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      pet_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 250 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      type:
+        custom: []
+        name: type
+        description: ''
+        required: false
+        example: Dog
+        type: string
+        enumValues:
+          - Dog
+          - Cat
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      breed:
+        custom: []
+        name: breed
+        description: 'Must not be greater than 250 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      sex:
+        custom: []
+        name: sex
+        description: ''
+        required: false
+        example: Female
+        type: string
+        enumValues:
+          - Male
+          - Female
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      weight:
+        custom: []
+        name: weight
+        description: 'Must not be greater than 250 characters.'
+        required: false
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      age:
+        custom: []
+        name: age
+        description: 'Must not be greater than 250 characters.'
+        required: false
+        example: z
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      date:
+        custom: []
+        name: date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-08-15T06:42:16'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      about:
+        custom: []
+        name: about
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      image:
+        custom: []
+        name: image
+        description: 'Must be an image. Must not be greater than 2048 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: b
+      type: Dog
+      breed: 'n'
+      sex: Female
+      weight: g
+      age: z
+      date: '2026-08-15T06:42:16'
+      about: architecto
+    fileParameters:
+      image: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/admin/pets/{pet_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a pet and its image (ported from admin/admin-manage-pets.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      pet_id:
+        custom: []
+        name: pet_id
+        description: 'The ID of the pet.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      pet_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/admin/pets/featured
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Assign the four featured pet slots (ported from admin/admin-manage-featured.php).'
+      description: 'Clears all is_featured then sets slots 1-4 inside a transaction.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      featured_image_1:
+        custom: []
+        name: featured_image_1
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      featured_image_2:
+        custom: []
+        name: featured_image_2
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      featured_image_3:
+        custom: []
+        name: featured_image_3
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      featured_image_4:
+        custom: []
+        name: featured_image_4
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      featured_image_1: 16
+      featured_image_2: 16
+      featured_image_3: 16
+      featured_image_4: 16
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/admin/news
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Add a news article with image upload (ported from admin/admin-add-news.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must not be greater than 250 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      details:
+        custom: []
+        name: details
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      image:
+        custom: []
+        name: image
+        description: 'Must be an image. Must not be greater than 3072 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      title: b
+      details: architecto
+    fileParameters:
+      image: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/admin/news/{news_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update a news article (ported from admin/admin-manage-news.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      news_id:
+        custom: []
+        name: news_id
+        description: 'The ID of the news.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      news_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must not be greater than 250 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      details:
+        custom: []
+        name: details
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      image:
+        custom: []
+        name: image
+        description: 'Must be an image. Must not be greater than 3072 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      title: b
+      details: architecto
+    fileParameters:
+      image: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/admin/news/{news_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a news article and its image (ported from admin/admin-manage-news.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      news_id:
+        custom: []
+        name: news_id
+        description: 'The ID of the news.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      news_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/admin/news/{news_id}/feature'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: |-
+        Set a single headline: clear is_featured everywhere, then feature the
+        selected article (ported from admin/admin-manage-news.php).
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      news_id:
+        custom: []
+        name: news_id
+        description: 'The ID of the news.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      news_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/admin/users
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List all users (ported from admin/admin-manage-user.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/admin/users/{user_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Update a user's name/email/optional password (ported from admin/admin-manage-user.php)."
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      user_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      fname:
+        custom: []
+        name: fname
+        description: 'Must not be greater than 250 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lname:
+        custom: []
+        name: lname
+        description: 'Must not be greater than 250 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address. Must not be greater than 250 characters.'
+        required: false
+        example: ashly64@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: false
+        example: pBNvYg
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      fname: b
+      lname: 'n'
+      email: ashly64@example.com
+      password: pBNvYg
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/admin/users/{user_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a user (ported from admin/admin-manage-user.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      user_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/admin/users/{user_id}/role'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Promote (2 -> 1) or demote (1 -> 2) a user (ported from admin/admin-manage-user.php).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      user_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_type:
+        custom: []
+        name: user_type
+        description: ''
+        required: true
+        example: 2
+        type: string
+        enumValues:
+          - 1
+          - 2
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      user_type: 2
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

@@ -1,0 +1,21 @@
+# rePaw City backend container: Laravel running under PHP-FPM.
+# The `web` container (nginx) talks to this via FastCGI on port 9000.
+FROM php:8.3-fpm-alpine
+
+RUN apk add --no-cache \
+        libpng-dev libjpeg-turbo-dev freetype-dev \
+        zip unzip git curl \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j"$(nproc)" gd pdo_mysql \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+WORKDIR /var/www/html
+
+COPY . .
+
+RUN composer install --no-dev --optimize-autoloader --no-interaction \
+    && php artisan storage:link
+
+EXPOSE 9000
+
+CMD ["php-fpm"]

@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Environment files (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# PHP / Composer
+/vendor
+composer.phar
+
+# Node
+/node_modules
+/dist
+
+# Laravel
+/backend/storage/logs/*
+/backend/storage/framework/cache/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/views/*
+/backend/public/build
+/backend/public/hot
+/backend/public/storage
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+.idea/

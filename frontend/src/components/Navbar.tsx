@@ -18,8 +18,6 @@ const aboutLinks = [
   { label: 'Success Stories', to: '/about/success-stories' },
   { label: 'FAQ', to: '/about/faq' },
   { label: 'Contact', to: '/about/contact' },
-  { label: 'Team', to: '/about/team' },
-  { label: 'References', to: '/about/references' },
 ]
 
 function navLinkClass({ isActive }: { isActive: boolean }) {

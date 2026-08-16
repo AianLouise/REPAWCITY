@@ -9,6 +9,7 @@ import type { Appointment, AppointmentType, ScheduleDay, TimeSlot } from '../../
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { SHELTER_ADDRESS_INLINE } from '../../config'
 
 type Step = 1 | 2 | 3 | 4 | 5 | 6
 
@@ -570,7 +571,7 @@ function StepSuccess({ created, onExit }: { created: Appointment; onExit: () => 
           </p>
           <p>- Appointment Time: {created.time_slot}</p>
           <p>- Service: {created.appointment_type}</p>
-          <p>- Location: #135 Purok 3 Balsik, Hermosa, Bataan 2111</p>
+          <p>- Location: {SHELTER_ADDRESS_INLINE}</p>
         </div>
         <div className="mt-4">
           <strong>Important Information:</strong>

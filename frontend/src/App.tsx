@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Layout from './components/Layout'
 import AuthBootstrap from './components/AuthBootstrap'
+import ScrollToTop from './components/ScrollToTop'
 import { ProtectedRoute, GuestRoute, AdminLockout } from './router/clientGuards'
 import Home from './pages/public/Home'
 import Adopt from './pages/public/Adopt'
@@ -11,8 +12,8 @@ import News from './pages/public/News'
 import NewsArticle from './pages/public/NewsArticle'
 import ApplyForAdoption from './pages/public/ApplyForAdoption'
 import Volunteer from './pages/public/Volunteer'
-import { Mission, SuccessStories, FAQ, Contact, Team } from './pages/static/StaticPages'
-import { PrivacyPolicy, TermsOfUse, References } from './pages/static/LegalPages'
+import { Mission, SuccessStories, FAQ, Contact } from './pages/static/StaticPages'
+import { PrivacyPolicy, TermsOfUse } from './pages/static/LegalPages'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import AccountLayout from './pages/user/AccountLayout'
@@ -40,6 +41,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthBootstrap />
+        <ScrollToTop />
         <AdminLockout>
           <Routes>
             <Route element={<Layout />}>
@@ -56,15 +58,8 @@ export default function App() {
               <Route path="about/success-stories" element={<SuccessStories />} />
               <Route path="about/faq" element={<FAQ />} />
               <Route path="about/contact" element={<Contact />} />
-              <Route path="about/team" element={<Team />} />
-              <Route path="about/references" element={<References />} />
               <Route path="privacy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<TermsOfUse />} />
-
-              <Route element={<GuestRoute />}>
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-              </Route>
 
             <Route element={<ProtectedRoute />}>
               <Route path="account" element={<AccountLayout />}>
@@ -84,6 +79,11 @@ export default function App() {
 
             <Route element={<ProtectedRoute />}>
               <Route path="book" element={<BookingWizard />} />
+            </Route>
+
+            <Route element={<GuestRoute />}>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
             </Route>
           </Routes>
         </AdminLockout>

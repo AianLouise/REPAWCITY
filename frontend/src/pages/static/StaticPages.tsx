@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PageHero } from '../../components/Shared'
+import { SHELTER, SHELTER_ADDRESS_INLINE } from '../../config'
 
 export function Mission() {
   return (
@@ -169,15 +170,15 @@ export function Contact() {
             <div className="space-y-4">
               <p className="flex items-center gap-3 text-repaw-text/90">
                 <span className="mui-icon text-repaw-dark text-2xl">call</span>
-                <a href="tel:+639234897632" className="hover:text-repaw-dark transition-colors">+63 923 4897 632</a>
+                <a href={`tel:${SHELTER.phone.replace(/\s/g, '')}`} className="hover:text-repaw-dark transition-colors">{SHELTER.phone}</a>
               </p>
               <p className="flex items-center gap-3 text-repaw-text/90">
                 <span className="mui-icon text-repaw-dark text-2xl">mail</span>
-                <a href="mailto:repawcity@gmail.com" className="hover:text-repaw-dark transition-colors">repawcity@gmail.com</a>
+                <a href={`mailto:${SHELTER.email}`} className="hover:text-repaw-dark transition-colors">{SHELTER.email}</a>
               </p>
               <p className="flex items-start gap-3 text-repaw-text/90">
                 <span className="mui-icon text-repaw-dark text-2xl mt-0.5">place</span>
-                <span>#135 Purok 3, Balsik, Hermosa, Bataan, Philippines 2111</span>
+                <span>{SHELTER_ADDRESS_INLINE}</span>
               </p>
             </div>
           </div>
@@ -198,30 +199,4 @@ export function Contact() {
   )
 }
 
-const team = [
-  { img: '/images/ALFARO.png', name: 'AIAN LOUISE A. ALFARO', role: 'Administrative', email: 'aianlouisealfaro@gmail.com' },
-  { img: '/images/GAMBOA.png', name: 'EDGAR GAMBOA JR.', role: 'Appointments/Inquiries', email: 'edgargamboa@gmail.com' },
-  { img: '/images/IBAY.png', name: 'ARMYN JACE IBAY', role: 'Donations and Volunteers', email: 'armynjace@gmail.com' },
-  { img: '/images/LAXAMANA.png', name: 'ALFRED LAXAMANA', role: 'Adoption', email: 'alfredlaxamana@gmail.com' },
-  { img: '/images/LUZANO.png', name: 'NICOLE LUZANO', role: 'General Information', email: 'nicoleluzano@gmail.com' },
-]
 
-export function Team() {
-  return (
-    <div>
-      <PageHero title="Our Team" subtitle="The passionate people behind rePaw City, here to help pets find their forever homes." />
-      <section className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-20 pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {team.map((member) => (
-            <div key={member.name} className="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm text-center">
-              <img src={member.img} alt={member.name} className="w-32 h-32 rounded-full object-cover mx-auto mb-5 border-4 border-repaw-accent" />
-              <p className="font-serif text-lg font-semibold text-repaw-dark">{member.name}</p>
-              <p className="text-repaw-text/80 mt-1">{member.role}</p>
-              <p className="text-sm text-repaw-text/60 mt-1">{member.email}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
-  )
-}

@@ -1,10 +1,32 @@
 import { Link } from 'react-router-dom'
 import PetCard from '../../components/PetCard'
 import { Empty, Loading } from '../../components/Shared'
-import { useFeaturedPets } from '../../hooks/useContent'
+import { useFeaturedPets, usePets } from '../../hooks/useContent'
+import { SHELTER } from '../../config'
+
+const adoptionSteps = [
+  {
+    icon: 'event_available',
+    title: 'Book a visit',
+    text: 'Choose an open date and a morning or afternoon session on our booking page.',
+  },
+  {
+    icon: 'how_to_reg',
+    title: 'Meet & apply',
+    text: 'Spend time with the pet at the shelter, then submit an adoption application for review.',
+  },
+  {
+    icon: 'favorite',
+    title: 'Take them home',
+    text: 'Once approved, complete the handover and bring your new companion home.',
+  },
+]
 
 export default function Home() {
-  const { data, isLoading } = useFeaturedPets()
+  const { data: featured, isLoading: loadingFeatured } = useFeaturedPets()
+  const { data: allPets } = usePets({ per_page: 1 })
+
+  const availableCount = allPets?.meta.total
 
   return (
     <div>
@@ -12,15 +34,12 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-repaw-bg/90 via-repaw-bg/70 to-repaw-accent/40 pointer-events-none" />
         <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
           <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full bg-repaw-accent/80 px-4 py-1.5 text-sm font-medium text-repaw-dark mb-6">
-              <span className="mui-icon text-[18px]">pets</span> Adopt · Donate · Volunteer
-            </span>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-repaw-dark leading-tight">
-              Every pet deserves a<br />
-              <span className="text-repaw-text">forever home.</span>
+              Meet the rescues<br />
+              <span className="text-repaw-text">of {SHELTER.address.line2.replace(' City, Metro Manila', '').replace(', Metro Manila', '')}.</span>
             </h1>
             <p className="mt-6 text-lg text-repaw-text/90 leading-relaxed max-w-xl">
-              rePaw City connects rescuable dogs and cats across the Philippines with loving families. Browse adoptable pets, support our mission, or lend a hand as a volunteer.
+              rePaw City is a shelter in {SHELTER.address.line2} helping stray dogs and cats get healthy, vaccinated, and adopted. Our pets are seen by appointment only.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <Link
@@ -37,37 +56,79 @@ export default function Home() {
               </Link>
             </div>
 
-            <dl className="mt-12 grid grid-cols-3 gap-6 max-w-md">
-              <Stat value="500+" label="Pets Rehomed" />
-              <Stat value="120" label="Active Volunteers" />
-              <Stat value="15" label="Partner Shelters" />
-            </dl>
+            {availableCount !== undefined && (
+              <dl className="mt-7 inline-flex items-center gap-3 rounded-full bg-white/70 border border-repaw-hover/40 px-5 py-3 shadow-sm">
+                <dt className="sr-only">Available pets</dt>
+                <dd className="font-serif text-2xl font-bold text-repaw-dark leading-none">{availableCount}</dd>
+                <dd className="text-sm text-repaw-text/80 leading-snug whitespace-nowrap">
+                  pets ready for adoption right now
+                </dd>
+              </dl>
+            )}
+
+            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-repaw-text/80">
+              <li className="inline-flex items-center gap-2">
+                <span className="mui-icon text-[18px] text-repaw-text">vaccines</span> Vaccinated &amp; vet-checked
+              </li>
+              <li className="inline-flex items-center gap-2">
+                <span className="mui-icon text-[18px] text-repaw-text">event_available</span> Seen by appointment only
+              </li>
+              <li className="inline-flex items-center gap-2">
+                <span className="mui-icon text-[18px] text-repaw-text">place</span> Based in {SHELTER.address.line2}
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-repaw-dark">How You Can Help</h2>
-          <p className="mt-3 text-repaw-text/80 max-w-2xl mx-auto">Three simple ways to make a life-changing difference for an animal in need.</p>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-repaw-dark">How adoption works</h2>
+          <p className="mt-3 text-repaw-text/80 max-w-2xl mx-auto">Three steps from your first visit to taking a pet home.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <HelpCard to="/adopt" icon="home" title="Adopt" text="Give a rescue dog or cat the loving home they've been waiting for." accent="bg-repaw-accent text-repaw-dark" />
-          <HelpCard to="/donate" icon="volunteer_activism" title="Donate" text="Fund food, medical care, and shelter for pets on their road to recovery." accent="bg-repaw-text text-repaw-bg" />
-          <HelpCard to="/volunteer" icon="group" title="Volunteer" text="Lend your time and skills to walk, feed, and care for our furry friends." accent="bg-repaw-hover text-repaw-dark" />
+          {adoptionSteps.map((step, i) => (
+            <div key={step.title} className="relative bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+              <span className="absolute top-6 right-7 font-serif text-5xl font-bold text-repaw-hover/50" aria-hidden="true">
+                {i + 1}
+              </span>
+              <div className="w-14 h-14 rounded-2xl bg-repaw-accent text-repaw-dark flex items-center justify-center mb-5">
+                <span className="mui-icon text-3xl">{step.icon}</span>
+              </div>
+              <h3 className="font-serif text-xl font-semibold text-repaw-dark mb-2">{step.title}</h3>
+              <p className="text-repaw-text/80 text-sm leading-relaxed">{step.text}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center mt-8">
+          <Link to="/adopt" className="inline-flex items-center gap-1 text-repaw-dark font-medium uppercase tracking-wide text-sm hover:text-repaw-text transition-colors">
+            Browse available pets <span className="mui-icon text-[18px]">arrow_forward</span>
+          </Link>
+        </p>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
+        <div className="text-center mb-12">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-repaw-dark">How You Can Help</h2>
+          <p className="mt-3 text-repaw-text/80 max-w-2xl mx-auto">Three ways to support the rescues at our shelter.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <HelpCard to="/adopt" icon="home" title="Adopt" text="Meet our rescued dogs and cats and bring one home from the shelter." accent="bg-repaw-accent text-repaw-dark" />
+          <HelpCard to="/donate" icon="volunteer_activism" title="Donate" text="Your support covers food, medicine, and vet care for our rescues." accent="bg-repaw-text text-repaw-bg" />
+          <HelpCard to="/volunteer" icon="group" title="Volunteer" text="Help us walk, feed, and care for the animals at the shelter." accent="bg-repaw-hover text-repaw-dark" />
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-16">
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-repaw-dark">Featured Pets</h2>
-          <p className="mt-3 text-repaw-text/80 max-w-2xl mx-auto">Meet some of our pets who are ready for their forever homes.</p>
+          <p className="mt-3 text-repaw-text/80 max-w-2xl mx-auto">A few of the rescues currently looking for adopters.</p>
         </div>
-        {isLoading ? (
+        {loadingFeatured ? (
           <Loading />
-        ) : data && data.data.length > 0 ? (
+        ) : featured && featured.data.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {data.data.map((pet) => (
+            {featured.data.map((pet) => (
               <PetCard key={pet.id} pet={pet} />
             ))}
           </div>
@@ -78,25 +139,16 @@ export default function Home() {
 
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20">
         <div className="relative overflow-hidden rounded-[3rem] bg-repaw-dark text-repaw-bg px-8 py-14 lg:px-16 text-center">
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold relative z-10">Ready to meet your new best friend?</h2>
-          <p className="mt-4 text-repaw-bg/80 max-w-2xl mx-auto relative z-10">Browse our adoptable pets today and start your journey toward a fuller, happier home.</p>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold relative z-10">Come meet our rescues.</h2>
+          <p className="mt-4 text-repaw-bg/80 max-w-2xl mx-auto relative z-10">Book a morning or afternoon visit at our shelter in {SHELTER.address.line2}.</p>
           <Link
             to="/adopt"
             className="mt-8 relative z-10 inline-flex items-center justify-center gap-2 rounded-full bg-repaw-accent text-repaw-dark px-7 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark hover:text-repaw-accent transition-colors duration-300"
           >
-            <span className="mui-icon text-[20px]">pets</span> Start Adopting
+            <span className="mui-icon text-[20px]">pets</span> See Available Pets
           </Link>
         </div>
       </section>
-    </div>
-  )
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <dt className="font-serif text-3xl font-bold text-repaw-dark">{value}</dt>
-      <dd className="text-sm text-repaw-text/80 mt-1">{label}</dd>
     </div>
   )
 }

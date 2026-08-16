@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo (1).png'
+import { SHELTER } from '../config'
 
 export default function Footer() {
   const [showTop, setShowTop] = useState(false)
@@ -27,7 +28,7 @@ export default function Footer() {
               <Link to="/" className="group" aria-label="rePaw City home">
                 <img src={logo} alt="rePaw City" className="h-20 w-auto transition-transform duration-300 group-hover:scale-105" />
               </Link>
-              <p className="mt-4 text-repaw-text/80 text-sm leading-relaxed max-w-[220px]">
+              <p className="mt-4 text-repaw-text/80 text-sm leading-relaxed max-w-[220px] text-balance">
                 Helping pets find their forever homes across the Philippines.
               </p>
             </div>
@@ -48,14 +49,14 @@ export default function Footer() {
             </div>
 
             <div className="lg:col-span-1">
-              <h3 className="font-serif text-xl font-semibold text-repaw-dark mb-5 relative inline-block">
+              <h3 className="font-serif text-xl font-semibold text-repaw-dark mb-5 relative inline-block text-balance">
                 About Us
                 <span className="absolute -bottom-1 left-0 w-10 h-[3px] bg-repaw-dark rounded-full" />
               </h3>
-              <p className="text-repaw-text/90 text-sm leading-relaxed text-justify">
+              <p className="text-repaw-text/90 text-sm leading-relaxed text-balance">
                 Welcome to RePaw City, your go-to pet adoption website based in the Philippines! We are a team of passionate animal lovers who are committed to helping pets find their forever homes.
               </p>
-              <p className="text-repaw-text/90 text-sm leading-relaxed text-justify mt-3">
+              <p className="text-repaw-text/90 text-sm leading-relaxed text-balance mt-3">
                 At RePaw City, we believe that every pet deserves a loving home and a chance to live a happy life. We work tirelessly to connect adoptable pets with loving families who can provide them with the care and attention they need.
               </p>
             </div>
@@ -68,15 +69,15 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <span className="mui-icon text-repaw-dark mt-1 text-lg">place</span>
                 <p className="text-repaw-text/90 text-sm leading-relaxed">
-                  #135 Purok 3, Balsik,
+                  {SHELTER.address.line1}
                   <br />
-                  Hermosa, Bataan,
+                  {SHELTER.address.line2}
                   <br />
-                  Philippines 2111
+                  {SHELTER.address.line3}
                 </p>
               </div>
               <a
-                href="https://goo.gl/maps/CxUucZAbZ6mvNXRG7"
+                href={SHELTER.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center gap-2 text-repaw-dark font-semibold text-sm hover:underline underline-offset-4 transition-colors duration-200"
@@ -107,10 +108,10 @@ export default function Footer() {
             <div>
               <h3 className="font-serif text-lg font-semibold text-repaw-dark mb-4">Information</h3>
               <ul className="space-y-2.5">
-                <FooterInfoLink to="/about/mission">Mission</FooterInfoLink>
-                <FooterInfoLink to="/about/faq">Assistance</FooterInfoLink>
-                <FooterInfoLink to="/privacy">Privacy Policy</FooterInfoLink>
-                <FooterInfoLink to="/terms">Terms of Use</FooterInfoLink>
+                <FooterLink to="/about/mission">Mission</FooterLink>
+                <FooterLink to="/about/faq">Assistance</FooterLink>
+                <FooterLink to="/privacy">Privacy Policy</FooterLink>
+                <FooterLink to="/terms">Terms of Use</FooterLink>
               </ul>
             </div>
 
@@ -177,20 +178,6 @@ function FooterLink({ to, children }: { to: string; children: React.ReactNode })
         className="text-repaw-text hover:text-repaw-dark transition-colors duration-200 text-[15px] font-medium inline-flex items-center gap-2 group"
       >
         <span className="w-1.5 h-1.5 bg-repaw-dark rounded-full opacity-40 group-hover:opacity-100 transition-opacity" />
-        {children}
-      </Link>
-    </li>
-  )
-}
-
-function FooterInfoLink({ to, children }: { to: string; children: React.ReactNode }) {
-  return (
-    <li>
-      <Link
-        to={to}
-        className="text-repaw-text/90 hover:text-repaw-dark transition-colors duration-200 text-sm inline-flex items-center gap-2 group"
-      >
-        <span className="mui-icon text-xs text-repaw-dark/50 group-hover:text-repaw-dark transition-colors">chevron_right</span>
         {children}
       </Link>
     </li>

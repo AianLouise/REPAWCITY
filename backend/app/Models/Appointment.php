@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
-    'appointment_type', 'appointment_date', 'time_slot',
+    'appointment_type', 'pet_id', 'appointment_date', 'time_slot',
     'first_name', 'middle_name', 'last_name', 'mobile_number',
     'home_address', 'email_address', 'status', 'message', 'user_id',
 ])]
@@ -32,5 +32,10 @@ class Appointment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function pet(): BelongsTo
+    {
+        return $this->belongsTo(Pet::class);
     }
 }

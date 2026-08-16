@@ -19,8 +19,11 @@ export default function PetForm({ mode, pet, onDone }: PetFormProps) {
     weight: pet?.weight ?? '',
     age: pet?.age ?? '',
     date: pet?.date ?? '',
+    intake_date: pet?.intake_date ?? '',
+    microchip: pet?.microchip ?? '',
     about: pet?.about ?? '',
   })
+  const [intakeNotes, setIntakeNotes] = useState(pet?.intake_notes ?? '')
   const [image, setImage] = useState<File | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -36,13 +39,15 @@ export default function PetForm({ mode, pet, onDone }: PetFormProps) {
 
     const fd = new FormData()
     Object.entries(form).forEach(([k, v]) => fd.append(k, v))
+    fd.append('intake_notes', intakeNotes)
     if (image) fd.append('image', image)
 
     try {
       if (mode === 'create') {
         await actions.storePet.mutateAsync(fd)
         setNotice('Pets added successfully')
-        setForm({ name: '', type: '', breed: '', sex: '', weight: '', age: '', date: '', about: '' })
+        setForm({ name: '', type: '', breed: '', sex: '', weight: '', age: '', date: '', intake_date: '', microchip: '', about: '' })
+        setIntakeNotes('')
         setImage(null)
       } else if (pet) {
         await actions.updatePet.mutateAsync({ id: pet.id, formData: fd })
@@ -126,6 +131,18 @@ export default function PetForm({ mode, pet, onDone }: PetFormProps) {
           <div>
             <label className="block text-sm font-medium text-repaw-dark mb-1.5">Date of Rescue:</label>
             <input type="date" required value={form.date} onChange={(e) => set('date', e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-repaw-dark mb-1.5">Intake Date:</label>
+            <input type="date" value={form.intake_date} onChange={(e) => set('intake_date', e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-repaw-dark mb-1.5">Microchip:</label>
+            <input type="text" value={form.microchip} onChange={(e) => set('microchip', e.target.value)} placeholder="e.g. 982000123456789" className={inputCls} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-repaw-dark mb-1.5">Intake Notes:</label>
+            <input type="text" value={intakeNotes} onChange={(e) => setIntakeNotes(e.target.value)} placeholder="Where/how this pet was found" className={inputCls} />
           </div>
           <div className="sm:col-span-2">
             <label className="block text-sm font-medium text-repaw-dark mb-1.5">About:</label>

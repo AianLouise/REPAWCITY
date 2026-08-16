@@ -1,7 +1,59 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PageHero } from '../../components/Shared'
+import { useCommunityActions } from '../../hooks/useCommunity'
 
 export default function Donate() {
+  const { storeDonation } = useCommunityActions()
+  const [type, setType] = useState<'cash' | 'in_kind'>('cash')
+  const [form, setForm] = useState({
+    donor_name: '',
+    donor_email: '',
+    amount: '',
+    item_description: '',
+    notes: '',
+  })
+  const [submitting, setSubmitting] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function handleSubmit() {
+    setError(null)
+    setSuccess(false)
+    if (!form.donor_name.trim() || !form.donor_email.trim()) {
+      setError('Please provide your name and email.')
+      return
+    }
+    if (type === 'cash' && !form.amount.trim()) {
+      setError('Please enter the amount you are donating.')
+      return
+    }
+    if (type === 'in_kind' && !form.item_description.trim()) {
+      setError('Please describe the items you are donating.')
+      return
+    }
+
+    setSubmitting(true)
+    try {
+      await storeDonation.mutateAsync({
+        donor_name: form.donor_name,
+        donor_email: form.donor_email,
+        type,
+        amount: type === 'cash' ? Number(form.amount) : null,
+        item_description: type === 'in_kind' ? form.item_description : null,
+        date: new Date().toISOString().slice(0, 10),
+        notes: form.notes || null,
+      })
+      setSuccess(true)
+      setForm({ donor_name: '', donor_email: '', amount: '', item_description: '', notes: '' })
+    } catch (e) {
+      const err = e as { response?: { data?: { message?: string } } }
+      setError(err.response?.data?.message ?? 'Failed to record your donation. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <div>
       <PageHero title="Give a little, help a lot." subtitle="Donate to support pets in need and help us give every animal a happy, healthy life." />
@@ -74,6 +126,106 @@ export default function Donate() {
               when would be a good time for you to drop by the shelter. We'll be very pleased to meet you and show some of our pets that we're helping!
             </p>
           </div>
+        </div>
+
+        <div className="mt-16 max-w-3xl mx-auto bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+          <h2 className="font-serif text-3xl font-bold text-repaw-dark mb-2 text-center">Record a Donation</h2>
+          <p className="text-center text-repaw-text/80 text-sm mb-8">
+            Let us know about your donation so we can thank you and keep track of our support.
+          </p>
+
+          {success && (
+            <div className="mb-4 rounded-xl border border-green-400/40 bg-green-50 px-4 py-3 text-sm text-green-800">
+              Thank you for your generous donation! Your support makes a real difference.
+            </div>
+          )}
+          {error && (
+            <div className="mb-4 rounded-xl border border-repaw-danger/40 bg-red-50 px-4 py-3 text-sm text-repaw-danger">{error}</div>
+          )}
+
+          <div className="flex gap-4 mb-6">
+            <button
+              onClick={() => setType('cash')}
+              className={`flex-1 rounded-full px-6 py-3 text-sm font-medium uppercase tracking-wide transition-colors ${type === 'cash' ? 'bg-repaw-text text-repaw-bg' : 'bg-repaw-hover/60 text-repaw-text hover:bg-repaw-hover'}`}
+            >
+              Cash
+            </button>
+            <button
+              onClick={() => setType('in_kind')}
+              className={`flex-1 rounded-full px-6 py-3 text-sm font-medium uppercase tracking-wide transition-colors ${type === 'in_kind' ? 'bg-repaw-text text-repaw-bg' : 'bg-repaw-hover/60 text-repaw-text hover:bg-repaw-hover'}`}
+            >
+              In-kind (items)
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="donor_name" className="block text-sm font-medium text-repaw-dark mb-1.5">Your Name</label>
+              <input
+                id="donor_name"
+                type="text"
+                value={form.donor_name}
+                onChange={(e) => setForm((f) => ({ ...f, donor_name: e.target.value }))}
+                className="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
+              />
+            </div>
+            <div>
+              <label htmlFor="donor_email" className="block text-sm font-medium text-repaw-dark mb-1.5">Your Email</label>
+              <input
+                id="donor_email"
+                type="email"
+                value={form.donor_email}
+                onChange={(e) => setForm((f) => ({ ...f, donor_email: e.target.value }))}
+                className="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
+              />
+            </div>
+          </div>
+
+          {type === 'cash' ? (
+            <div className="mt-4">
+              <label htmlFor="donor_amount" className="block text-sm font-medium text-repaw-dark mb-1.5">Amount (PHP)</label>
+              <input
+                id="donor_amount"
+                type="number"
+                min="0"
+                step="0.01"
+                value={form.amount}
+                onChange={(e) => setForm((f) => ({ ...f, amount: e.target.value }))}
+                className="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
+              />
+            </div>
+          ) : (
+            <div className="mt-4">
+              <label htmlFor="donor_items" className="block text-sm font-medium text-repaw-dark mb-1.5">Items Donated</label>
+              <input
+                id="donor_items"
+                type="text"
+                value={form.item_description}
+                onChange={(e) => setForm((f) => ({ ...f, item_description: e.target.value }))}
+                placeholder="e.g. 5 bags of dog food, old blankets"
+                className="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
+              />
+            </div>
+          )}
+
+          <div className="mt-4">
+            <label htmlFor="donor_notes" className="block text-sm font-medium text-repaw-dark mb-1.5">Notes (optional)</label>
+            <input
+              id="donor_notes"
+              type="text"
+              value={form.notes}
+              onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
+              className="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
+            />
+          </div>
+
+          <button
+            onClick={() => void handleSubmit()}
+            disabled={submitting}
+            className="mt-6 w-full bg-repaw-text text-repaw-bg rounded-full px-6 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors duration-300 disabled:opacity-60"
+          >
+            {submitting ? 'Submitting...' : 'Submit Donation'}
+          </button>
         </div>
       </section>
     </div>

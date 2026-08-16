@@ -1,78 +1,110 @@
 import { useState } from 'react'
-import { useMyAppointments, useAppointmentMessage } from '../../hooks/useUser'
-import { Loading, PageHero, Empty } from '../../components/Shared'
-import { format } from 'date-fns'
+import { Link } from 'react-router-dom'
+import { useNotifications, useNotificationActions } from '../../hooks/useNotifications'
+import { Loading } from '../../components/Shared'
 
 export default function Notifications() {
-  const { data: appointments, isLoading } = useMyAppointments()
-  const [selectedId, setSelectedId] = useState<number | null>(null)
+  const { data, isLoading } = useNotifications()
+  const { markAllRead } = useNotificationActions()
+  const [busy, setBusy] = useState(false)
 
-  const selected = appointments?.find((a) => a.id === selectedId)
+  const notifications = data?.data ?? []
+  const unreadCount = data?.unread_count ?? 0
+
+  async function handleMarkAll() {
+    setBusy(true)
+    try {
+      await markAllRead.mutateAsync()
+    } finally {
+      setBusy(false)
+    }
+  }
 
   return (
-    <div>
-      <PageHero title="Appointment Notifications" subtitle="View the status and messages for your bookings." />
-      <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-20 pb-20">
-        {isLoading ? (
-          <Loading />
-        ) : appointments && appointments.length > 0 ? (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {appointments.map((appt) => (
-                <button
-                  key={appt.id}
-                  onClick={() => setSelectedId(appt.id)}
-                  className={`text-left bg-white/70 rounded-2xl p-5 border shadow-sm hover:shadow-md transition-all duration-300 ${
-                    selectedId === appt.id ? 'border-repaw-text ring-2 ring-repaw-text' : 'border-repaw-hover/40'
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-serif text-lg font-semibold text-repaw-dark">
-                      {appt.appointment_type} Appointment
-                    </h3>
-                    <StatusBadge status={appt.status} />
-                  </div>
-                  <p className="mt-2 text-sm text-repaw-text/80">
-                    {format(new Date(appt.appointment_date + 'T00:00:00'), 'MMMM dd, yyyy')} · {appt.time_slot}
-                  </p>
-                </button>
-              ))}
-            </div>
-
-            {selected && <MessageCard appointmentId={selected.id} />}
-          </div>
-        ) : (
-          <Empty message="You have no appointments yet. Book an appointment to get started!" />
+    <div className="space-y-6">
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div className="flex items-center gap-3">
+          <span className="mui-icon text-3xl text-repaw-dark">notifications</span>
+          <h1 className="font-serif text-3xl font-bold text-repaw-dark">Notifications</h1>
+        </div>
+        {unreadCount > 0 && (
+          <button
+            onClick={() => void handleMarkAll()}
+            disabled={busy}
+            className="bg-repaw-text text-repaw-bg rounded-full px-4 py-2 text-xs font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors disabled:opacity-60"
+          >
+            {busy ? '...' : `Mark all read (${unreadCount})`}
+          </button>
         )}
-      </section>
-    </div>
-  )
-}
+      </div>
 
-function MessageCard({ appointmentId }: { appointmentId: number }) {
-  const { data, isLoading } = useAppointmentMessage(appointmentId)
-
-  return (
-    <div className="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
-      <h2 className="font-serif text-2xl font-bold text-repaw-dark mb-4">Message</h2>
       {isLoading ? (
         <Loading />
+      ) : notifications.length === 0 ? (
+        <div className="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm text-center">
+          <p className="text-repaw-text/80">No notifications yet.</p>
+        </div>
       ) : (
-        <div className="whitespace-pre-line text-repaw-text/90 leading-relaxed">{data?.message ?? 'No message found for this appointment.'}</div>
+        <div className="space-y-3">
+          {notifications.map((n) => (
+            <NotificationCard key={n.id} notification={n} />
+          ))}
+        </div>
       )}
     </div>
   )
 }
 
-function StatusBadge({ status }: { status: string }) {
-  const styles: Record<string, string> = {
-    Pending: 'bg-repaw-accent text-repaw-dark',
-    Accepted: 'bg-green-600 text-white',
-    Cancelled: 'bg-repaw-danger text-white',
+function NotificationCard({ notification }: { notification: import('../../api/notifications').AppNotification }) {
+  const { markRead } = useNotificationActions()
+  const [busy, setBusy] = useState(false)
+  const unread = notification.read_at === null
+
+  async function handleRead() {
+    setBusy(true)
+    try {
+      await markRead.mutateAsync(notification.id)
+    } finally {
+      setBusy(false)
+    }
   }
+
+  const d = notification.data
+  const target = d.type === 'application.status' && d.application_id
+    ? '/account/applications'
+    : d.appointment_id
+      ? '/account/appointments'
+      : null
+
+  const body = (
+    <div className="flex-1 min-w-0">
+      <p className="font-semibold text-repaw-dark">{d.title}</p>
+      <p className="text-sm text-repaw-text/80 mt-1 whitespace-pre-line">{d.message}</p>
+      <p className="text-xs text-repaw-text/50 mt-2">
+        {new Date(notification.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+      </p>
+    </div>
+  )
+
   return (
-    <span className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${styles[status] ?? 'bg-repaw-hover/60 text-repaw-dark'}`}>
-      {status}
-    </span>
+    <div
+      className={`bg-white/70 rounded-3xl p-5 border shadow-sm flex items-start gap-4 transition-colors ${
+        unread ? 'border-repaw-accent/70 ring-1 ring-repaw-accent/40' : 'border-repaw-hover/40'
+      }`}
+    >
+      <span className={`mui-icon text-2xl mt-0.5 ${unread ? 'text-repaw-accent' : 'text-repaw-text/40'}`}>
+        {d.type === 'application.status' ? 'how_to_reg' : 'event'}
+      </span>
+      {target ? <Link to={target} className="flex-1 min-w-0 block">{body}</Link> : <div className="flex-1 min-w-0">{body}</div>}
+      {unread && (
+        <button
+          onClick={() => void handleRead()}
+          disabled={busy}
+          className="shrink-0 bg-repaw-hover/70 text-repaw-text rounded-full px-3 py-1 text-xs font-medium hover:bg-repaw-hover transition-colors disabled:opacity-60"
+        >
+          {busy ? '...' : 'Mark read'}
+        </button>
+      )}
+    </div>
   )
 }

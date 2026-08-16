@@ -54,8 +54,12 @@ export default function News() {
                   <img src={resolveMedia(headline.image_url)} alt="Featured news" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-serif text-2xl font-semibold text-repaw-dark">{headline.title}</h3>
+                  <h3 className="font-serif text-2xl font-semibold text-repaw-dark group-hover:text-repaw-text transition-colors">{headline.title}</h3>
                   <p className="mt-3 text-repaw-text/80 leading-relaxed">{headline.details}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-repaw-dark uppercase tracking-wide">
+                    Read more
+                    <span className="mui-icon text-[18px] transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+                  </span>
                 </div>
               </Link>
             ) : (
@@ -75,7 +79,7 @@ export default function News() {
                 {latest.data.map((item) => (
                   <Link key={item.id} to={`/news/${item.id}`} className="group flex gap-4 bg-white/70 rounded-2xl p-4 border border-repaw-hover/40 shadow-sm hover:shadow-md transition-shadow duration-300">
                     <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-repaw-bg/60">
-                      <img src={resolveMedia(item.image_url)} alt="News thumbnail" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <img src={resolveMedia(item.thumb_url)} alt="News thumbnail" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     </div>
                     <div className="min-w-0">
                       <h4 className="font-serif text-base font-semibold text-repaw-dark truncate">{item.title}</h4>

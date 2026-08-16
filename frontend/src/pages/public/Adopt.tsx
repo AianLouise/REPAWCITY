@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useAuthStore } from '../../store/authStore'
 import PetCard from '../../components/PetCard'
 import Pagination from '../../components/Pagination'
-import { Empty, Loading, PageHero } from '../../components/Shared'
+import { Loading, PageHero } from '../../components/Shared'
 import { usePets } from '../../hooks/useContent'
 import type { PetFilters } from '../../api/pets'
 
@@ -84,12 +84,12 @@ export default function Adopt() {
 
         {user ? (
           <div className="text-center mb-12">
-            <a
-              href="/book"
+            <Link
+              to="/book"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-repaw-text text-repaw-bg px-7 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors duration-300"
             >
               <span className="mui-icon text-[20px]">event_available</span> Book Appointment
-            </a>
+            </Link>
           </div>
         ) : null}
 
@@ -97,6 +97,9 @@ export default function Adopt() {
           <Loading />
         ) : data && data.data.length > 0 ? (
           <>
+            <p className="mb-5 text-sm text-repaw-text/70">
+              Showing <span className="font-medium text-repaw-dark">{data.meta.total}</span> pet{data.meta.total !== 1 ? 's' : ''} ready to meet you.
+            </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {data.data.map((pet) => (
                 <PetCard key={pet.id} pet={pet} />
@@ -105,7 +108,17 @@ export default function Adopt() {
             <Pagination page={page} lastPage={data.meta.last_page} onChange={setPage} />
           </>
         ) : (
-          <Empty message="No pets found." />
+          <div className="text-center bg-white/70 rounded-3xl p-12 border border-repaw-hover/40 shadow-sm">
+            <span className="mui-icon text-5xl text-repaw-text/40 block mb-4">pets</span>
+            <h3 className="font-serif text-2xl font-bold text-repaw-dark">No pets found</h3>
+            <p className="mt-2 text-repaw-text/80">Try adjusting your filters, or check back soon — new rescues arrive regularly.</p>
+            <button
+              onClick={() => setFilters({ type: '', sex: '', weight: '', age: '' })}
+              className="mt-6 inline-flex items-center gap-2 bg-repaw-text text-repaw-bg rounded-full px-6 py-2.5 text-sm font-medium uppercase tracking-wide hover:bg-repaw-dark transition-colors"
+            >
+              <span className="mui-icon">restart_alt</span> Clear Filters
+            </button>
+          </div>
         )}
       </section>
     </div>

@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -116,6 +117,7 @@ class AdminApiTest extends TestCase
 
     public function test_update_status_accepts_and_generates_message(): void
     {
+        Mail::fake();
         $appt = Appointment::create([
             'appointment_type' => 'Adopt', 'appointment_date' => '2026-10-01',
             'time_slot' => 'Morning Session', 'first_name' => 'Juan',
@@ -133,6 +135,7 @@ class AdminApiTest extends TestCase
 
     public function test_update_status_cancels_and_generates_message(): void
     {
+        Mail::fake();
         $appt = Appointment::create([
             'appointment_type' => 'Adopt', 'appointment_date' => '2026-10-01',
             'time_slot' => 'Morning Session', 'first_name' => 'Juan',

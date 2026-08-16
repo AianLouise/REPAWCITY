@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Pet;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,6 +25,7 @@ class StoreAppointmentRequest extends FormRequest
     {
         return [
             'appointment_type' => ['required', Rule::in(['Adopt', 'Donate', 'Visit', 'Volunteer'])],
+            'pet_id' => ['nullable', 'integer', 'exists:pets,id'],
             'appointment_date' => ['required', 'date', 'after_or_equal:today'],
             'time_slot' => ['required', Rule::in(['Morning Session', 'Afternoon Session'])],
             'first_name' => ['required', 'string', 'max:255'],
@@ -33,5 +35,27 @@ class StoreAppointmentRequest extends FormRequest
             'home_address' => ['required', 'string', 'max:255'],
             'email_address' => ['required', 'string', 'email', 'max:255'],
         ];
+    }
+
+    /**
+     * After-validation hook: reject booking a pet that is not available.
+     */
+    public function withValidator($validator): void
+    {
+        $validator->after(function ($validator) {
+            $petId = $this->input('pet_id');
+            if ($petId === null) {
+                return;
+            }
+
+            $pet = Pet::find($petId);
+            if ($pet === null) {
+                return;
+            }
+
+            if (! in_array($pet->status, [Pet::STATUS_AVAILABLE, Pet::STATUS_ON_HOLD])) {
+                $validator->errors()->add('pet_id', 'This pet is no longer available for booking.');
+            }
+        });
     }
 }

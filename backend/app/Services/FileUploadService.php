@@ -9,36 +9,75 @@ use Intervention\Image\ImageManager;
 
 class FileUploadService
 {
+    public const THUMB_WIDTH = 400;
+
+    public const MAIN_WIDTH = 1200;
+
     public function __construct(private readonly ImageManager $imageManager)
     {
     }
 
     /**
-     * Store an uploaded image to the public disk under the given directory
-     * with a random UUID filename. Large images are resized and re-encoded to
-     * JPEG to keep the payload small.
+     * The disk used for media uploads — configurable via MEDIA_DISK
+     * (defaults to the public disk for local; set to s3 in production).
+     */
+    public function disk(): string
+    {
+        return config('filesystems.media_disk', 'public');
+    }
+
+    /**
+     * Store an uploaded image plus a small thumbnail under the given
+     * directory. Returns the basename of the main image.
      */
     public function storeImage(UploadedFile $file, string $directory): string
     {
         $extension = strtolower($file->getClientOriginalExtension());
         $filename = Str::uuid().'.'.$extension;
+        $path = $directory.'/'.$filename;
 
-        $path = $this->optimizeAndSave($file, $directory.'/'.$filename);
+        $this->optimizeAndSave($file, $path);
+        $this->createThumbnail($file, $path);
 
-        return basename($path);
+        return basename($filename);
     }
 
     /**
-     * Resize (max 1200px wide), re-encode, and persist the image to the
-     * public disk. Falls back to a plain store if the image cannot be read.
+     * Public URL for a stored image (used by image_url accessors).
+     * The local public disk uses the relative /storage path (works on both
+     * the client and admin subdomains); object storage returns an absolute URL.
      */
-    private function optimizeAndSave(UploadedFile $file, string $destination): string
+    public function url(string $directory, string $filename): string
+    {
+        if ($this->disk() === 'public') {
+            return '/storage/'.$directory.'/'.$filename;
+        }
+
+        return Storage::disk($this->disk())->url($directory.'/'.$filename);
+    }
+
+    /**
+     * Public URL for the thumbnail of a stored image.
+     */
+    public function thumbUrl(string $directory, string $filename): string
+    {
+        if ($this->disk() === 'public') {
+            return '/storage/'.$directory.'/thumbs/'.$filename;
+        }
+
+        return Storage::disk($this->disk())->url($directory.'/thumbs/'.$filename);
+    }
+
+    /**
+     * Resize (max 1200px wide), re-encode, and persist to the media disk.
+     */
+    private function optimizeAndSave(UploadedFile $file, string $destination): void
     {
         try {
             $image = $this->imageManager->decodePath($file->getRealPath());
 
-            if ($image->width() > 1200) {
-                $image->scale(width: 1200);
+            if ($image->width() > self::MAIN_WIDTH) {
+                $image->scale(width: self::MAIN_WIDTH);
             }
 
             $encoded = $image->encodeUsingFileExtension(
@@ -46,22 +85,43 @@ class FileUploadService
                 quality: 80,
             );
 
-            Storage::disk('public')->put($destination, (string) $encoded);
-
-            return $destination;
+            Storage::disk($this->disk())->put($destination, (string) $encoded);
         } catch (\Throwable) {
-            Storage::disk('public')->putFileAs(
+            Storage::disk($this->disk())->putFileAs(
                 dirname($destination),
                 $file,
                 basename($destination),
             );
-
-            return $destination;
         }
     }
 
     /**
-     * Delete an image file from the public disk if it exists.
+     * Generate a small thumbnail (max 400px) and persist it alongside the main
+     * image under a `thumbs/` subdirectory. Non-image files skip this.
+     */
+    private function createThumbnail(UploadedFile $file, string $destination): void
+    {
+        try {
+            $image = $this->imageManager->decodePath($file->getRealPath());
+
+            if ($image->width() > self::THUMB_WIDTH) {
+                $image->scale(width: self::THUMB_WIDTH);
+            }
+
+            $thumbPath = dirname($destination).'/thumbs/'.basename($destination);
+            $encoded = $image->encodeUsingFileExtension(
+                pathinfo($thumbPath, PATHINFO_EXTENSION),
+                quality: 75,
+            );
+
+            Storage::disk($this->disk())->put($thumbPath, (string) $encoded);
+        } catch (\Throwable) {
+            // thumbnail is best-effort; main image is what matters
+        }
+    }
+
+    /**
+     * Delete a stored image (main + thumbnail) from the media disk.
      */
     public function deleteImage(string $directory, ?string $filename): void
     {
@@ -69,6 +129,7 @@ class FileUploadService
             return;
         }
 
-        Storage::disk('public')->delete($directory.'/'.$filename);
+        Storage::disk($this->disk())->delete($directory.'/'.$filename);
+        Storage::disk($this->disk())->delete($directory.'/thumbs/'.$filename);
     }
 }

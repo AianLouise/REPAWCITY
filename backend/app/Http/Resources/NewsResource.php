@@ -22,6 +22,7 @@ class NewsResource extends JsonResource
             'details' => $includeFull ? $this->details : $this->excerpt,
             'image' => $this->image,
             'image_url' => $this->image_url,
+            'thumb_url' => $this->thumb_url,
             'date_published' => $this->date_published,
             'is_featured' => (bool) $this->is_featured,
         ];

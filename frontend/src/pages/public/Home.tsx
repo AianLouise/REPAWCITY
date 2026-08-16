@@ -52,9 +52,9 @@ export default function Home() {
           <p className="mt-3 text-repaw-text/80 max-w-2xl mx-auto">Three simple ways to make a life-changing difference for an animal in need.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <HelpCard to="/adopt" icon="home" title="Adopt" text="Give a rescue dog or cat the loving home they've been waiting for." />
-          <HelpCard to="/donate" icon="volunteer_activism" title="Donate" text="Fund food, medical care, and shelter for pets on their road to recovery." />
-          <HelpCard to="/volunteer" icon="group" title="Volunteer" text="Lend your time and skills to walk, feed, and care for our furry friends." />
+          <HelpCard to="/adopt" icon="home" title="Adopt" text="Give a rescue dog or cat the loving home they've been waiting for." accent="bg-repaw-accent text-repaw-dark" />
+          <HelpCard to="/donate" icon="volunteer_activism" title="Donate" text="Fund food, medical care, and shelter for pets on their road to recovery." accent="bg-repaw-text text-repaw-bg" />
+          <HelpCard to="/volunteer" icon="group" title="Volunteer" text="Lend your time and skills to walk, feed, and care for our furry friends." accent="bg-repaw-hover text-repaw-dark" />
         </div>
       </section>
 
@@ -101,13 +101,13 @@ function Stat({ value, label }: { value: string; label: string }) {
   )
 }
 
-function HelpCard({ to, icon, title, text }: { to: string; icon: string; title: string; text: string }) {
+function HelpCard({ to, icon, title, text, accent }: { to: string; icon: string; title: string; text: string; accent: string }) {
   return (
     <Link
       to={to}
       className="group bg-white/70 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-repaw-hover/40 block"
     >
-      <div className="w-14 h-14 rounded-2xl bg-repaw-accent text-repaw-dark flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:-translate-y-1 ${accent}`}>
         <span className="mui-icon text-3xl">{icon}</span>
       </div>
       <h3 className="font-serif text-xl font-semibold text-repaw-dark mb-2">{title}</h3>

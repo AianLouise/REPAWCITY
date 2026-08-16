@@ -4,6 +4,7 @@ import { useAuthStore } from '../store/authStore'
 import { authApi } from '../api/auth'
 import logo from '../assets/logo (1).png'
 import { ADMIN_URL } from '../config'
+import { useNotifications } from '../hooks/useNotifications'
 
 const primaryLinks = [
   { label: 'Home', to: '/' },
@@ -38,6 +39,11 @@ export default function Navbar() {
   const [aboutOpen, setAboutOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
 
+  const { data: notificationsData } = useNotifications()
+  const unreadCount = notificationsData?.unread_count ?? 0
+
+  const isAdmin = user?.user_type === '1'
+
   async function handleLogout() {
     if (!confirm('Are you sure you want to log out?')) return
     try {
@@ -49,10 +55,8 @@ export default function Navbar() {
     navigate('/')
   }
 
-  const isAdmin = user?.user_type === '1'
-
   return (
-    <nav className="sticky top-0 z-50 bg-repaw-bg/95 backdrop-blur shadow-sm h-20 font-sans">
+    <nav className="sticky top-0 z-50 bg-repaw-bg border-b border-repaw-hover/40 shadow-sm h-20 font-sans">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex items-center group" aria-label="rePaw City home">
@@ -75,7 +79,7 @@ export default function Navbar() {
                 About Us
                 <span className="mui-icon text-[20px] transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
               </button>
-              <div className="hidden group-hover:block group-focus-within:block absolute top-full left-0 bg-[#f9f5f0] rounded-xl shadow-xl min-w-[210px] py-2 z-50 border border-repaw-hover/40">
+              <div className="hidden group-hover:block group-focus-within:block absolute top-full left-0 bg-white/95 rounded-xl shadow-xl min-w-[210px] py-2 z-50 border border-repaw-hover/40">
                 {aboutLinks.map((link) => (
                   <NavLink
                     key={link.to}
@@ -104,20 +108,40 @@ export default function Navbar() {
                     Profile
                     <span className="mui-icon text-[20px] transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
                   </button>
-                  <div className="hidden group-hover:block group-focus-within:block absolute top-full left-0 bg-[#f9f5f0] rounded-xl shadow-xl min-w-[210px] py-2 z-50 border border-repaw-hover/40">
+                  <div className="hidden group-hover:block group-focus-within:block absolute top-full left-0 bg-white/95 rounded-xl shadow-xl min-w-[210px] py-2 z-50 border border-repaw-hover/40">
                     {!isAdmin && (
-                      <Link to="/profile" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
+                      <Link to="/account/profile" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
                         Edit Profile
                       </Link>
                     )}
                     {!isAdmin && (
-                      <Link to="/change-password" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
+                      <Link to="/account" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
+                        My Dashboard
+                      </Link>
+                    )}
+                    {!isAdmin && (
+                      <Link to="/account/change-password" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
                         Change Password
                       </Link>
                     )}
                     {!isAdmin && (
-                      <Link to="/notifications" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
+                      <Link to="/account/notifications" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
                         Notifications
+                        {unreadCount > 0 && (
+                          <span className="ml-2 inline-flex items-center justify-center h-5 min-w-5 rounded-full bg-repaw-danger text-white text-[11px] font-bold px-1.5">
+                            {unreadCount}
+                          </span>
+                        )}
+                      </Link>
+                    )}
+                    {!isAdmin && (
+                      <Link to="/account/applications" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
+                        My Applications
+                      </Link>
+                    )}
+                    {!isAdmin && (
+                      <Link to="/account/volunteer" className="block text-repaw-text text-[15px] py-2.5 px-5 transition-colors duration-200 hover:bg-repaw-hover hover:text-repaw-dark">
+                        Volunteer Dashboard
                       </Link>
                     )}
                     <button
@@ -207,18 +231,38 @@ export default function Navbar() {
                 {profileOpen && (
                   <div className="pl-4 space-y-1">
                     {!isAdmin && (
-                      <Link to="/profile" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
+                      <Link to="/account" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
+                        My Dashboard
+                      </Link>
+                    )}
+                    {!isAdmin && (
+                      <Link to="/account/profile" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
                         Edit Profile
                       </Link>
                     )}
                     {!isAdmin && (
-                      <Link to="/change-password" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
+                      <Link to="/account/change-password" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
                         Change Password
                       </Link>
                     )}
                     {!isAdmin && (
-                      <Link to="/notifications" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
+                      <Link to="/account/notifications" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
                         Notifications
+                        {unreadCount > 0 && (
+                          <span className="ml-2 inline-flex items-center justify-center h-5 min-w-5 rounded-full bg-repaw-danger text-white text-[11px] font-bold px-1.5">
+                            {unreadCount}
+                          </span>
+                        )}
+                      </Link>
+                    )}
+                    {!isAdmin && (
+                      <Link to="/account/applications" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
+                        My Applications
+                      </Link>
+                    )}
+                    {!isAdmin && (
+                      <Link to="/account/volunteer" onClick={() => setMobileOpen(false)} className="block py-2 px-3 rounded-lg text-repaw-text hover:bg-repaw-hover">
+                        Volunteer Dashboard
                       </Link>
                     )}
                     {isAdmin && (

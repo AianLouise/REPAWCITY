@@ -30,8 +30,11 @@ class StorePetRequest extends FormRequest
             'weight' => ['required', 'string', 'max:250'],
             'age' => ['required', 'string', 'max:250'],
             'date' => ['required', 'date'],
+            'intake_date' => ['nullable', 'date'],
+            'intake_notes' => ['nullable', 'string', 'max:2000'],
+            'microchip' => ['nullable', 'string', 'max:50'],
             'about' => ['required', 'string'],
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:5120'],
         ];
     }
 }

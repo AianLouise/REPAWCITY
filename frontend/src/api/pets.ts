@@ -10,6 +10,8 @@ export interface PetFilters {
   q?: string
   per_page?: number
   page?: number
+  status?: string
+  include_unavailable?: boolean
 }
 
 export const petsApi = {

@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import logo from '../../assets/logo (1).png'
 import { useSlots } from '../../hooks/useBooking'
+import { useUpcomingSchedule } from '../../hooks/useSchedule'
+import { usePets, usePet } from '../../hooks/useContent'
 import { appointmentsApi, type BookingPayload } from '../../api/appointments'
-import type { Appointment, AppointmentType, TimeSlot } from '../../types'
+import type { Appointment, AppointmentType, ScheduleDay, TimeSlot } from '../../types'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -12,6 +14,7 @@ type Step = 1 | 2 | 3 | 4 | 5 | 6
 
 interface BookingDraft {
   appointment_type: AppointmentType | null
+  pet_id: number | null
   appointment_date: string | null
   time_slot: TimeSlot | null
   first_name: string
@@ -43,9 +46,12 @@ const progressImages: Record<Exclude<Step, 6>, string> = {
 
 export default function BookingWizard() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const initialPetId = searchParams.get('pet') ? Number(searchParams.get('pet')) : null
   const [step, setStep] = useState<Step>(1)
   const [draft, setDraft] = useState<BookingDraft>({
-    appointment_type: null,
+    appointment_type: initialPetId ? 'Adopt' : null,
+    pet_id: initialPetId,
     appointment_date: null,
     time_slot: null,
     first_name: '',
@@ -62,6 +68,7 @@ export default function BookingWizard() {
   const [confirmations, setConfirmations] = useState({ availability: false, location: false, changes: false })
 
   const { data: slots } = useSlots(draft.appointment_date ?? '')
+  const { data: schedule } = useUpcomingSchedule()
 
   const set = <K extends keyof BookingDraft>(key: K, value: BookingDraft[K]) =>
     setDraft((d) => ({ ...d, [key]: value }))
@@ -78,6 +85,7 @@ export default function BookingWizard() {
     try {
       const payload: BookingPayload = {
         appointment_type: draft.appointment_type,
+        pet_id: draft.pet_id,
         appointment_date: draft.appointment_date,
         time_slot: draft.time_slot,
         first_name: draft.first_name,
@@ -135,7 +143,11 @@ export default function BookingWizard() {
             <div className="flex flex-col items-center gap-6">
               <select
                 value={draft.appointment_type ?? ''}
-                onChange={(e) => set('appointment_type', e.target.value as AppointmentType)}
+                onChange={(e) => {
+                  const t = e.target.value as AppointmentType
+                  set('appointment_type', t)
+                  if (t !== 'Adopt' && t !== 'Visit') set('pet_id', null)
+                }}
                 className="w-80 rounded-xl border border-repaw-hover bg-white/70 px-4 py-3 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
               >
                 <option value="">Select</option>
@@ -145,6 +157,11 @@ export default function BookingWizard() {
                   </option>
                 ))}
               </select>
+
+              {(draft.appointment_type === 'Adopt' || draft.appointment_type === 'Visit') && (
+                <PetPicker selectedId={draft.pet_id} onChange={(id) => set('pet_id', id)} />
+              )}
+
               <div className="flex gap-4">
                 <button onClick={() => setStep(1)} className="bg-repaw-hover text-repaw-dark rounded-full px-8 py-3 text-[15px] font-medium uppercase tracking-wide hover:bg-repaw-hover/70 transition-colors">
                   Back
@@ -161,7 +178,7 @@ export default function BookingWizard() {
           </StepShell>
         )}
 
-        {step === 3 && <StepDate draft={draft} set={set} slots={slots?.booked ?? []} slotConflict={slotConflict} setSlotConflict={setSlotConflict} onBack={() => setStep(2)} onNext={() => setStep(4)} />}
+        {step === 3 && <StepDate draft={draft} set={set} slots={slots?.booked ?? []} schedule={schedule ?? []} slotConflict={slotConflict} setSlotConflict={setSlotConflict} onBack={() => setStep(2)} onNext={() => setStep(4)} />}
 
         {step === 4 && <StepInfo draft={draft} onBack={() => setStep(3)} onNext={() => setStep(5)} />}
 
@@ -173,6 +190,7 @@ export default function BookingWizard() {
                   <p>
                     <strong className="text-repaw-dark">Type:</strong> {draft.appointment_type}
                   </p>
+                  {draft.pet_id && <PetSummary petId={draft.pet_id} />}
                   <p>
                     <strong className="text-repaw-dark">Date:</strong> {draft.appointment_date ? new Date(draft.appointment_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}
                   </p>
@@ -233,10 +251,52 @@ function StepShell({ title, children }: { title: string; children: React.ReactNo
   )
 }
 
+function PetPicker({ selectedId, onChange }: { selectedId: number | null; onChange: (id: number | null) => void }) {
+  const { data, isLoading } = usePets({ per_page: 100 })
+  const pets = data?.data ?? []
+
+  return (
+    <div className="w-80">
+      <label className="block text-sm font-medium text-repaw-dark mb-1.5 text-center">
+        Which pet would you like to see? (optional)
+      </label>
+      <select
+        value={selectedId ?? ''}
+        onChange={(e) => onChange(e.target.value ? Number(e.target.value) : null)}
+        className="w-full rounded-xl border border-repaw-hover bg-white/70 px-4 py-3 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
+      >
+        <option value="">Any available pet</option>
+        {isLoading ? (
+          <option disabled>Loading pets...</option>
+        ) : (
+          pets
+            .filter((p) => p.status === 'available' || p.status === 'on_hold')
+            .map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name} ({p.type})
+              </option>
+            ))
+        )}
+      </select>
+    </div>
+  )
+}
+
+function PetSummary({ petId }: { petId: number }) {
+  const { data: pet } = usePet(petId)
+  if (!pet) return null
+  return (
+    <p>
+      <strong className="text-repaw-dark">Pet:</strong> {pet.name} ({pet.breed})
+    </p>
+  )
+}
+
 function StepDate({
   draft,
   set,
   slots,
+  schedule,
   slotConflict,
   setSlotConflict,
   onBack,
@@ -245,6 +305,7 @@ function StepDate({
   draft: BookingDraft
   set: <K extends keyof BookingDraft>(key: K, value: BookingDraft[K]) => void
   slots: TimeSlot[]
+  schedule: ScheduleDay[]
   slotConflict: boolean
   setSlotConflict: (v: boolean) => void
   onBack: () => void
@@ -252,6 +313,7 @@ function StepDate({
 }) {
   const [monthOffset, setMonthOffset] = useState(0)
   const bookedSet = new Set(slots)
+  const scheduleMap = useMemo(() => new Map(schedule.map((s) => [s.date, s])), [schedule])
 
   const today = useMemo(() => {
     const t = new Date()
@@ -278,6 +340,8 @@ function StepDate({
   const dateKey = (d: Date) =>
     `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 
+  const selectedDay = draft.appointment_date ? scheduleMap.get(draft.appointment_date) : undefined
+
   const canSubmit = draft.appointment_date && draft.time_slot
 
   function next() {
@@ -291,7 +355,7 @@ function StepDate({
       <div className="max-w-lg mx-auto space-y-6">
         {slotConflict && (
           <div className="rounded-xl border border-repaw-danger/40 bg-red-50 px-4 py-3 text-sm text-repaw-danger">
-            The selected date and time slot are already booked. Please choose another slot.
+            The selected date and time slot are unavailable. Please choose another slot or day.
           </div>
         )}
 
@@ -319,13 +383,17 @@ function StepDate({
               if (!d) return <div key={i} />
               const key = dateKey(d)
               const past = d < today
-              const fullyBooked = bookedSet.has('Morning Session') && bookedSet.has('Afternoon Session')
+              const day = scheduleMap.get(key)
+              const closed = day !== undefined && !day.is_open
+              const fullyBooked = day?.fully_booked ?? (bookedSet.has('Morning Session') && bookedSet.has('Afternoon Session'))
               const selected = draft.appointment_date === key
               let cls = 'aspect-square rounded-lg flex items-center justify-center text-sm transition-colors '
               if (past) {
                 cls += 'text-repaw-text/25 cursor-not-allowed'
               } else if (selected) {
                 cls += 'bg-repaw-text text-repaw-bg font-semibold'
+              } else if (closed) {
+                cls += 'bg-repaw-hover/60 text-repaw-text/50 line-through cursor-not-allowed'
               } else if (fullyBooked) {
                 cls += 'bg-repaw-accent text-repaw-dark cursor-not-allowed'
               } else {
@@ -334,7 +402,7 @@ function StepDate({
               return (
                 <button
                   key={i}
-                  disabled={past || fullyBooked}
+                  disabled={past || closed || fullyBooked}
                   onClick={() => set('appointment_date', key)}
                   className={cls}
                 >
@@ -354,6 +422,10 @@ function StepDate({
             <span className="w-4 h-4 rounded bg-repaw-accent" />
             <span>Fully booked day.</span>
           </div>
+          <div className="flex items-center gap-3 text-sm">
+            <span className="w-4 h-4 rounded bg-repaw-hover" />
+            <span>Shelter closed.</span>
+          </div>
 
           <div>
             <label className="block text-sm font-medium text-repaw-dark mb-1.5">Date:</label>
@@ -370,19 +442,23 @@ function StepDate({
             <label className="block text-sm font-medium text-repaw-dark mb-1.5">Session:</label>
             <select
               value={draft.time_slot ?? ''}
+              disabled={!!draft.appointment_date && selectedDay?.is_open === false}
               onChange={(e) => set('time_slot', e.target.value as TimeSlot)}
-              className="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
+              className="w-full rounded-xl border border-repaw-hover bg-repaw-bg px-4 py-2.5 text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text disabled:opacity-50"
             >
               <option value="">Select Session</option>
-              <option value="Morning Session" disabled={bookedSet.has('Morning Session')}>
+              <option value="Morning Session" disabled={selectedDay?.morning_full ?? bookedSet.has('Morning Session')}>
                 Morning Session (9:00 AM - 11:30 AM)
               </option>
-              <option value="Afternoon Session" disabled={bookedSet.has('Afternoon Session')}>
+              <option value="Afternoon Session" disabled={selectedDay?.afternoon_full ?? bookedSet.has('Afternoon Session')}>
                 Afternoon Session (1:00 PM - 4:30 PM)
               </option>
             </select>
-            {draft.appointment_date && draft.time_slot && bookedSet.has(draft.time_slot) && (
-              <p className="mt-1 text-xs text-repaw-danger">This slot is already booked.</p>
+            {draft.appointment_date && selectedDay && !selectedDay.is_open && (
+              <p className="mt-1 text-xs text-repaw-danger">{selectedDay.reason ?? 'Shelter closed'}</p>
+            )}
+            {draft.appointment_date && draft.time_slot && (selectedDay?.is_open === false || (draft.time_slot === 'Morning Session' && selectedDay?.morning_full) || (draft.time_slot === 'Afternoon Session' && selectedDay?.afternoon_full)) && (
+              <p className="mt-1 text-xs text-repaw-danger">This slot is unavailable.</p>
             )}
           </div>
         </div>

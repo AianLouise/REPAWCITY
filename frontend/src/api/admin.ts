@@ -1,5 +1,5 @@
 import { api } from './client'
-import type { Appointment, DashboardResponse, Pet, User } from '../types'
+import type { Appointment, DashboardResponse, Pet, PetStatus, User } from '../types'
 
 export const adminApi = {
   async dashboard(date?: string): Promise<DashboardResponse> {
@@ -30,6 +30,11 @@ export const adminApi = {
 
   async deletePet(id: number): Promise<void> {
     await api.delete(`/admin/pets/${id}`)
+  },
+
+  async setPetStatus(id: number, status: PetStatus): Promise<Pet> {
+    const res = await api.post<{ pet: Pet }>(`/admin/pets/${id}/status`, { status })
+    return res.data.pet
   },
 
   async setFeaturedPet(image1: number, image2: number, image3: number, image4: number): Promise<void> {

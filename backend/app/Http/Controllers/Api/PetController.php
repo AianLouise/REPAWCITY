@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SetFeaturedRequest;
+use App\Http\Requests\SetPetStatusRequest;
 use App\Http\Requests\StorePetRequest;
 use App\Http\Requests\UpdatePetRequest;
 use App\Http\Resources\PetResource;
@@ -28,6 +29,12 @@ class PetController extends Controller
             ->when($request->filled('weight'), fn ($q) => $q->where('weight', $request->weight))
             ->when($request->filled('age'), fn ($q) => $q->where('age', $request->age))
             ->when($request->boolean('featured'), fn ($q) => $q->where('is_featured', '>', 0)->orderBy('is_featured'))
+            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            // Public listing excludes adopted/deceased unless explicitly requested.
+            ->when(
+                ! $request->filled('status') && ! $request->boolean('include_unavailable'),
+                fn ($q) => $q->availableForAdoption()
+            )
             ->when($request->filled('q'), fn ($q) => $q->where(fn ($sub) => $sub
                 ->where('name', 'like', '%'.$request->q.'%')
                 ->orWhere('breed', 'like', '%'.$request->q.'%')))
@@ -91,12 +98,24 @@ class PetController extends Controller
     }
 
     /**
+     * Transition a pet's lifecycle status (available / on_hold / adopted / deceased).
+     */
+    public function setStatus(SetPetStatusRequest $request, Pet $pet): JsonResponse
+    {
+        $pet->update(['status' => $request->validated('status')]);
+
+        return response()->json([
+            'message' => 'Pet status updated successfully',
+            'pet' => new PetResource($pet->fresh()),
+        ]);
+    }
+
+    /**
      * Assign the four featured pet slots (ported from admin/admin-manage-featured.php).
      * Clears all is_featured then sets slots 1-4 inside a transaction.
      */
     public function setFeatured(SetFeaturedRequest $request): JsonResponse
-    {
-        $ids = [
+    {        $ids = [
             $request->featured_image_1,
             $request->featured_image_2,
             $request->featured_image_3,

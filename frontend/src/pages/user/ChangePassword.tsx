@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useChangePassword } from '../../hooks/useUser'
-import { PageHero } from '../../components/Shared'
 
 const schema = z
   .object({
@@ -47,13 +46,16 @@ export default function ChangePassword() {
   }
 
   return (
-    <div>
-      <PageHero title="Change Password" subtitle="Keep your account secure." />
-      <section className="max-w-2xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-20 pb-20">
-        <div className="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
-          {notice && (
-            <div className="mb-6 rounded-xl border border-green-400/40 bg-green-50 px-4 py-3 text-sm text-green-800">{notice}</div>
-          )}
+    <div className="space-y-6">
+      <div className="flex items-center gap-3">
+        <span className="mui-icon text-3xl text-repaw-dark">lock</span>
+        <h1 className="font-serif text-3xl font-bold text-repaw-dark">Change Password</h1>
+      </div>
+
+      <div className="bg-white/70 rounded-3xl p-8 border border-repaw-hover/40 shadow-sm">
+        {notice && (
+          <div className="mb-6 rounded-xl border border-green-400/40 bg-green-50 px-4 py-3 text-sm text-green-800">{notice}</div>
+        )}
           {error && (
             <div className="mb-6 rounded-xl border border-repaw-danger/40 bg-red-50 px-4 py-3 text-sm text-repaw-danger">{error}</div>
           )}
@@ -93,8 +95,7 @@ export default function ChangePassword() {
             </button>
           </form>
         </div>
-      </section>
-    </div>
+      </div>
   )
 }
 

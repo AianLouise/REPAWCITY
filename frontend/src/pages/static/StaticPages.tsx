@@ -4,7 +4,7 @@ import { PageHero } from '../../components/Shared'
 export function Mission() {
   return (
     <div>
-      <PageHero title="Our Mission" subtitle="" />
+      <PageHero title="Our Mission" subtitle="What drives us, where we're headed, and the goals that guide every rescue." />
       <section className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-20 pb-20">
         <div className="bg-white/70 rounded-3xl p-8 sm:p-10 border border-repaw-hover/40 shadow-sm space-y-10">
           <div>
@@ -134,7 +134,7 @@ export function FAQ() {
 
   return (
     <div>
-      <PageHero title="Frequently Asked Questions" subtitle="" />
+      <PageHero title="Frequently Asked Questions" subtitle="Answers to the questions we hear most often from adopters, donors, and volunteers." />
       <section className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-20 pb-20">
         <div className="space-y-4">
           {faqs.map((item, i) => (
@@ -158,7 +158,7 @@ export function FAQ() {
 export function Contact() {
   return (
     <div>
-      <PageHero title="Contact Us" subtitle="" />
+      <PageHero title="Contact Us" subtitle="Have a question, want to help, or ready to meet a pet? We'd love to hear from you." />
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-20 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="bg-white/70 rounded-3xl p-8 sm:p-10 border border-repaw-hover/40 shadow-sm">
@@ -209,7 +209,7 @@ const team = [
 export function Team() {
   return (
     <div>
-      <PageHero title="Our Team" subtitle="" />
+      <PageHero title="Our Team" subtitle="The passionate people behind rePaw City, here to help pets find their forever homes." />
       <section className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-20 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {team.map((member) => (

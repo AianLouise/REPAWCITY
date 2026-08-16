@@ -30,8 +30,11 @@ class UpdatePetRequest extends FormRequest
             'weight' => ['sometimes', 'required', 'string', 'max:250'],
             'age' => ['sometimes', 'required', 'string', 'max:250'],
             'date' => ['sometimes', 'required', 'date'],
+            'intake_date' => ['nullable', 'date'],
+            'intake_notes' => ['nullable', 'string', 'max:2000'],
+            'microchip' => ['nullable', 'string', 'max:50'],
             'about' => ['sometimes', 'required', 'string'],
-            'image' => ['sometimes', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'image' => ['sometimes', 'image', 'mimes:jpg,jpeg,png', 'max:5120'],
         ];
     }
 }

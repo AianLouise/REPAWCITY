@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Appointment;
+use App\Models\ShelterSchedule;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,14 @@ class BookingConcurrencyTest extends TestCase
         $this->other = User::create([
             'fname' => 'Maria', 'lname' => 'Santos', 'email' => 'maria@test.com',
             'password' => Hash::make('password123'), 'user_type' => '2',
+        ]);
+
+        // Capacity 1 per session so a second booking of the same slot is rejected.
+        ShelterSchedule::create([
+            'date' => now()->addDays(3)->toDateString(),
+            'is_open' => true,
+            'morning_capacity' => 1,
+            'afternoon_capacity' => 10,
         ]);
     }
 

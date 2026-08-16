@@ -3,6 +3,7 @@ import type { Appointment, AppointmentType, SlotsResponse, TimeSlot } from '../t
 
 export interface BookingPayload {
   appointment_type: AppointmentType
+  pet_id?: number | null
   appointment_date: string
   time_slot: TimeSlot
   first_name: string

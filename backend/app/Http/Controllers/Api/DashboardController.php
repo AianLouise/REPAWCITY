@@ -60,4 +60,53 @@ class DashboardController extends Controller
                 ->get()
         );
     }
+
+    /**
+     * User dashboard overview: upcoming appointments, active applications,
+     * favorite pet ids, and quick stats.
+     */
+    public function user(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        $upcoming = $user->appointments()
+            ->with('pet')
+            ->whereDate('appointment_date', '>=', now()->toDateString())
+            ->orderBy('appointment_date')
+            ->orderBy('time_slot')
+            ->get();
+
+        $applications = $user->adoptionApplications()
+            ->with('pet')
+            ->whereIn('status', ['submitted', 'under_review', 'approved'])
+            ->get();
+
+        $favoriteIds = $user->favorites()->pluck('pet_id');
+
+        return response()->json([
+            'user' => [
+                'fname' => $user->fname,
+                'lname' => $user->lname,
+                'email' => $user->email,
+            ],
+            'upcoming_appointments' => AppointmentResource::collection($upcoming),
+            'active_applications' => $applications->map(fn ($a) => [
+                'id' => $a->id,
+                'pet' => [
+                    'id' => $a->pet->id,
+                    'name' => $a->pet->name,
+                    'type' => $a->pet->type,
+                    'image_url' => $a->pet->image_url,
+                    'thumb_url' => $a->pet->thumb_url,
+                ],
+                'status' => $a->status,
+            ]),
+            'favorite_pet_ids' => $favoriteIds,
+            'stats' => [
+                'appointments' => $user->appointments()->count(),
+                'applications' => $user->adoptionApplications()->count(),
+                'favorites' => $favoriteIds->count(),
+            ],
+        ]);
+    }
 }

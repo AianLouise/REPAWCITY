@@ -46,8 +46,41 @@ class User extends Authenticatable
         return $this->hasMany(Appointment::class);
     }
 
+    public function adoptionApplications(): HasMany
+    {
+        return $this->hasMany(AdoptionApplication::class);
+    }
+
+    public function donations(): HasMany
+    {
+        return $this->hasMany(Donation::class);
+    }
+
+    public function volunteer(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Volunteer::class);
+    }
+
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function favoritePets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Pet::class, 'favorites')->withTimestamps();
+    }
+
     public function isAdmin(): bool
     {
         return $this->user_type === '1';
+    }
+
+    /**
+     * Route mail notifications to the user's email address.
+     */
+    public function routeNotificationForMail(): ?string
+    {
+        return $this->email;
     }
 }

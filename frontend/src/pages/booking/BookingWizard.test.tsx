@@ -7,7 +7,24 @@ import BookingWizard from './BookingWizard'
 import { useAuthStore } from '../../store/authStore'
 
 vi.mock('../../hooks/useBooking', () => ({
-  useSlots: () => ({ data: { date: '2026-08-20', booked: [] } }),
+  useSlots: () => ({ data: { date: '2026-08-20', booked: [], is_open: true, morning_capacity: 10, afternoon_capacity: 10, morning_full: false, afternoon_full: false, fully_booked: false } }),
+}))
+
+vi.mock('../../hooks/useSchedule', () => ({
+  useUpcomingSchedule: () => ({ data: [] }),
+}))
+
+vi.mock('../../hooks/useContent', () => ({
+  usePets: () => ({
+    data: {
+      data: [
+        { id: 1, name: 'Cookie', type: 'Dog', breed: 'Labrador', sex: 'Male', weight: '5-10 lbs', age: '1 year', date: '2023-01-01', about: 'Friendly', image: 'a.jpg', image_url: '/storage/pets/a.jpg', is_featured: 0, status: 'available' },
+        { id: 2, name: 'Buddy', type: 'Cat', breed: 'Aspin', sex: 'Female', weight: '5-10 lbs', age: '2 years', date: '2023-01-01', about: 'Cuddly', image: 'b.jpg', image_url: '/storage/pets/b.jpg', is_featured: 0, status: 'adopted' },
+      ],
+    },
+    isLoading: false,
+  }),
+  usePet: () => ({ data: null }),
 }))
 
 function renderWizard() {
@@ -80,5 +97,17 @@ describe('BookingWizard', () => {
     await user.selectOptions(sessionSelect, 'Morning Session')
 
     expect((screen.getByText('Next') as HTMLButtonElement).disabled).toBe(false)
+  })
+
+  it('pet picker only lists available (non-adopted) pets for Adopt', async () => {
+    const user = userEvent.setup()
+    renderWizard()
+    await user.click(screen.getByText('Get Started'))
+    await user.selectOptions(screen.getByRole('combobox'), 'Adopt')
+
+    const petSelect = screen.getAllByRole('combobox')[1] as HTMLSelectElement
+    const options = Array.from(petSelect.querySelectorAll('option')).map((o) => o.textContent)
+    expect(options).toContain('Cookie (Dog)')
+    expect(options).not.toContain('Buddy (Cat)')
   })
 })

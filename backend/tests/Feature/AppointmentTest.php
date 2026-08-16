@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Appointment;
+use App\Models\ShelterSchedule;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -64,21 +65,45 @@ class AppointmentTest extends TestCase
         ]);
     }
 
-    public function test_store_rejects_duplicate_slot(): void
+    public function test_store_rejects_full_slot(): void
     {
+        $date = now()->addDays(10)->toDateString();
+        ShelterSchedule::create([
+            'date' => $date,
+            'is_open' => true,
+            'morning_capacity' => 1,
+            'afternoon_capacity' => 10,
+        ]);
+
         $this->actingAs($this->user, 'sanctum')
-            ->postJson('/api/appointments', $this->bookingPayload())
+            ->postJson('/api/appointments', $this->bookingPayload(['appointment_date' => $date]))
             ->assertStatus(201);
 
-        // Second user tries same date + slot -> 409
+        // Slot is at capacity -> 409
         $this->actingAs($this->admin, 'sanctum')
             ->postJson('/api/appointments', $this->bookingPayload([
+                'appointment_date' => $date,
                 'first_name' => 'Aian', 'last_name' => 'Alfaro',
             ]))
-            ->assertStatus(409)
-            ->assertJsonPath('message', 'The selected date and time slot are already booked. Please choose another slot.');
+            ->assertStatus(409);
 
         $this->assertDatabaseCount('appointments', 1);
+    }
+
+    public function test_store_rejects_closed_day(): void
+    {
+        $date = now()->addDays(10)->toDateString();
+        ShelterSchedule::create([
+            'date' => $date,
+            'is_open' => false,
+            'reason' => 'Shelter maintenance',
+        ]);
+
+        $this->actingAs($this->user, 'sanctum')
+            ->postJson('/api/appointments', $this->bookingPayload(['appointment_date' => $date]))
+            ->assertStatus(409);
+
+        $this->assertDatabaseCount('appointments', 0);
     }
 
     public function test_store_requires_authentication(): void

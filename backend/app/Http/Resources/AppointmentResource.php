@@ -17,6 +17,7 @@ class AppointmentResource extends JsonResource
         return [
             'id' => $this->id,
             'appointment_type' => $this->appointment_type,
+            'pet' => $this->whenLoaded('pet') ? new PetResource($this->pet) : null,
             'appointment_date' => $this->appointment_date?->toDateString(),
             'time_slot' => $this->time_slot,
             'first_name' => $this->first_name,

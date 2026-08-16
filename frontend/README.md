@@ -1,32 +1,67 @@
-# React + TypeScript + Vite
+# rePaw City — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Two React apps sharing one codebase, built with Vite + React 19 + TypeScript:
 
-Currently, two official plugins are available:
+- **Client SPA** (`repawcity.com`) — public pages, auth, user account, booking wizard
+- **Admin portal** (`admin.repawcity.com`) — login, dashboard, pets/news/users, applications, availability, donations, volunteers, reports
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Development
 
-## React Compiler
+Requires the Laravel backend running on port 8000 (see `backend/README.md`).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev          # client app  -> http://localhost:5173
+npm run dev:admin    # admin app   -> http://localhost:5174
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Both dev servers proxy `/api` and `/storage` to `http://localhost:8000`.
+
+## Build
+
+```bash
+npm run build          # builds both apps -> dist/ (client) + dist-admin/ (admin)
+npm run build:client   # client only
+npm run build:admin    # admin only
+```
+
+## Environment
+
+Copy `.env.production.example` to `.env.production` to override defaults:
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `VITE_API_URL` | (empty) | Absolute API origin when the SPA and API are on different hosts |
+| `VITE_CLIENT_URL` | `http://localhost:5173` | Public client URL (used for cross-app links) |
+| `VITE_ADMIN_URL` | `http://localhost:5174` | Admin portal URL (used for cross-app redirects) |
+
+## Testing & lint
+
+```bash
+npm test        # Vitest + React Testing Library
+npm run lint    # oxlint
+```
+
+## Structure
+
+```
+src/
+  api/          # axios API modules (client, auth, pets, appointments, ...)
+  components/   # shared UI (Navbar, PetCard, FavoriteButton, guards bootstrap)
+  hooks/        # TanStack Query hooks per feature
+  pages/
+    public/     # client pages (Home, Adopt, Donate, News, Volunteer, ...)
+    auth/       # client Login / Register
+    user/       # /account hub (overview, appointments, applications, favorites, ...)
+    booking/    # 6-step booking wizard
+    admin/      # admin portal pages (dashboard, pets, news, users, ...)
+    static/     # static/legal pages
+  router/       # client + admin route guards
+  store/        # Zustand auth store
+  types/        # shared TypeScript types
+```
+
+The admin portal has its own entry (`admin.html` -> `src/admin-main.tsx` ->
+`src/AdminApp.tsx`) so it can be deployed to a separate subdomain. Route
+guards enforce the separation: admins are locked out of the client app and
+non-admins are bounced out of the portal.

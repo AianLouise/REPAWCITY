@@ -57,7 +57,7 @@ export default function AdminFeatured() {
                   <tr key={pet.id} className="hover:bg-repaw-bg/40">
                     <td className="px-4 py-3">{pet.id}</td>
                     <td className="px-4 py-3">
-                      <img src={resolveMedia(pet.image_url)} alt="" className="h-12 w-12 rounded-lg object-cover" />
+                      <img src={resolveMedia(pet.thumb_url)} alt="" className="h-12 w-12 rounded-lg object-cover" />
                     </td>
                     <td className="px-4 py-3 font-medium text-repaw-dark">{pet.name}</td>
                     <td className="px-4 py-3">{pet.is_featured}</td>

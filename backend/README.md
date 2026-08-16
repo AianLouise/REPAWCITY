@@ -1,58 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# rePaw City — Backend API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel 13 REST API for the rePaw City animal shelter system. Serves the
+client SPA (`repawcity.com`) and the admin portal (`admin.repawcity.com`).
 
-## About Laravel
+## Requirements
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.3+ with GD, PDO MySQL
+- Composer
+- MySQL 8+
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Setup
 
 ```bash
-composer require laravel/boost --dev
+composer install
+cp .env.example .env
 
-php artisan boost:install
+# Configure DB credentials in .env, then:
+php artisan key:generate
+php artisan migrate --force
+php artisan db:seed --force           # admin + base pets/news
+php artisan storage:link
+
+# Optional: realistic demo data for every screen
+php artisan db:seed --class=DemoDataSeeder
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Run locally:
 
-## Contributing
+```bash
+php artisan serve --port=8000
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Accounts
 
-## Code of Conduct
+| Account | Email | Password | Role |
+|---------|-------|----------|------|
+| Admin | `admin@gmail.com` | `1234` | Admin (portal only) |
+| Regular | `user@gmail.com` | `1234` | Regular user (client only) |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Demo users created by `DemoDataSeeder` use `demoN@repawcity.com` / `demo1234`.
 
-## Security Vulnerabilities
+## Modules & endpoints
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Auth & account
+- `POST /api/register`, `POST /api/login`, `POST /api/logout`, `GET /api/user`
+- `PUT /api/user/profile`, `PUT /api/user/password`
+- `GET /api/dashboard` (user overview)
 
-## License
+### Pets & adoption
+- `GET /api/pets` (filters: type/sex/weight/age/featured/q/status, paginated), `GET /api/pets/{pet}`
+- `POST /api/admin/pets`, `PUT/DELETE /api/admin/pets/{pet}`, `POST /api/admin/pets/{pet}/status`, `POST /api/admin/pets/featured`
+- `GET /api/pets/{pet}/records` (public, sanitized) + admin record CRUD
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Appointments & booking
+- `GET /api/appointments/slots`, `GET /api/schedules` (public availability)
+- `POST /api/appointments`, `GET /api/appointments/my`, `GET /api/appointments/{id}/message`
+- `POST /api/admin/appointments/{id}/status`
+
+### Adoption applications
+- `POST /api/adoption-applications`, `GET /api/adoption-applications/my`, `POST .../cancel`
+- `GET /api/admin/adoption-applications`, `PUT .../{id}/status`
+
+### Shelter operations
+- `GET /api/admin/schedules` + `PUT /api/admin/schedules` (availability calendar)
+- `GET /api/admin/reports` (monthly analytics)
+
+### Community
+- `POST /api/donations`, `GET /api/admin/donations`
+- `POST /api/volunteers/apply`, `GET /api/volunteers/my`, `GET /api/volunteers/shifts`, `PUT .../{shift}/hours`
+- `GET /api/admin/volunteers`, `PUT .../{volunteer}/status`, `POST .../shifts`
+
+### Favorites & notifications
+- `POST /api/favorites/{pet}`, `GET /api/favorites`
+- `GET /api/notifications`, `POST /api/notifications/{id}/read`, `POST /api/notifications/read-all`
+
+Admin-only routes require an admin Sanctum token (see `routes/api.php`).
+
+## Email & media
+
+- **Notifications** send in-app records + queued emails via `App\Notifications\*`
+  and `App\Mail\*`. Templates live in `resources/views/emails/`.
+  Set `MAIL_MAILER=smtp` in production (default `log` for dev).
+- **Uploads** go to the disk configured by `MEDIA_DISK` (`public` local / `s3`).
+  Images are resized (max 1200px) and a 400px thumbnail is generated; both are
+  served via `image_url` / `thumb_url`.
+
+## Testing
+
+```bash
+php artisan test
+```
+
+## API docs
+
+Scribe-generated docs are served at `/docs` and `/docs.openapi`.

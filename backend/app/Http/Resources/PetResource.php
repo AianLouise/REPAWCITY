@@ -26,7 +26,12 @@ class PetResource extends JsonResource
             'about' => $this->about,
             'image' => $this->image,
             'image_url' => $this->image_url,
+            'thumb_url' => $this->thumb_url,
             'is_featured' => (int) $this->is_featured,
+            'status' => $this->status,
+            'intake_date' => $this->intake_date?->toDateString(),
+            'intake_notes' => $this->intake_notes,
+            'microchip' => $this->microchip,
         ];
     }
 }

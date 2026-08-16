@@ -769,6 +769,24 @@ Ordered so every phase leaves the app runnable.
 
 ---
 
+## Phase 14 — Shelter system enhancements (see IMPROVEMENT_PLAN.md)
+
+All 10 phases of the improvement plan are **complete**. Backend: **135 tests**,
+frontend: **39 tests**, both builds + lint green.
+
+- [x] **Phase 1 — Pet-linked appointments & pet status lifecycle** (`pets.status`, `appointments.pet_id`, `POST /admin/pets/{pet}/status`, status chips, `/book?pet=`).
+- [x] **Phase 2 — Shelter availability calendar & capacity** (`shelter_schedules`, per-session capacity, admin availability page, wizard shows open/closed/full).
+- [x] **Phase 3 — Adoption application pipeline** (`adoption_applications`, apply form, my-applications, admin kanban, adopt→pet adopted).
+- [x] **Phase 4 — Donation & volunteer management** (`donations`, `volunteers`, `volunteer_shifts`, donate form, volunteer dashboard, admin pages).
+- [x] **Phase 5 — User dashboard & favorites** (`favorites`, `/account` hub with sidebar, heart toggles, dashboard aggregates).
+- [x] **Phase 6 — Notifications & email** (Laravel notifications, queued Mailables + Blade templates, notification page + navbar unread badge).
+- [x] **Phase 7 — Pet care & shelter operations** (`pet_records`, intake/microchip fields, public care history, admin records panel).
+- [x] **Phase 8 — Reporting & analytics** (`GET /admin/reports`, monthly series, top pets, admin reports page with SVG charts).
+- [x] **Phase 9 — Uploads & media hardening** (`MEDIA_DISK` config, 400px thumbnails + `thumb_url`, 5MB upload limit).
+- [x] **Phase 10 — Email config, seed data & docs** (documented `.env.example`, `DemoDataSeeder`, project READMEs).
+
+---
+
 ## 16. Testing Strategy
 
 ### Backend (Pest or PHPUnit)

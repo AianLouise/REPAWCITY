@@ -2,7 +2,15 @@ import { useState } from 'react'
 import { useAllPets, useAdminActions } from '../../hooks/useAdmin'
 import { resolveMedia } from '../../api/client'
 import PetForm from './PetForm'
-import type { Pet } from '../../types'
+import PetRecordsPanel from './PetRecordsPanel'
+import type { Pet, PetStatus } from '../../types'
+
+const STATUS_OPTIONS: { value: PetStatus; label: string }[] = [
+  { value: 'available', label: 'Available' },
+  { value: 'on_hold', label: 'On Hold' },
+  { value: 'adopted', label: 'Adopted' },
+  { value: 'deceased', label: 'No Longer Available' },
+]
 
 export default function AdminManagePets() {
   const { data, isLoading } = useAllPets()
@@ -13,6 +21,10 @@ export default function AdminManagePets() {
     if (!confirm(`Delete "${pet.name}"?`)) return
     await actions.deletePet.mutateAsync(pet.id)
     if (selected?.id === pet.id) setSelected(null)
+  }
+
+  async function handleStatusChange(pet: Pet, status: PetStatus) {
+    await actions.setPetStatus.mutateAsync({ id: pet.id, status })
   }
 
   return (
@@ -36,6 +48,7 @@ export default function AdminManagePets() {
                 <th className="px-3 py-3 font-semibold">Weight</th>
                 <th className="px-3 py-3 font-semibold">Age</th>
                 <th className="px-3 py-3 font-semibold">Date of Rescue</th>
+                <th className="px-3 py-3 font-semibold">Status</th>
                 <th className="px-3 py-3 font-semibold">About</th>
                 <th className="px-3 py-3 font-semibold">Actions</th>
               </tr>
@@ -43,14 +56,14 @@ export default function AdminManagePets() {
             <tbody className="divide-y divide-repaw-hover/40">
               {isLoading ? (
                 <tr>
-                  <td colSpan={11} className="px-3 py-6 text-center text-repaw-text/70">Loading...</td>
+                  <td colSpan={12} className="px-3 py-6 text-center text-repaw-text/70">Loading...</td>
                 </tr>
               ) : data && data.data.length > 0 ? (
                 data.data.map((pet) => (
                   <tr key={pet.id} className="hover:bg-repaw-bg/40 cursor-pointer" onClick={() => setSelected(pet)}>
                     <td className="px-3 py-3">{pet.id}</td>
                     <td className="px-3 py-3">
-                      <img src={resolveMedia(pet.image_url)} alt="" className="h-12 w-12 rounded-lg object-cover" />
+                      <img src={resolveMedia(pet.thumb_url)} alt="" className="h-12 w-12 rounded-lg object-cover" />
                     </td>
                     <td className="px-3 py-3 font-medium text-repaw-dark">{pet.name}</td>
                     <td className="px-3 py-3">{pet.type}</td>
@@ -59,6 +72,20 @@ export default function AdminManagePets() {
                     <td className="px-3 py-3">{pet.weight}</td>
                     <td className="px-3 py-3">{pet.age}</td>
                     <td className="px-3 py-3">{pet.date}</td>
+                    <td className="px-3 py-3">
+                      <select
+                        value={pet.status}
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => void handleStatusChange(pet, e.target.value as PetStatus)}
+                        className="rounded-lg border border-repaw-hover bg-white/70 px-2 py-1 text-xs font-medium text-repaw-text focus:outline-none focus:ring-2 focus:ring-repaw-text"
+                      >
+                        {STATUS_OPTIONS.map((o) => (
+                          <option key={o.value} value={o.value}>
+                            {o.label}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
                     <td className="px-3 py-3 max-w-xs truncate">{pet.about}</td>
                     <td className="px-3 py-3">
                       <button
@@ -75,7 +102,7 @@ export default function AdminManagePets() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={11} className="px-3 py-6 text-center text-repaw-text/70">No data available</td>
+                  <td colSpan={12} className="px-3 py-6 text-center text-repaw-text/70">No data available</td>
                 </tr>
               )}
             </tbody>
@@ -84,8 +111,9 @@ export default function AdminManagePets() {
       </div>
 
       {selected && (
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto space-y-6">
           <PetForm key={selected.id} mode="edit" pet={selected} onDone={() => setSelected(null)} />
+          <PetRecordsPanel petId={selected.id} />
         </div>
       )}
     </div>

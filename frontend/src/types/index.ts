@@ -7,6 +7,19 @@ export interface User {
   created_at: string
 }
 
+export type PetStatus = 'available' | 'on_hold' | 'adopted' | 'deceased'
+
+export type PetRecordType = 'vaccination' | 'vet_visit' | 'grooming' | 'intake' | 'note'
+
+export interface PetRecord {
+  id: number
+  type: PetRecordType
+  title: string
+  details: string
+  record_date: string
+  created_by?: string
+}
+
 export interface Pet {
   id: number
   name: string
@@ -16,10 +29,15 @@ export interface Pet {
   weight: string
   age: string
   date: string | null
+  intake_date: string | null
+  intake_notes: string | null
+  microchip: string | null
   about: string
   image: string
   image_url: string
+  thumb_url: string
   is_featured: number
+  status: PetStatus
 }
 
 export interface NewsArticle {
@@ -28,6 +46,7 @@ export interface NewsArticle {
   details: string
   image: string
   image_url: string
+  thumb_url: string
   date_published: string
   is_featured: boolean
 }
@@ -39,6 +58,7 @@ export type AppointmentStatus = 'Pending' | 'Accepted' | 'Cancelled'
 export interface Appointment {
   id: number
   appointment_type: AppointmentType
+  pet: Pet | null
   appointment_date: string
   time_slot: TimeSlot
   first_name: string
@@ -52,14 +72,116 @@ export interface Appointment {
   created_at: string
 }
 
+export type ApplicationStatus = 'draft' | 'submitted' | 'under_review' | 'approved' | 'adopted' | 'rejected'
+
+export interface ApplicationAnswers {
+  housing: string
+  other_pets: string
+  experience: string
+  why_this_pet: string
+}
+
+export interface AdoptionApplication {
+  id: number
+  pet: Pet
+  user?: {
+    id: number
+    fname: string
+    lname: string
+    email: string
+  }
+  appointment_id: number | null
+  status: ApplicationStatus
+  answers: ApplicationAnswers
+  notes: string | null
+  created_at: string
+  updated_at: string
+}
+
 export interface AuthResponse {
   user: User
   token: string
 }
 
+export interface Donation {
+  id: number
+  donor_name: string
+  donor_email: string
+  type: 'cash' | 'in_kind'
+  amount: string | null
+  item_description: string | null
+  date: string
+  notes: string | null
+  user_id: number | null
+  created_at: string
+}
+
+export type VolunteerStatus = 'pending' | 'active' | 'inactive'
+
+export interface Volunteer {
+  id: number
+  user_id: number
+  user?: {
+    id: number
+    fname: string
+    lname: string
+    email: string
+  }
+  availability: string[] | null
+  skills: string | null
+  interests: string | null
+  status: VolunteerStatus
+  total_hours: number
+  created_at: string
+}
+
+export interface VolunteerShift {
+  id: number
+  volunteer_id: number
+  date: string
+  time_slot: TimeSlot
+  hours_logged: number
+  activity: string | null
+  created_at: string
+}
+
+export interface DonationTotals {
+  cash: string
+  in_kind_count: number
+}
+
 export interface SlotsResponse {
   date: string
+  is_open: boolean
+  reason: string | null
+  morning_capacity: number
+  afternoon_capacity: number
   booked: TimeSlot[]
+  morning_full: boolean
+  afternoon_full: boolean
+  fully_booked: boolean
+}
+
+export interface ScheduleDay {
+  date: string
+  is_open: boolean
+  reason: string | null
+  morning_capacity: number
+  afternoon_capacity: number
+  morning_booked: number
+  afternoon_booked: number
+  morning_full: boolean
+  afternoon_full: boolean
+  fully_booked: boolean
+}
+
+export interface AdminSchedule {
+  id: number
+  date: string
+  is_open: boolean
+  morning_capacity: number
+  afternoon_capacity: number
+  reason: string | null
 }
 
 export interface DashboardResponse {

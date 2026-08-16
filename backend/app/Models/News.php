@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
 
 #[Fillable(['title', 'details', 'image', 'date_published', 'is_featured', 'user_id'])]
 class News extends Model
@@ -40,7 +39,12 @@ class News extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return Storage::url('news/'.$this->image);
+        return app(\App\Services\FileUploadService::class)->url('news', $this->image);
+    }
+
+    public function getThumbUrlAttribute(): string
+    {
+        return app(\App\Services\FileUploadService::class)->thumbUrl('news', $this->image);
     }
 
     public function getExcerptAttribute(): string

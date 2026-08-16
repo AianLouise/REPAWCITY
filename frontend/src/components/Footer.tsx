@@ -122,7 +122,7 @@ export default function Footer() {
                     key={icon}
                     href="#"
                     aria-label={icon}
-                    className="w-11 h-11 rounded-full bg-repaw-dark text-repaw-accent flex items-center justify-center hover:bg-repaw-text hover:scale-110 transition-all duration-300 shadow-md"
+                    className="w-11 h-11 rounded-full bg-repaw-dark text-repaw-accent flex items-center justify-center hover:bg-repaw-text transition-colors duration-300 shadow-md"
                   >
                     <span className="mui-icon text-lg">{icon === 'facebook' ? 'thumb_up' : 'photo_camera'}</span>
                   </a>
@@ -130,7 +130,7 @@ export default function Footer() {
                 <a
                   href="#"
                   aria-label="TikTok"
-                  className="w-11 h-11 rounded-full bg-repaw-dark text-repaw-accent flex items-center justify-center hover:bg-repaw-text hover:scale-110 transition-all duration-300 shadow-md"
+                  className="w-11 h-11 rounded-full bg-repaw-dark text-repaw-accent flex items-center justify-center hover:bg-repaw-text transition-colors duration-300 shadow-md"
                 >
                   <span className="mui-icon text-lg">music_note</span>
                 </a>
@@ -159,7 +159,7 @@ export default function Footer() {
       {showTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-repaw-dark text-white flex items-center justify-center shadow-lg hover:bg-repaw-text hover:scale-110 transition-all duration-300 z-50"
+          className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-repaw-dark text-white flex items-center justify-center shadow-lg hover:bg-repaw-text transition-colors duration-300 z-50"
           aria-label="Scroll to top"
         >
           <span className="mui-icon text-lg">arrow_upward</span>

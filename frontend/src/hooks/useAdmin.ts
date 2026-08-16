@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { adminApi } from '../api/admin'
 import { petsApi } from '../api/pets'
 import { newsApi } from '../api/news'
+import type { PetStatus } from '../types'
 
 export function useDashboard(date?: string) {
   return useQuery({
@@ -21,7 +22,7 @@ export function useDailyAppointments(date: string, timeSlot: string) {
 export function useAllPets() {
   return useQuery({
     queryKey: ['admin-pets'],
-    queryFn: () => petsApi.list({ per_page: 100 }),
+    queryFn: () => petsApi.list({ per_page: 100, include_unavailable: true }),
   })
 }
 
@@ -60,6 +61,7 @@ export function useAdminActions() {
   const storePet = useMutation({ mutationFn: adminApi.storePet, onSuccess: invalidate })
   const updatePet = useMutation({ mutationFn: ({ id, formData }: { id: number; formData: FormData }) => adminApi.updatePet(id, formData), onSuccess: invalidate })
   const deletePet = useMutation({ mutationFn: adminApi.deletePet, onSuccess: invalidate })
+  const setPetStatus = useMutation({ mutationFn: ({ id, status }: { id: number; status: PetStatus }) => adminApi.setPetStatus(id, status), onSuccess: invalidate })
   const setFeaturedPet = useMutation({
     mutationFn: (ids: [number, number, number, number]) => adminApi.setFeaturedPet(...ids),
     onSuccess: invalidate,
@@ -79,6 +81,7 @@ export function useAdminActions() {
     storePet,
     updatePet,
     deletePet,
+    setPetStatus,
     setFeaturedPet,
     storeNews,
     updateNews,

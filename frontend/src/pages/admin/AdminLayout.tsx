@@ -7,7 +7,19 @@ import { CLIENT_URL } from '../../config'
 const navGroups: { group: string; links: { to: string; label: string; icon: string; end?: boolean }[] }[] = [
   {
     group: 'Overview',
-    links: [{ to: '/', label: 'Dashboard', icon: 'dashboard', end: true }],
+    links: [
+      { to: '/', label: 'Dashboard', icon: 'dashboard', end: true },
+      { to: '/availability', label: 'Availability', icon: 'calendar_month' },
+      { to: '/applications', label: 'Adoption Applications', icon: 'how_to_reg' },
+      { to: '/reports', label: 'Reports', icon: 'insights' },
+    ],
+  },
+  {
+    group: 'Community',
+    links: [
+      { to: '/donations', label: 'Donations', icon: 'volunteer_activism' },
+      { to: '/volunteers', label: 'Volunteers', icon: 'group' },
+    ],
   },
   {
     group: 'Pets',

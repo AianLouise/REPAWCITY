@@ -223,27 +223,12 @@
     <?php
     $siteName = 'RePaw City';
     $year = date('Y');
-    $legalLinks = [
-        ['label' => 'Privacy Policy', 'href' => '/pages/privacy-policy.php'],
-        ['label' => 'Terms of Use',   'href' => '/pages/terms-of-use.php'],
-    ];
     ?>
     <div class="bg-repaw-dark text-white/80">
         <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-center text-center gap-3">
             <p class="text-sm">
                 &copy; <?php echo htmlspecialchars($year, ENT_HTML5, 'UTF-8'); ?> <?php echo htmlspecialchars($siteName, ENT_HTML5, 'UTF-8'); ?>. All rights reserved.
             </p>
-
-            <?php if (!empty($legalLinks)): ?>
-                <nav class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm" aria-label="Legal">
-                    <?php foreach ($legalLinks as $link): ?>
-                        <a href="<?php echo htmlspecialchars($link['href'], ENT_HTML5, 'UTF-8'); ?>"
-                           class="text-white/80 hover:text-white transition-colors duration-200">
-                            <?php echo htmlspecialchars($link['label'], ENT_HTML5, 'UTF-8'); ?>
-                        </a>
-                    <?php endforeach; ?>
-                </nav>
-            <?php endif; ?>
         </div>
     </div>
 </footer>

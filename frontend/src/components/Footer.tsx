@@ -145,14 +145,6 @@ export default function Footer() {
             <p className="text-sm">
               &copy; {new Date().getFullYear()} RePaw City. All rights reserved.
             </p>
-            <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm" aria-label="Legal">
-              <Link to="/privacy" className="text-white/80 hover:text-white transition-colors duration-200">
-                Privacy Policy
-              </Link>
-              <Link to="/terms" className="text-white/80 hover:text-white transition-colors duration-200">
-                Terms of Use
-              </Link>
-            </nav>
           </div>
         </div>
       </footer>

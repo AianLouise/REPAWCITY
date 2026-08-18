@@ -1,0 +1,22 @@
+{
+  "name": "@repaw/auth",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1",
+    "typescript": "~6.0.2",
+    "vitest": "^4.1.10"
+  },
+  "scripts": {
+    "test": "vitest run"
+  }
+}

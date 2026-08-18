@@ -1,0 +1,29 @@
+{
+  "name": "repawcity",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n client,admin -c blue,magenta \"npm run dev --workspace=apps/client\" \"npm run dev --workspace=apps/admin\"",
+    "dev:client": "npm run dev --workspace=apps/client",
+    "dev:admin": "npm run dev --workspace=apps/admin",
+    "build": "npm run build:client && npm run build:admin",
+    "build:client": "npm run build --workspace=apps/client",
+    "build:admin": "npm run build --workspace=apps/admin",
+    "preview": "npm run preview:client",
+    "preview:client": "npm run preview --workspace=apps/client",
+    "preview:admin": "npm run preview --workspace=apps/admin",
+    "lint": "oxlint",
+    "test": "npm run test --workspace=apps/client && npm run test --workspace=apps/admin && npm run test --workspace=packages/auth",
+    "test:client": "npm run test --workspace=apps/client",
+    "test:admin": "npm run test --workspace=apps/admin"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "oxlint": "^1.75.0"
+  }
+}

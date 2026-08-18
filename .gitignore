@@ -12,7 +12,9 @@ composer.phar
 
 # Node
 /node_modules
-/dist
+**/node_modules
+**/dist
+**/.tsbuildinfo
 
 # Laravel
 /backend/storage/logs/*

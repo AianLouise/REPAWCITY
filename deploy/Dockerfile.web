@@ -1,17 +1,22 @@
 # rePaw City web container: serves both React apps (client SPA + admin portal)
 # via nginx and routes the Laravel API + storage to the `backend` service.
 #
-# Builds the frontend and copies both outputs + the nginx config into an
+# Builds the frontend apps and copies both outputs + the nginx config into an
 # nginx image. Route repawcity.com and admin.repawcity.com to this container.
 FROM node:24-alpine AS frontend-build
 WORKDIR /app
-COPY frontend/package*.json ./
+COPY package*.json ./
+COPY apps/client/package*.json ./apps/client/
+COPY apps/admin/package*.json ./apps/admin/
+COPY packages/*/package*.json ./packages/
 RUN npm ci
-COPY frontend/ ./
+COPY apps/client/ ./apps/client/
+COPY apps/admin/ ./apps/admin/
+COPY packages/ ./packages/
 RUN npm run build
 
 FROM nginx:1.27-alpine
-COPY --from=frontend-build /app/dist /usr/share/nginx/html
-COPY --from=frontend-build /app/dist-admin /usr/share/nginx/admin
+COPY --from=frontend-build /app/apps/client/dist /usr/share/nginx/html
+COPY --from=frontend-build /app/apps/admin/dist /usr/share/nginx/admin
 COPY deploy/nginx.docker.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80

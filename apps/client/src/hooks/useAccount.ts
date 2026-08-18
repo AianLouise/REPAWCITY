@@ -18,14 +18,16 @@ export function useFavorites() {
 export function useFavoriteActions() {
   const queryClient = useQueryClient()
 
+  const invalidateLists = () => {
+    void queryClient.invalidateQueries({ queryKey: ['favorites'] })
+    void queryClient.invalidateQueries({ queryKey: ['user-dashboard'] })
+  }
+
   const toggle = useMutation({
     mutationFn: (petId: number) => accountApi.toggleFavorite(petId),
     onSuccess: (res) => {
-      void queryClient.invalidateQueries({ queryKey: ['favorites'] })
-      void queryClient.invalidateQueries({ queryKey: ['user-dashboard'] })
-      // keep per-pet favorite state fresh
+      invalidateLists()
       void queryClient.setQueryData(['pet-favorite', res.pet_id], res.favorite)
-      void queryClient.invalidateQueries({ queryKey: ['pet-favorite'] })
     },
   })
 
@@ -35,10 +37,7 @@ export function useFavoriteActions() {
 export function usePetFavorite(petId: number) {
   return useQuery({
     queryKey: ['pet-favorite', petId],
-    queryFn: async () => {
-      const pets = await accountApi.favorites()
-      return pets.some((p) => p.id === petId)
-    },
+    queryFn: () => accountApi.checkFavorite(petId).then((r) => r.favorite),
     enabled: Number.isFinite(petId) && petId > 0,
   })
 }

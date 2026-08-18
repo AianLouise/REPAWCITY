@@ -96,11 +96,11 @@ export default function Footer() {
               <div className="space-y-2.5">
                 <p className="flex items-center gap-3 text-repaw-text/90 text-sm">
                   <span className="mui-icon text-repaw-dark">call</span>
-                  +63 923 4897 632
+                  {SHELTER.phone}
                 </p>
                 <p className="flex items-center gap-3 text-repaw-text/90 text-sm">
                   <span className="mui-icon text-repaw-dark">mail</span>
-                  repawcity@gmail.com
+                  {SHELTER.email}
                 </p>
               </div>
             </div>

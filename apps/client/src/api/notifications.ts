@@ -34,8 +34,9 @@ export const notificationsApi = {
     return res.data
   },
 
-  async markRead(id: string): Promise<void> {
-    await api.post(`/notifications/${id}/read`)
+  async markRead(id: string): Promise<{ message?: string }> {
+    const res = await api.post(`/notifications/${id}/read`)
+    return res.data
   },
 
   async markAllRead(): Promise<void> {

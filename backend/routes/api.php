@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/volunteers/shifts/{shift}/hours', [ShiftController::class, 'logHours']);
 
     Route::post('/favorites/{pet}', [FavoritesController::class, 'toggle']);
+    Route::get('/favorites/{pet}', [FavoritesController::class, 'check']);
     Route::get('/favorites', [FavoritesController::class, 'index']);
 
     Route::get('/notifications', [NotificationsController::class, 'index']);

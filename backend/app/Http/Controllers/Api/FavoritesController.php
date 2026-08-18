@@ -35,6 +35,18 @@ class FavoritesController extends Controller
     }
 
     /**
+     * Check whether a pet is in the user's favorites.
+     */
+    public function check(Request $request, Pet $pet): JsonResponse
+    {
+        $exists = $request->user()->favorites()->where('pet_id', $pet->id)->exists();
+
+        return response()->json([
+            'favorite' => $exists,
+        ]);
+    }
+
+    /**
      * List the user's favorite pets.
      */
     public function index(Request $request): AnonymousResourceCollection

@@ -10,7 +10,7 @@ export interface UserDashboard {
   upcoming_appointments: Appointment[]
   active_applications: {
     id: number
-    pet: { id: number; name: string; type: string; image_url: string; thumb_url: string }
+    pet: Pet
     status: string
   }[]
   favorite_pet_ids: number[]
@@ -24,6 +24,11 @@ export interface UserDashboard {
 export const accountApi = {
   async dashboard(): Promise<UserDashboard> {
     const res = await api.get<UserDashboard>('/dashboard')
+    return res.data
+  },
+
+  async checkFavorite(petId: number): Promise<{ favorite: boolean }> {
+    const res = await api.get<{ favorite: boolean }>(`/favorites/${petId}`)
     return res.data
   },
 

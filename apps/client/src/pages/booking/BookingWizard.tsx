@@ -181,7 +181,7 @@ export default function BookingWizard() {
 
         {step === 3 && <StepDate draft={draft} set={set} slots={slots?.booked ?? []} schedule={schedule ?? []} slotConflict={slotConflict} setSlotConflict={setSlotConflict} onBack={() => setStep(2)} onNext={() => setStep(4)} />}
 
-        {step === 4 && <StepInfo draft={draft} onBack={() => setStep(3)} onNext={() => setStep(5)} />}
+        {step === 4 && <StepInfo draft={draft} setDraft={setDraft} onBack={() => setStep(3)} onNext={() => setStep(5)} />}
 
         {step === 5 && (
           <StepShell title="Appointment Confirmation">
@@ -477,7 +477,7 @@ function StepDate({
   )
 }
 
-function StepInfo({ draft, onBack, onNext }: { draft: BookingDraft; onBack: () => void; onNext: () => void }) {
+function StepInfo({ draft, setDraft, onBack, onNext }: { draft: BookingDraft; setDraft: React.Dispatch<React.SetStateAction<BookingDraft>>; onBack: () => void; onNext: () => void }) {
   const {
     register,
     handleSubmit,
@@ -495,7 +495,7 @@ function StepInfo({ draft, onBack, onNext }: { draft: BookingDraft; onBack: () =
   })
 
   const onSubmit = (data: InfoForm) => {
-    Object.assign(draft, data)
+    setDraft((d) => ({ ...d, ...data }))
     onNext()
   }
 
@@ -537,11 +537,7 @@ function Input({
   required?: boolean
   error?: string
   type?: string
-  name: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void
-  ref: React.Ref<HTMLInputElement>
-}) {
+} & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div>
       <label className="block text-sm font-medium text-repaw-dark mb-1.5">
